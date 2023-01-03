@@ -14,7 +14,6 @@ struct DayInfo {
     var sleep: Double
 }
 
-
 struct Activity: Identifiable {
     var iterator: Int
     var id: String

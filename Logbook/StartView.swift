@@ -1,5 +1,4 @@
 import SwiftUI
-//import Firebase
 
 class UserSettings: ObservableObject {
     @Published var loggedIn : Bool = UserDefaults.standard.bool(forKey: "loggedIn")
@@ -19,7 +18,6 @@ struct StartView: View {
         if settings.loggedIn {
             return AnyView(TabbarView())
         } else {
-            //let login = SendToLogin()
             return AnyView(UserView()
                 .environmentObject(SendToLogin()))
         }

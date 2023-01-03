@@ -7,11 +7,10 @@
 //
 
 import SwiftUI
-//import Firebase
 import FirebaseFirestore
 
 class DataManager: ObservableObject {
-    @Published var activities: [Activity] = []
+  @Published var activities: [Activity] = []
     
     /*
     init() {
@@ -20,14 +19,12 @@ class DataManager: ObservableObject {
      */
     
     func fetchActivity () {
+      
+      let database = Firestore.firestore()
+      let ref = database.collection("Activities")
         
-        print("test 1")
-        
-        let database = Firestore.firestore()
-        let ref = database.collection("Activities")
-        
-        print("test 2")
-        
+      activities.removeAll()
+      
         ref.getDocuments { snapshot, error in
             guard error == nil else {
                 print(error!.localizedDescription)
