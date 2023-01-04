@@ -11,15 +11,16 @@ import UIKit
 
 class UserHelper {
   
+  let LOGGED_IN_KEY = "loggedIn"
+  let IS_COACH_KEY = "isCoach"
+  let TEAM_KEY = "team"
+  let USER_NAME_KEY = "userName"
+  
   //instance var
   
-  // this code is hella scuffed as it requires a reference to the root controller to be passed to a very dumb meathod
-  // TODO: find a way to run this code without the reference to the controller
-  // @param the current root controller
-  func logOut(currentDelegate: SceneDelegate) -> Bool {
-    UserDefaults.standard.set(false, forKey: "loggedIn")
-    //self.view.window.windowScene.delegate.reloadSettings()
-    currentDelegate.reloadSettings()
+  func logOut(settings: UserSettings) -> Bool {
+    UserDefaults.standard.set(false, forKey: self.LOGGED_IN_KEY)
+    settings.loggedIn = false
     return true
   }
   

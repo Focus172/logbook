@@ -1,8 +1,11 @@
 import SwiftUI
 import FirebaseAuth
 
+class SendToLogin: ObservableObject {
+    @Published var goToLogin: Bool = true
+}
+
 struct UserView: View {
-    //@EnvironmentObject public var login: SendToLogint
     var shouldLogin: SendToLogin = SendToLogin()
     
     var body: some View {

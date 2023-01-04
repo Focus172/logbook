@@ -75,6 +75,8 @@ struct AccountView: View {
         }.background(Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
             .navigationBarTitle("Settings")
             .navigationBarItems(trailing: Button(action: {
+              UserHelper().logOut(settings: settings)
+              // UserHelper().logOut(currentDelegate: self.view.window.windowScene.delegate)
               self.settings.loggedIn = false
             }, label: {
               Text("Log Out")
