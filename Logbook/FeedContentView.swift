@@ -69,10 +69,10 @@ struct RunningActivityView: View {
     var activity: Activity
     
     var body: some View {
-        VStack (alignment: .leading){
+        VStack (alignment: .leading) {
             
 
-            Text(activity.postComment)
+          Text("title: \(activity.comment)")
                 .font(.system(size: 18))
                 .padding(.leading, 10)
                 .padding(.top, 10)
@@ -91,9 +91,9 @@ struct RunningActivityView: View {
                     .foregroundStyle(.linearGradient(colors: [.red, .pink], startPoint: .topLeading, endPoint: .topTrailing))
                 
                 VStack (alignment: .leading) {
-                    Text(activity.postComment)
+                  Text("private comment: \(activity.privateComment)")
                         //.padding(.bottom, 5)
-                    Text("\(activity.milage) mi")
+                  Text("\(activity.run.miles) mi")
                 }
                 .padding()
             }

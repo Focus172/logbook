@@ -18,10 +18,9 @@ class UserHelper {
   
   //instance var
   
-  func logOut(settings: UserSettings) -> Bool {
+  func logOut(settings: UserSettings) {
     UserDefaults.standard.set(false, forKey: self.LOGGED_IN_KEY)
     settings.loggedIn = false
-    return true
   }
   
   /*

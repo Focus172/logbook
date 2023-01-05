@@ -19,7 +19,7 @@
 		DC7AB1EE295980BC00CD9BA5 /* CoachView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7AB1ED295980BC00CD9BA5 /* CoachView.swift */; };
 		DCBEFFED2958166900BFB288 /* LoggingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCBEFFEC2958166900BFB288 /* LoggingView.swift */; };
 		DCBEFFEF29581B9A00BFB288 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCBEFFEE29581B9A00BFB288 /* LoginView.swift */; };
-		DCE0AEFC295B0FD70058B0EE /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE0AEFB295B0FD70058B0EE /* Activity.swift */; };
+		DCE0AEFC295B0FD70058B0EE /* DataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE0AEFB295B0FD70058B0EE /* DataTypes.swift */; };
 		DCE0AEFE295B129A0058B0EE /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE0AEFD295B129A0058B0EE /* DataManager.swift */; };
 		F52AA7A722F4883A0051F943 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52AA7A622F4883A0051F943 /* TabBarView.swift */; };
 		F542B64922F2DBF200E490A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F542B64822F2DBF200E490A1 /* AppDelegate.swift */; };
@@ -69,7 +69,7 @@
 		DC7AB1ED295980BC00CD9BA5 /* CoachView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachView.swift; sourceTree = "<group>"; };
 		DCBEFFEC2958166900BFB288 /* LoggingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingView.swift; sourceTree = "<group>"; };
 		DCBEFFEE29581B9A00BFB288 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		DCE0AEFB295B0FD70058B0EE /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		DCE0AEFB295B0FD70058B0EE /* DataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypes.swift; sourceTree = "<group>"; };
 		DCE0AEFD295B129A0058B0EE /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		F52AA7A622F4883A0051F943 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		F542B64522F2DBF200E490A1 /* Logbook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Logbook.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,7 +175,7 @@
 				DC7AB1ED295980BC00CD9BA5 /* CoachView.swift */,
 				DCBEFFEC2958166900BFB288 /* LoggingView.swift */,
 				F553B7E722FCA19400314585 /* AccountView.swift */,
-				DCE0AEFB295B0FD70058B0EE /* Activity.swift */,
+				DCE0AEFB295B0FD70058B0EE /* DataTypes.swift */,
 				DCE0AEFD295B129A0058B0EE /* DataManager.swift */,
 				DC1BA75C294B952400C2DD4F /* CalenderHelper.swift */,
 				DC391EFE2964D2F200479A46 /* UserHelper.swift */,
@@ -466,7 +466,7 @@
 				DC391EFF2964D2F200479A46 /* UserHelper.swift in Sources */,
 				F542B64B22F2DBF200E490A1 /* SceneDelegate.swift in Sources */,
 				DC1BA75F294BAD0B00C2DD4F /* CoachMessengerView.swift in Sources */,
-				DCE0AEFC295B0FD70058B0EE /* Activity.swift in Sources */,
+				DCE0AEFC295B0FD70058B0EE /* DataTypes.swift in Sources */,
 				F52AA7A722F4883A0051F943 /* TabBarView.swift in Sources */,
 				DC1BA753294B1C0300C2DD4F /* FeedContentView.swift in Sources */,
 				DC1BA75D294B952400C2DD4F /* CalenderHelper.swift in Sources */,

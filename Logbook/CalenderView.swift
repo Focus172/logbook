@@ -5,16 +5,17 @@ struct CalendarView: View {
   @EnvironmentObject var settings: UserSettings
   @State var curDate: Date = Date()
   @State var showPopup: Bool = false
-  var selectedDate = -1
+  @State var selectedDate = -1
   
   var body: some View {
-    //shownDates.insert(curDate, at: 0)
-    //self.shownDates.append(CalendarHelper().minusMonth(date: self.curDate))
-    
-    return ScrollView {
-      VStack {
-        CalendarTitle
-        CalendarIcons
+    ScrollView {
+      if selectedDate < 0 {
+        VStack {
+          CalendarTitle
+          CalendarIcons
+        }
+      } else {
+        AnyView(getSummaryView())
       }
     }
     .navigationBarTitle("Calendar")
@@ -26,7 +27,7 @@ struct CalendarView: View {
     .navigationBarItems(trailing: Button(action: {
       self.showPopup = true
     }, label: {
-        Image(systemName: "plus")
+      Image(systemName: "plus")
     }))
   }
   
@@ -38,20 +39,32 @@ struct CalendarView: View {
         self.curDate = CalendarHelper().minusMonth(date: curDate)
       } label: {
         Text("<")
-          .font(.system(size: 20, weight: .bold, design: Font.Design.default))
+          .font(.system(size: 20, weight: .bold))
+          .foregroundColor(Color.black)
       }
-      .padding(.trailing, 10)
-
+      .frame(width: 40, height: 40)
+      .background(Color.gray)
+      .cornerRadius(10)
+      .padding(.leading, 20)
+      
+      Spacer()
+      
       Text("\(monthLabel)")
         .font(.system(size: 24, weight: .bold, design: Font.Design.default))
+      
+      Spacer()
       
       Button {
         self.curDate = CalendarHelper().plusMonth(date: curDate)
       } label: {
         Text(">")
           .font(.system(size: 20, weight: .bold, design: Font.Design.default))
+          .foregroundColor(Color.black)
       }
-      .padding(.leading, 10)
+      .frame(width: 40, height: 40)
+      .background(Color.gray)
+      .cornerRadius(10)
+      .padding(.trailing, 20)
     }
   }
   
@@ -69,7 +82,7 @@ struct CalendarView: View {
         HStack {
           ForEach(0...6, id: \.self) { c in
             Button(action: {
-              selectedDate = 7*r+c
+              selectedDate = Int(monthData[7*r+c]) ?? -1
             }) {
               Text("\(monthData[(7*r+c)])")
                 .foregroundColor(Color.black)
@@ -81,20 +94,81 @@ struct CalendarView: View {
             //.padding(5)
           }
         }
-        
-        if (r*7 < selectedDate < (r+1)*7) {
-          AnyView(getSummaryView())
-        }
       }
     }
   }
   
   func getSummaryView() -> any View {
-    VStack{
-      Text("test")
+    let curInfo : DayInfo = DayInfo(date: Date(), runs: [Activity(author: "author1", id: "sdfghj", run: Run(miles: 10.3, pain: 2.1), comment: "test comment", privateComment: "i really hurt", visible: true), Activity(author: "author 1", id: "kjhgfd", run: Run(miles: 26.2, pain: 10.12), comment: "marathon", privateComment: "no pain", visible: true)], sleep: -1)
+    
+    return ZStack {
+      
+      Rectangle()
+        .foregroundStyle(.linearGradient(colors: [.blue, .cyan], startPoint: .topLeading, endPoint: .topTrailing))
+      
+      VStack {
+        
+        HStack {
+          Text("\(CalendarHelper().monthString(date: curDate)) \(self.selectedDate)")
+            .font(.system(size: 24))
+            .padding(.leading, 10)
+          
+          Spacer(minLength: .zero)
+          
+          Text("PVA: -1")
+            .padding(5)
+          
+          Button {
+            
+          } label: {
+            HStack {
+              Text("add sleep")
+              Image(systemName: "plus")
+            }
+            .padding()
+            .foregroundColor(Color.white)
+            .background(Color.black)
+            .cornerRadius(10)
+          }
+          .padding(5)
+        }
+        
+        ForEach(0...5, id: \.self) { i in
+          if i < curInfo.runs.count {
+            AnyView(summaryEntry(activity: curInfo.runs[i]))
+          }
+        }
+          
+        Button {
+          self.selectedDate = -1
+        } label: {
+          Text("Go back")
+            .padding()
+            .foregroundColor(Color.white)
+            .background(Color.black)
+            .cornerRadius(10)
+        }
+        .frame(alignment: .trailing)
+      }
+      //.background(Color.gray)
+      //.frame(idealWidth: screenWidth, idealHeight: screenHeight)
+      .cornerRadius(10)
     }
   }
+  
+  func summaryEntry(activity: Activity) -> some View {
+    ZStack {
+      Rectangle()
+        .foregroundStyle(.gray)
+        .cornerRadius(10)
       
+      VStack {
+        Text("You ran \(String(format: "%.2f", activity.run.miles)) miles and felt \(String(format: "%.1f", activity.run.pain)) pain")
+          .padding()
+      }
+    }
+  }
+    
   func getMonthView(selectedDate: Date) -> [String] {
     var totalSquares = [String]()
     
