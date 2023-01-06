@@ -41,19 +41,24 @@ struct FeedContentView: View {
                     Text("Recent posts by teammates")
                         .padding()
                         .font(.system(size: 20))
+                  /*
                         .onAppear{
-                            dataManager.fetchActivity()
+                            dataManager.getActivity()
                         }
+                   */
                     
                     Button {
-                        dataManager.fetchActivity()
+                        dataManager.getActivities()
                     } label: {
                         Image(systemName: "trash")
                     }
 
                     
                 }
-                ForEach(self.dataManager.activities, id: \.id) { activity in
+              
+              // funny quirk here, when two items have the same id
+              // one will show twice and the other zero times
+                ForEach(self.dataManager.activities ?? [], id: \.id) { activity in
                     
                     RunningActivityView(activity: activity)
                     
