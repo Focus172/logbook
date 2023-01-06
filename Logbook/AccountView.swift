@@ -21,9 +21,9 @@ struct AccountView: View {
             Toggle("Text", isOn: $genericBool)
                 .onChange(of: genericBool) { value in
                     if value {
-                        print("Light is now on!")
+                      //UserDefaults.standard.set(, forKey: )
                     } else {
-                        print("Light is now off.")
+                      //UserDefaults.standard.set(, forKey: )
                     }
                 }
             
@@ -75,9 +75,11 @@ struct AccountView: View {
         }.background(Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
             .navigationBarTitle("Settings")
             .navigationBarItems(trailing: Button(action: {
-                self.settings.loggedIn = false
+              UserHelper().logOut(settings: settings)
+              // UserHelper().logOut(currentDelegate: self.view.window.windowScene.delegate)
+              self.settings.loggedIn = false
             }, label: {
-                Text("Log Out")
+              Text("Log Out")
             }))
         
                 /*

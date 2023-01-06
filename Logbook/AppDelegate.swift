@@ -7,11 +7,12 @@ import FirebaseCore
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        FirebaseApp.configure()
-        return true
+      
+      // Called when app is launched and allows for code to be ran before view opens
+      FirebaseApp.configure()
+      return true
+      
     }
-
-    // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
