@@ -24,3 +24,11 @@ Until there is a stable build, just state what you are doing in a pull request a
 - Database Management
 - Login Failure Feedback
 - Working on small screens
+
+## Sample Accounts
+
+- U: bobs@mail.com P: 123456
+- U: TestUser1@mail.com P: Password
+- U: Test2@mail.com P: password
+- U: Test3@mail.com P:asdfgh
+- U: A@a.com P: aaaaaa

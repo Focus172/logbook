@@ -14,7 +14,7 @@ struct StartView: View {
     if settings.loggedIn {
       return AnyView(TabbarView())
     } else {
-      return AnyView(UserView())
+      return AnyView(UserView().environmentObject(LoginInfo()))
     }
   }
 }
