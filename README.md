@@ -1,15 +1,26 @@
 # Logbook
 
-## Intro
+## Installing
 
-This is an open source project but doesn't function much like one. I will be doing most of the work myself but if you would like to contribute security analysis then go ahead.
+1) Clone the repository with `git clone github.com/focus172/logbook`
+2) Email estokdyk1@hwemail.com asking for the `GoogleService-Info.plist` and put it in the directory `~/logbook/logbook`. MAKE SURE WHEN YOU COMMIT TO NOT PUSH THIS FILE.
+3) Run the Logbook.xcworkspace. If you run the .xcodeproj **it will not work**.
+4) Press the play button and wait for the code to compile.
 
-## Documentation
+If you are getting something that says that something with google in the name doesn't exist then try this:
 
-Using the app should be fairly simple but any questions can be sent to estokdyk1@hwemail.com . Server support will come up when the server does.
+5) Install [cocoapods](https://cocoapods.org/).
+6) Run 'pod install' withing the directory of the project. You will see some warning but should get a message the says it completed.
+7) Restart xcode and try again.
 
-## Updates
+## Project Structure
 
-- Calender (base realease)
-- Veiwing posts
-- Messaging
+Until there is a stable build, just state what you are doing in a pull request and I will merge it. If you want to be added to the Firebase console to see data structure then email me and I will do it.
+
+## TODO
+
+- UI improvments
+- CoachView
+- Database Management
+- Login Failure Feedback
+- Working on small screens
