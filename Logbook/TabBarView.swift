@@ -2,20 +2,22 @@ import SwiftUI
 
 struct TabbarView: View {
   @EnvironmentObject var settings: UserSettings
-  let dataManager: DataManager = DataManager()
+  @EnvironmentObject var dataManager: DataManager
   
   var body: some View {
     TabView {
       NavigationView {
         FeedContentView()
-          .environmentObject(self.dataManager)
       }
-      .tag(0)
-      .tabItem {
-        Image("activity-1")
-          .resizable()
-        Text("Feed")
-      }
+        //.navigationBarHidden(true)
+        .environmentObject(self.dataManager)
+        .tag(0)
+        .tabItem {
+          Image("activity-1")
+            .resizable()
+          Text("Feed")
+        }
+       
       
       NavigationView {
         CalendarView()
@@ -52,6 +54,7 @@ struct TabbarView: View {
         Text("Account")
       }
     }
+    //.foregroundColor(Color.accentColor)
   }
 }
 
@@ -59,7 +62,8 @@ struct TabbarView: View {
 struct TabbarView_Previews: PreviewProvider {
   static var previews: some View {
     let settings = UserSettings()
-    TabbarView().environmentObject(settings)
+    //settings.isCoach = true
+    return TabbarView().environmentObject(settings)
   }
 }
 #endif

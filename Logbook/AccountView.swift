@@ -17,6 +17,7 @@ struct AccountView: View {
             
             Text("Nothing to see right now!")
             
+          Text("\(settings.userName)")
             
             Toggle("Text", isOn: $genericBool)
                 .onChange(of: genericBool) { value in
