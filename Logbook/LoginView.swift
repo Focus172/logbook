@@ -263,6 +263,8 @@ struct UserView: View {
       
       createUserDefaults(name: user.userName, isCoach: user.isCoach, team: "hw") // pull a real team name
       
+      setInstanceSettings(user: user.userName, team: "hw", isCoach: user.isCoach)
+      
       UserHelper().logIn(settings: settings)
     }
   }
@@ -284,9 +286,16 @@ struct UserView: View {
       
       createUserDefaults(name: logInfo.userName, isCoach: logInfo.isCoach, team: logInfo.teamName)
       
+      setInstanceSettings(user: logInfo.userName, team: logInfo.teamName, isCoach: logInfo.isCoach)
+      
       UserHelper().logIn(settings: settings)
     }
-    
+  }
+  
+  func setInstanceSettings(user: String, team: String, isCoach: Bool) {
+    settings.userName = user
+    settings.team = team
+    settings.isCoach = isCoach
   }
     
   func createUserDefaults(name: String, isCoach: Bool, team: String) {
