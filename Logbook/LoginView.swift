@@ -13,6 +13,13 @@ class LoginInfo: ObservableObject {
 struct UserView: View {
   @EnvironmentObject var logInfo: LoginInfo
   @EnvironmentObject var settings: UserSettings
+  @EnvironmentObject var dataManager: DataManager
+  
+  let screenSize = UIScreen.main.bounds
+  let screenWidth: CGFloat = UIScreen.main.bounds.width
+  //let screenHeight: CGFloat = screenSize.height
+  let standardWidth: CGFloat = UIScreen.main.bounds.width - 40
+  //let height: CGFloat = width
   
   var body: some View {
     if (self.logInfo.onLogin) {
@@ -23,54 +30,56 @@ struct UserView: View {
   }
   
   func LogInView() -> some View {
+    
     ZStack {
-      Color.black
+      //Color.black
       
-      Rectangle()
-        .foregroundColor(.red)
-        .frame(width: 500, height: 200)
-        .offset(y: -350)
-      
-      VStack (alignment: .center, spacing: 20) {
-        Spacer().frame(height: 20)
+      VStack (alignment: .center) { //, spacing: 20) {
+        //Spacer().frame(height: 20)
         
-        Text("Logbook")
-          .font(.system(size: 30, weight: .bold))
-          .foregroundColor(.white)
+        ZStack {
+          Rectangle()
+            .foregroundColor(.red)
+            .frame(width: 500, height: 200)
+            .offset(y: -100)
+          
+          Rectangle()
+            .foregroundColor(.red)
+            .frame(width: 500, height: 200)
+            
+          VStack {
+            //Spacer()
+            
+            Text("Logbook")
+              .font(.system(size: 30, weight: .bold))
+              .foregroundColor(.white)
+              .padding()
+            
+            Text("Log Into Your Account")
+              .font(.title)
+              .foregroundColor(.white)
+              .font(.system(size: 14, weight: .bold, design: Font.Design.default))
+              .padding()
+          }
+        }
+            
+        textField(name: "Email", content: $logInfo.emailAddress, textType: .emailAddress, isSecure: false)
           .padding()
         
-        Text("Log Into Your Account")
-          .font(.title)
-          .foregroundColor(.white)
-          .font(.system(size: 14, weight: .bold, design: Font.Design.default))
-          .padding(.bottom, 50)
-            
-        TextField("Username", text: $logInfo.userName)
-          .frame(width: 300, height: 60)
-          .textContentType(.emailAddress)
-          .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
-          .background(Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
-          .cornerRadius(10)
-            
-            
-        SecureField("Password", text: $logInfo.password)
-          .frame(width: 300, height: 60)
-          .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
-          .foregroundColor(.gray)
-          .background(Color.white)
-          .textContentType(.password)
-          .cornerRadius(10)
-            
+        textField(name: "Password", content: $logInfo.password, textType: .password, isSecure: true)
+          .padding()
+        
         Button {
           login()
         } label: {
           Text("Log In")
             .padding()
-            .frame(width: 300, height: 40)
+            .frame(width: standardWidth, height: 40)
             .foregroundColor(Color.white)
             .background(Color.blue)
             .cornerRadius(5)
         }
+        .padding(.top, 20)
         //.onAppear {
         //    Auth.auth().addStateDidChangeListener{ auth, user in
         //        if user != nil {
@@ -85,37 +94,30 @@ struct UserView: View {
         } label: {
           Text("Don't have an account? Sign Up!")
             .bold()
-            .frame(width: 300, height: 40)
+            .frame(width: standardWidth, height: 40)
             .foregroundColor(Color.blue)
-            .background(Color.white)
-            .cornerRadius(10)
+            .background(Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
+            .cornerRadius(5)
         }
-        .padding(.bottom, 40)
+        .padding(.top, 20)
         
         Spacer()
 
       }
-      .padding(.bottom, 90)
     }
-    .ignoresSafeArea()
-  }
-      
-  func login() {
-    Auth.auth().signIn(withEmail: logInfo.emailAddress, password: logInfo.password) { result, error in
-      if error != nil {
-        print(error!.localizedDescription)
-      } else {
-        self.settings.loggedIn = true
-      }
-    }
+    //.ignoresSafeArea()
   }
   
   func SignUpView() -> some View {
+    //@Environment(\.colorScheme) var colorScheme
+    
     ZStack {
-      Color.white
+      //Color.white
+      
+      
       
       Rectangle()
-        .foregroundColor(.black)
+        .foregroundColor(.black)//colorScheme == .light ? .black : .white)
         .frame(width: 1000, height: 400)
         .rotationEffect(Angle(degrees: -40))
         .offset(y: 400)
@@ -126,19 +128,20 @@ struct UserView: View {
         .rotationEffect(Angle(degrees: -40))
         .offset(y: 200)
       
-      VStack (alignment: .center) {
+      VStack { //(alignment: .center)
         HStack {
           Image("profile-glyph-icon")
             .resizable()
             .frame(width: 20, height: 20)
           Text("Logbook")
             .font(.system(size: 12))
-        }.padding(.top, 100)
+        }
+        .padding(.top)
         
         Text("Create an Account")
           .font(.title)
           .font(.system(size: 14, weight: .bold, design: Font.Design.default))
-          .padding(.bottom, 20)
+          .padding(.bottom)
         
         /*
          Button(action: {
@@ -164,7 +167,7 @@ struct UserView: View {
           } label: {
             Text("I'm an athelte")
               .frame(width: 150, height: 50)
-              .background(!logInfo.isCoach ? .gray : .white)
+              .background(!logInfo.isCoach ? Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255) : .white)
                 //Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
           }
           
@@ -174,63 +177,114 @@ struct UserView: View {
             Text("I'm a coach")
               .frame(width: 150, height: 50)
               //.background(Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
-              .background(logInfo.isCoach ? .gray : .white)
+              .background(logInfo.isCoach ? Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255) : .white)
           }
         }
         
-        signUpViewContent()
+        textField(name: "Name", content: $logInfo.userName, textType: .name, isSecure: false)
         
-        if (logInfo.isCoach) {
-          VStack(alignment: .leading) {
-            TextField("Team Name", text: $logInfo.teamName)
-              .frame(width: 350, height: 50)
-              .textContentType(.emailAddress)
-              .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
-              .accentColor(.red)
-            
-            textLine
-          }
+        textField(name: "Email", content: $logInfo.emailAddress, textType: .emailAddress, isSecure: false)
+        
+        textField(name: "Password", content: $logInfo.password, textType: .password, isSecure: true)
+        
+        
+        textField(name: "Team Name", content: $logInfo.teamName, textType: .name, isSecure: false)
+        
+        /*
+        if () { // logInfo.isCoach
+          // do one thing
         } else {
-          //this should be more about joining teams
-          VStack(alignment: .leading) {
-            TextField("Team Name", text: $logInfo.teamName)
-              .frame(width: 350, height: 50)
-              .textContentType(.emailAddress)
-              .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
-              .accentColor(.red)
-            
-            textLine
+          // do another thing
+        }
+         */
+        
+        HStack {
+          Spacer()
+            .frame(width: standardWidth/2)
+          
+          Button {
+            register()
+          } label: {
+            Text("Create Account")
+              .padding()
+              .foregroundColor(Color.white)
+              .background(Color.blue)
+              .cornerRadius(20)
           }
         }
+        .padding()
         
         Spacer()
         
-        Button {
-          register()
-        } label: {
-          Text("Create Account")
-            .padding()
-            .foregroundColor(Color.white)
-            .background(Color.blue)
-            .cornerRadius(20)
-        }
-        .padding(.bottom, 40)
-        .offset(x: 100, y: -180)
       }
-    }.ignoresSafeArea()
+    }
+  }
+  
+  func textField(name: String, content: Binding<String>, textType: UITextContentType, isSecure: Bool) -> some View {
+    
+    return VStack {
+      if isSecure {
+        SecureField(name, text: content)
+          .frame(width: standardWidth)
+          .textContentType(textType)
+          .accentColor(.red)
+          .disableAutocorrection(true)
+      } else {
+        TextField(name, text: content)
+          .frame(width: standardWidth)
+          .textContentType(textType)
+          .accentColor(.red)
+          .disableAutocorrection(true)
+      }
+    
+      textLine
+    }
+    
+      //.padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
+      //.background(Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
+  }
+  
+  var textLine: some View {
+    Rectangle().frame(width: standardWidth, height: 2)
+  }
+      
+  
+  func login() {
+    Auth.auth().signIn(withEmail: logInfo.emailAddress, password: logInfo.password) { result, error in
+      
+      guard error == nil else {
+        print(error!.localizedDescription)
+        return
+      }
+      
+      dataManager.getUser(userName: logInfo.userName)
+      let user: User = dataManager.user!
+      logInfo.isCoach = user.isCoach
+      logInfo.teamName = "hw" //TODO: make this not cringe
+      self.settings.loggedIn = true
+    }
   }
       
   func register() {
+    
+    //do some basic gaurds against dumb shit
+    //if logInfo.emailAddress == ""
+    
+    
     Auth.auth().createUser(withEmail: logInfo.emailAddress, password: logInfo.password) { result, error in
-      if error != nil {
-        print(error!.localizedDescription) // this should provide feedback for why their logging in failed
+      
+      guard error == nil else {
+        print(error!.localizedDescription)
+        return
+        // this should provide feedback for why their logging in failed
       }
+      
+      dataManager.publishUser(email: logInfo.emailAddress, userName: logInfo.userName, isCoach: logInfo.isCoach)
+      createUserDefaults()
+      self.settings.loggedIn = true
+      
     }
-    createUserDefaults()
     
-    // LogInView().login() // this should be able to log the person in
-    
-    self.settings.loggedIn = true
   }
     
   func createUserDefaults() {
@@ -240,41 +294,7 @@ struct UserView: View {
     ref.set(logInfo.teamName, forKey: "team")
     ref.set(logInfo.userName, forKey: "userName")
   }
-      
-  var textLine: some View {
-    return Rectangle().frame(width: 250, height: 2).offset(y: -20)
-  }
-      
-  func signUpViewContent() -> some View {
-    return VStack(alignment: .leading) {
-      TextField("Name", text: $logInfo.userName)
-        .frame(width: 350, height: 50)
-        .textContentType(.emailAddress)
-        .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
-        .accentColor(.red)
-        //.background(Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
-        
-      textLine
-        
-      TextField("Email", text: $logInfo.emailAddress)
-        .frame(width: 350, height: 50)
-        .textContentType(.emailAddress)
-        .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
-        .accentColor(.red)
-        //.background(Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
-        
-      textLine
-        
-      SecureField("Password", text: $logInfo.password)
-        .frame(width: 350, height: 50)
-        .textContentType(.password)
-        .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
-        .accentColor(.red)
-        //.background(Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
-        
-      textLine
-    }
-  }
+  
 }
 
 

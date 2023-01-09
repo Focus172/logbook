@@ -42,8 +42,27 @@ class DataManager: ObservableObject {
     ()
   }
   
-  func getUser() {
-    ()
+  func getUser(userName: String) {
+    let db = Firestore.firestore()
+    let selectedUser = db.collection("Users").document(userName)
+    
+    selectedUser.getDocument { snapshot, error in
+      guard error == nil else {
+        print(error!.localizedDescription)
+        return
+      }
+      
+      if let document = snapshot {
+        let data = document.data()
+        let userName = data?["userName"] as? String ?? ""
+        let isCoach = data?["isCoach"] as? Bool ?? false
+        self.user = User(userName: userName, daysOfInfo: [], isCoach: isCoach)
+      }
+    }
+  }
+  
+  struct badUserFetch: Error {
+    let localizedDescription = "sdfghj"
   }
   
   func getDayInfo() {
@@ -70,8 +89,20 @@ class DataManager: ObservableObject {
     ()
   }
   
-  func publishUser() {
-    ()
+  func publishUser(email: String, userName: String, isCoach: Bool) {
+    
+    //TODO: take a team as input and add them to the list
+    
+    let db = Firestore.firestore()
+    let userToAdd = db.collection("Users").document(email)
+    //let userRuns = db.collection("Users").document(email).collection("Runs")
+  
+    //TODO: try to not be cringe
+    userToAdd.setData(["userName": userName, "isCoach": isCoach, "runs": "userRuns"]) { error in
+      if let error = error {
+        print(error.localizedDescription)
+      }
+    }
   }
   
   func publishDayInfo() {

@@ -30,10 +30,31 @@ struct FeedContentView: View {
     //@State var isShowing: Bool = false
     //@State var postHighlighted: FeedPlaces? = nil
     
-    
+ 
+  /*
+   
+   HStack (spacing: 40) {
+     
+   }
+   Text("a")
+     .font(.title)
+     .multilineTextAlignment(.center)
+   
+   
+   Text("a")
+     .font(.body)
+     .fontWeight(.semibold)
+   
+   
+   
+   
+   
+   */
+  
+  
     
     var body: some View {
-        return ScrollView{
+        ScrollView{
             VStack(alignment: .leading) {
                 
                 HStack {

@@ -9,6 +9,7 @@
 import SwiftUI
 
 // the entirety of a team
+// teams should have an internal acsess thing to the email look up of the poeple in their team
 struct Team {
   var name: String
   var days: [Day]

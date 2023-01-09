@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A3BBB92FED9D6E895B409F7 /* Pods_LogbookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 538890E7B1CF100BCD4CBB31 /* Pods_LogbookTests.framework */; };
-		447B07B6A0BD579EEB969DE2 /* Pods_Logbook_LogbookUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0571ABB60E46FC8A43B3A7F5 /* Pods_Logbook_LogbookUITests.framework */; };
 		55CEF1FBC5F5A1FB3891BCF9 /* Pods_Logbook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E1A5143C165F68C00810D9 /* Pods_Logbook.framework */; };
 		DC1BA753294B1C0300C2DD4F /* FeedContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1BA752294B1C0300C2DD4F /* FeedContentView.swift */; };
 		DC1BA75B294B33C500C2DD4F /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1BA75A294B33C500C2DD4F /* CalenderView.swift */; };
@@ -28,27 +26,8 @@
 		F542B64F22F2DBF300E490A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F542B64E22F2DBF300E490A1 /* Assets.xcassets */; };
 		F542B65222F2DBF300E490A1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F542B65122F2DBF300E490A1 /* Preview Assets.xcassets */; };
 		F542B65522F2DBF300E490A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F542B65322F2DBF300E490A1 /* LaunchScreen.storyboard */; };
-		F542B66022F2DBF300E490A1 /* SwiftUIStarterKitAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F542B65F22F2DBF300E490A1 /* SwiftUIStarterKitAppTests.swift */; };
-		F542B66B22F2DBF300E490A1 /* SwiftUIStarterKitAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F542B66A22F2DBF300E490A1 /* SwiftUIStarterKitAppUITests.swift */; };
 		F553B7E822FCA19400314585 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F553B7E722FCA19400314585 /* AccountView.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		F542B65C22F2DBF300E490A1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F542B63D22F2DBF200E490A1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F542B64422F2DBF200E490A1;
-			remoteInfo = SwiftUIStarterKitApp;
-		};
-		F542B66722F2DBF300E490A1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F542B63D22F2DBF200E490A1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F542B64422F2DBF200E490A1;
-			remoteInfo = SwiftUIStarterKitApp;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		02DBAAA8B842498E95C9C22B /* Pods-LogbookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LogbookTests.release.xcconfig"; path = "Target Support Files/Pods-LogbookTests/Pods-LogbookTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -80,12 +59,6 @@
 		F542B65122F2DBF300E490A1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F542B65422F2DBF300E490A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F542B65622F2DBF300E490A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F542B65B22F2DBF300E490A1 /* LogbookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogbookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F542B65F22F2DBF300E490A1 /* SwiftUIStarterKitAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIStarterKitAppTests.swift; sourceTree = "<group>"; };
-		F542B66122F2DBF300E490A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F542B66622F2DBF300E490A1 /* LogbookUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogbookUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F542B66A22F2DBF300E490A1 /* SwiftUIStarterKitAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIStarterKitAppUITests.swift; sourceTree = "<group>"; };
-		F542B66C22F2DBF300E490A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F553B7E722FCA19400314585 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,22 +68,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				55CEF1FBC5F5A1FB3891BCF9 /* Pods_Logbook.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F542B65822F2DBF300E490A1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3A3BBB92FED9D6E895B409F7 /* Pods_LogbookTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F542B66322F2DBF300E490A1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				447B07B6A0BD579EEB969DE2 /* Pods_Logbook_LogbookUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,8 +101,6 @@
 			isa = PBXGroup;
 			children = (
 				F542B64722F2DBF200E490A1 /* Logbook */,
-				F542B65E22F2DBF300E490A1 /* LogbookTests */,
-				F542B66922F2DBF300E490A1 /* LogbookUITests */,
 				F542B64622F2DBF200E490A1 /* Products */,
 				56E7B2E7979C927EE3E5318F /* Pods */,
 				B1833D0B5BC567CBD517D139 /* Frameworks */,
@@ -156,8 +111,6 @@
 			isa = PBXGroup;
 			children = (
 				F542B64522F2DBF200E490A1 /* Logbook.app */,
-				F542B65B22F2DBF300E490A1 /* LogbookTests.xctest */,
-				F542B66622F2DBF300E490A1 /* LogbookUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -197,24 +150,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		F542B65E22F2DBF300E490A1 /* LogbookTests */ = {
-			isa = PBXGroup;
-			children = (
-				F542B65F22F2DBF300E490A1 /* SwiftUIStarterKitAppTests.swift */,
-				F542B66122F2DBF300E490A1 /* Info.plist */,
-			);
-			path = LogbookTests;
-			sourceTree = "<group>";
-		};
-		F542B66922F2DBF300E490A1 /* LogbookUITests */ = {
-			isa = PBXGroup;
-			children = (
-				F542B66A22F2DBF300E490A1 /* SwiftUIStarterKitAppUITests.swift */,
-				F542B66C22F2DBF300E490A1 /* Info.plist */,
-			);
-			path = LogbookUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -239,45 +174,6 @@
 			productReference = F542B64522F2DBF200E490A1 /* Logbook.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F542B65A22F2DBF300E490A1 /* LogbookTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F542B67222F2DBF300E490A1 /* Build configuration list for PBXNativeTarget "LogbookTests" */;
-			buildPhases = (
-				4292E0F4C623BCC835C67B20 /* [CP] Check Pods Manifest.lock */,
-				F542B65722F2DBF300E490A1 /* Sources */,
-				F542B65822F2DBF300E490A1 /* Frameworks */,
-				F542B65922F2DBF300E490A1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				F542B65D22F2DBF300E490A1 /* PBXTargetDependency */,
-			);
-			name = LogbookTests;
-			productName = SwiftUIStarterKitAppTests;
-			productReference = F542B65B22F2DBF300E490A1 /* LogbookTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		F542B66522F2DBF300E490A1 /* LogbookUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F542B67522F2DBF300E490A1 /* Build configuration list for PBXNativeTarget "LogbookUITests" */;
-			buildPhases = (
-				5B1BEA60A023D038EBA601CD /* [CP] Check Pods Manifest.lock */,
-				F542B66222F2DBF300E490A1 /* Sources */,
-				F542B66322F2DBF300E490A1 /* Frameworks */,
-				F542B66422F2DBF300E490A1 /* Resources */,
-				AF60238EF7E97B62E7B5F596 /* [CP] Embed Pods Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				F542B66822F2DBF300E490A1 /* PBXTargetDependency */,
-			);
-			name = LogbookUITests;
-			productName = SwiftUIStarterKitAppUITests;
-			productReference = F542B66622F2DBF300E490A1 /* LogbookUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -290,14 +186,6 @@
 				TargetAttributes = {
 					F542B64422F2DBF200E490A1 = {
 						CreatedOnToolsVersion = 11.0;
-					};
-					F542B65A22F2DBF300E490A1 = {
-						CreatedOnToolsVersion = 11.0;
-						TestTargetID = F542B64422F2DBF200E490A1;
-					};
-					F542B66522F2DBF300E490A1 = {
-						CreatedOnToolsVersion = 11.0;
-						TestTargetID = F542B64422F2DBF200E490A1;
 					};
 				};
 			};
@@ -318,8 +206,6 @@
 			projectRoot = "";
 			targets = (
 				F542B64422F2DBF200E490A1 /* Logbook */,
-				F542B65A22F2DBF300E490A1 /* LogbookTests */,
-				F542B66522F2DBF300E490A1 /* LogbookUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -333,20 +219,6 @@
 				DC5B52632956DE8400F2C817 /* GoogleService-Info.plist in Resources */,
 				F542B65222F2DBF300E490A1 /* Preview Assets.xcassets in Resources */,
 				F542B64F22F2DBF300E490A1 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F542B65922F2DBF300E490A1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F542B66422F2DBF300E490A1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,67 +240,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Logbook/Pods-Logbook-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4292E0F4C623BCC835C67B20 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-LogbookTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5B1BEA60A023D038EBA601CD /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Logbook-LogbookUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AF60238EF7E97B62E7B5F596 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Logbook-LogbookUITests/Pods-Logbook-LogbookUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Logbook-LogbookUITests/Pods-Logbook-LogbookUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Logbook-LogbookUITests/Pods-Logbook-LogbookUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C55ED4B18F7E149249F668EF /* [CP] Check Pods Manifest.lock */ = {
@@ -478,36 +289,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F542B65722F2DBF300E490A1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F542B66022F2DBF300E490A1 /* SwiftUIStarterKitAppTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F542B66222F2DBF300E490A1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F542B66B22F2DBF300E490A1 /* SwiftUIStarterKitAppUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		F542B65D22F2DBF300E490A1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F542B64422F2DBF200E490A1 /* Logbook */;
-			targetProxy = F542B65C22F2DBF300E490A1 /* PBXContainerItemProxy */;
-		};
-		F542B66822F2DBF300E490A1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F542B64422F2DBF200E490A1 /* Logbook */;
-			targetProxy = F542B66722F2DBF300E490A1 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		F542B65322F2DBF300E490A1 /* LaunchScreen.storyboard */ = {
@@ -642,6 +424,7 @@
 			baseConfigurationReference = 583D12C0DFC123EEAC7BA7D5 /* Pods-Logbook.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "Logbook/Preview\\ Content";
 				DEVELOPMENT_TEAM = 4VQ9P5P5N8;
 				ENABLE_PREVIEWS = YES;
@@ -666,6 +449,7 @@
 			baseConfigurationReference = B0900618B38034C623CABFFA /* Pods-Logbook.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "Logbook/Preview\\ Content";
 				DEVELOPMENT_TEAM = 4VQ9P5P5N8;
 				ENABLE_PREVIEWS = YES;
@@ -682,88 +466,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		F542B67322F2DBF300E490A1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8735DECE7129D9D8EB5E98FA /* Pods-LogbookTests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = LogbookTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = NexThings.SwiftUIStarterKitAppTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Logbook.app/Logbook";
-			};
-			name = Debug;
-		};
-		F542B67422F2DBF300E490A1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 02DBAAA8B842498E95C9C22B /* Pods-LogbookTests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = LogbookTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = NexThings.SwiftUIStarterKitAppTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Logbook.app/Logbook";
-			};
-			name = Release;
-		};
-		F542B67622F2DBF300E490A1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 989D690F0DA5F6B695B7F209 /* Pods-Logbook-LogbookUITests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = LogbookUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = NexThings.SwiftUIStarterKitAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = SwiftUIStarterKitApp;
-			};
-			name = Debug;
-		};
-		F542B67722F2DBF300E490A1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 04F34C8DFE173364907D7278 /* Pods-Logbook-LogbookUITests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = LogbookUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = NexThings.SwiftUIStarterKitAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = SwiftUIStarterKitApp;
 			};
 			name = Release;
 		};
@@ -784,24 +486,6 @@
 			buildConfigurations = (
 				F542B67022F2DBF300E490A1 /* Debug */,
 				F542B67122F2DBF300E490A1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F542B67222F2DBF300E490A1 /* Build configuration list for PBXNativeTarget "LogbookTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F542B67322F2DBF300E490A1 /* Debug */,
-				F542B67422F2DBF300E490A1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F542B67522F2DBF300E490A1 /* Build configuration list for PBXNativeTarget "LogbookUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F542B67622F2DBF300E490A1 /* Debug */,
-				F542B67722F2DBF300E490A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

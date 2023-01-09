@@ -9,12 +9,20 @@ class UserSettings: ObservableObject {
 
 struct StartView: View {
   @EnvironmentObject var settings: UserSettings
+  let dataManager: DataManager = DataManager()
   
   var body: some View {
     if settings.loggedIn {
-      return AnyView(TabbarView())
+      AnyView(
+        TabbarView()
+          .environmentObject(dataManager)
+      )
     } else {
-      return AnyView(UserView().environmentObject(LoginInfo()))
+      AnyView(
+        UserView()
+          .environmentObject(LoginInfo())
+          .environmentObject(dataManager)
+      )
     }
   }
 }

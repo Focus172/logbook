@@ -27,6 +27,11 @@ Until there is a stable build, just state what you are doing in a pull request a
 
 ## Sample Accounts
 
+PLEASE USE THIS ONE THE OTHERS MAY CAUSE CRASHES
+
+- U: realuser@mail.com P: realuser
+
+
 - U: bobs@mail.com P: 123456
 - U: TestUser1@mail.com P: Password
 - U: Test2@mail.com P: password
