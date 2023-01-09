@@ -64,10 +64,8 @@ struct UserView: View {
         }
             
         textField(name: "Email", content: $logInfo.emailAddress, textType: .emailAddress, isSecure: false)
-          .padding()
         
         textField(name: "Password", content: $logInfo.password, textType: .password, isSecure: true)
-          .padding()
         
         Button {
           login()
@@ -79,7 +77,7 @@ struct UserView: View {
             .background(Color.blue)
             .cornerRadius(5)
         }
-        .padding(.top, 20)
+        //.padding(.top, 20)
         //.onAppear {
         //    Auth.auth().addStateDidChangeListener{ auth, user in
         //        if user != nil {
@@ -99,7 +97,7 @@ struct UserView: View {
             .background(Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
             .cornerRadius(5)
         }
-        .padding(.top, 20)
+        //.padding(.top, 20)
         
         Spacer()
 
@@ -114,10 +112,8 @@ struct UserView: View {
     ZStack {
       //Color.white
       
-      
-      
       Rectangle()
-        .foregroundColor(.black)//colorScheme == .light ? .black : .white)
+        .foregroundColor(.black) //colorScheme == .light ? .black : .white)
         .frame(width: 1000, height: 400)
         .rotationEffect(Angle(degrees: -40))
         .offset(y: 400)
@@ -187,7 +183,6 @@ struct UserView: View {
         
         textField(name: "Password", content: $logInfo.password, textType: .password, isSecure: true)
         
-        
         textField(name: "Team Name", content: $logInfo.teamName, textType: .name, isSecure: false)
         
         /*
@@ -228,17 +223,22 @@ struct UserView: View {
           .frame(width: standardWidth)
           .textContentType(textType)
           .accentColor(.red)
-          .disableAutocorrection(true)
+          .disableAutocorrection(true) // may not be nessisary
+          .autocapitalization(.none) // may not be nessisary
+          //.autocorrectionDisabled(true)
       } else {
         TextField(name, text: content)
           .frame(width: standardWidth)
           .textContentType(textType)
           .accentColor(.red)
           .disableAutocorrection(true)
+          //.autocorrectionDisabled(true)
+          .autocapitalization(.none)
       }
     
       textLine
     }
+    .padding()
     
       //.padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
       //.background(Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
@@ -257,11 +257,13 @@ struct UserView: View {
         return
       }
       
-      dataManager.getUser(userName: logInfo.userName)
-      let user: User = dataManager.user!
-      logInfo.isCoach = user.isCoach
-      logInfo.teamName = "hw" //TODO: make this not cringe
-      self.settings.loggedIn = true
+      dataManager.getUser(email: logInfo.emailAddress)
+      let user: User = dataManager.user ?? User(userName: "", daysOfInfo: [], isCoach: false)
+      if user.userName == "" { return } // TODO: tell the user what they did wrong (the user doesn't exist)
+      
+      createUserDefaults(name: user.userName, isCoach: user.isCoach, team: "hw") // pull a real team name
+      
+      UserHelper().logIn(settings: settings)
     }
   }
       
@@ -276,23 +278,23 @@ struct UserView: View {
       guard error == nil else {
         print(error!.localizedDescription)
         return
-        // this should provide feedback for why their logging in failed
       }
       
       dataManager.publishUser(email: logInfo.emailAddress, userName: logInfo.userName, isCoach: logInfo.isCoach)
-      createUserDefaults()
-      self.settings.loggedIn = true
       
+      createUserDefaults(name: logInfo.userName, isCoach: logInfo.isCoach, team: logInfo.teamName)
+      
+      UserHelper().logIn(settings: settings)
     }
     
   }
     
-  func createUserDefaults() {
+  func createUserDefaults(name: String, isCoach: Bool, team: String) {
     let ref = UserDefaults.standard
-    ref.set(true, forKey: "loggedIn")
-    ref.set(logInfo.isCoach, forKey: "isCoach")
-    ref.set(logInfo.teamName, forKey: "team")
-    ref.set(logInfo.userName, forKey: "userName")
+    
+    ref.set(name, forKey: Strings.USER_NAME_KEY)
+    ref.set(isCoach, forKey: "isCoach")
+    ref.set(team, forKey: "team")
   }
   
 }

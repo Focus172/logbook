@@ -42,9 +42,9 @@ class DataManager: ObservableObject {
     ()
   }
   
-  func getUser(userName: String) {
+  func getUser(email: String) {
     let db = Firestore.firestore()
-    let selectedUser = db.collection("Users").document(userName)
+    let selectedUser = db.collection("Users").document(email)
     
     selectedUser.getDocument { snapshot, error in
       guard error == nil else {
