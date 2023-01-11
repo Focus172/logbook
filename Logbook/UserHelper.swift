@@ -11,14 +11,14 @@ import UIKit
 
 class UserHelper {
   
+  func logIn(settings: UserSettings) {
+    UserDefaults.standard.set(true, forKey: Strings.LOGGED_IN_KEY)
+    settings.loggedIn = true
+  }
+  
   func logOut(settings: UserSettings) {
     UserDefaults.standard.set(false, forKey: Strings.LOGGED_IN_KEY)
     settings.loggedIn = false
   }
   
-  
-  func logIn(settings: UserSettings) {
-    UserDefaults.standard.set(true, forKey: Strings.LOGGED_IN_KEY)
-    settings.loggedIn = true
-  }
 }

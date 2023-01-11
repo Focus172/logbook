@@ -18,51 +18,80 @@ import FirebaseFirestore
  >
  */
 
+// RecentActivity
+// UserActivity
+// Team
+// TeamDays
+// Users
+// UserRuns
+// UserSummary
+// TeamRuns
+// UserDays
+
+
+// when a user pushes submit this is the process
+// create a run object and send it to userRuns, id is unix time of when it is
+// append it to their summary object creating it if needed
+// create an activity with the run and add it to UserActivities
+// > add a refence in the recentActivities, very important to stamp this
+
+// > add reference to TeamSummary of the summary
+// > add the activity to the UserDayInfo
+// > > add the dayInfo to the TeamDay
+// > > > add the day to the team
+// > > add the dayInfo to the UserDay
+
+
+// Collections:
+
+// Teams (TeamDays [ref], data)
+// TeamDays (TeamSummaries [ref], TeamDayInfo [ref], data)
+// TeamSummaries (UserRuns [ref])
+// TeamDayInfo (UserDayInfo [ref])
+
+// Users (UserRuns [ref], UserDayInfo [ref], data)
+// UserDayInfo (UserActivities [ref], data
+// UserActivities (Run ref, data)
+// UserRuns (data)
+
+// TeamRecentActivities (TeamActivityStreams [ref])
+// TeamActivityStreams(UserActivities [ref])
+// RecentActivities (ctivityStreams [ref])
+// ActivityStreams(UserActivities [ref])
+
+
+
+// ALL POSTS SHOULD HAVE UNIX TIME STAMPED AS THEIR ID SO THE LIMIT-TO CAN GRAB THE MOST RECENT
+
+enum DataFetchErorr: Error {
+    case documentNotFoundError
+    case dataNotFoundError
+    case unexpectedError
+}
+
+
 class DataManager: ObservableObject {
   
-  // there is some optimization to spliting this into different files but that can be done when the code works
-  
-  @Published var team: Team?
-  @Published var user: User?
-  @Published var dayInfo: DayInfo?
-  @Published var day: Day?
-  @Published var summmary: Summary?
-  @Published var activity: Activity?
-  @Published var run: Run?
-  
-  @Published var teams: [Team]?
-  @Published var users: [User]?
-  @Published var dayInfos: [DayInfo]?
-  @Published var days: [Day]?
-  @Published var summmaries: [Summary]?
-  @Published var activities: [Activity]?
-  @Published var runs: [Run]?
+  // MARK: Data Fetching
   
   func getTeam() {
     ()
   }
   
-  func getUser(email: String) {
+  // this should really throw as this type of data should not be filled in randomly
+  func getUser(uuid: String) -> User {
     let db = Firestore.firestore()
-    let selectedUser = db.collection("Users").document(email)
+    let selectedUser = db.collection("Users").document(uuid)
     
-    selectedUser.getDocument { snapshot, error in
-      guard error == nil else {
-        print(error!.localizedDescription)
-        return
-      }
-      
-      if let document = snapshot {
-        let data = document.data()
-        let userName = data?["userName"] as? String ?? ""
-        let isCoach = data?["isCoach"] as? Bool ?? false
-        self.user = User(userName: userName, daysOfInfo: [], isCoach: isCoach)
-      }
-    }
-  }
-  
-  struct badUserFetch: Error {
-    let localizedDescription = "sdfghj"
+    let data = getDataFromDocumentRef(ref: selectedUser)
+    
+    // TODO: handle this data better
+    let username = data["username"] as? String ?? ""
+    let teamName = data["teamName"] as? String ?? ""
+    let email = data["email"] as? String ?? ""
+    let isCoach = data["isCoach"] as? Bool ?? false
+    
+    return User(userName: username, teamName: teamName, daysOfInfo: [], isCoach: isCoach)
   }
   
   func getDayInfo() {
@@ -85,24 +114,44 @@ class DataManager: ObservableObject {
     
   }
   
+  func getUuid(email: String) -> String? {
+    let db = Firestore.firestore()
+    let userUuidRef = db.collection("UserUuids").document(email)
+    
+    let data = getDataFromDocumentRef(ref: userUuidRef)
+    
+    if let uuid = data["uuid"] as? String {
+      return uuid
+    }
+    
+    return nil
+  }
+  
+  // MARK: Data Publishing
+  
   func publishTeam() {
     ()
   }
   
-  func publishUser(email: String, userName: String, isCoach: Bool) {
+  func publishUser(uuid: String, email: String, userName: String, isCoach: Bool, teamName: String) {
     
-    //TODO: take a team as input and add them to the list
+    // make sure there is a way to always find user quickly
+    publishUuid(email: email, uuid: uuid)
     
+    // get location for where user will be placed
     let db = Firestore.firestore()
-    let userToAdd = db.collection("Users").document(email)
-    //let userRuns = db.collection("Users").document(email).collection("Runs")
+    let userToAdd: DocumentReference = db.collection("Users").document(uuid)
+    
+    // get reference to their runs (stored elsewhere in the database)
+    let userRuns = db.document("UsersRuns/\(uuid)Runs")
   
-    //TODO: try to not be cringe
-    userToAdd.setData(["userName": userName, "isCoach": isCoach, "runs": "userRuns"]) { error in
+    userToAdd.setData(["userName": userName, "email": email, "uuid": uuid, "isCoach": isCoach, "runs": userRuns, "team": teamName]) { error in
       if let error = error {
         print(error.localizedDescription)
       }
     }
+    
+    // TODO: add them to the team the specified
   }
   
   func publishDayInfo() {
@@ -118,60 +167,98 @@ class DataManager: ObservableObject {
     ()
   }
 
-  func publishActivity(date: Date, author: String, milage: Double, pain: Double, postComment: String, feelingComment: String, publiclyVisible: Bool) {
+  func publishActivity(title: String, date: Date, uuid: String, milage: Double, pain: Double, postComment: String, feelingComment: String, publiclyVisible: Bool) {
+    
+    // when a user pushes submit this is the process
+    // create a run object and send it to userRuns, id is unix time of when it is
+    // append it to their summary object creating it if needed
+    // create an activity with the run and add it to UserActivities
+    // > add a refence in the recentActivities, very important to stamp this
+
+    // > add reference to TeamSummary of the summary
+    // > add the activity to the UserDayInfo
+    // > > add the dayInfo to the TeamDay
+    // > > > add the day to the team
+    // > > add the dayInfo to the UserDay
+    
+    
+
     let db = Firestore.firestore()
-    let ref = db.collection("Activities").document()
+
+    // the way the run will be referenced
+    let curTimeStamp = UInt(Date().timeIntervalSince1970).description
+    let dayTimeStamp = UInt(date.timeIntervalSince1970).description
+    
+    // adding the run
+    let userRun = db.document("UserRuns/\(uuid)Runs/Runs/\(curTimeStamp)")
+    userRun.setData(["distance": milage, "pain": pain]) {error in
+      // do something
+    }
+    
+    let userSummary = db.document("UserSummaries/\(uuid)Summaries/Summaries/\(dayTimeStamp)")
+    
+    userSummary.setData(["run\(curTimeStamp)": userRun], merge: true) { error in
+      // do something
+    }
+    
+    // create an activity with the run and add it to UserActivities
+    
+    /*
     
     // adding current date to this should make it unique enough as it would require one person to make two post at once
     let id = (date.description + author.description + milage.description + pain.description + postComment + feelingComment + publiclyVisible.description + Date().description).hashValue
-  
-    // TODO: FIX THIS TO MATCH NEW SCHEME
-  
+    
+    let ref = db.collection("asdfghj").document()
     ref.setData(["id": id, "date": date, "author" : author, "milage" : milage, "pain" : pain, "postComment" : postComment, "feelingComment": feelingComment, "publiclyVisible": publiclyVisible]) { error in
       
       if let error = error {
         print(error.localizedDescription) //do Better
       }
     }
+     */
   }
   
   func publishRun() {
     
   }
   
-  func getActivities() {
-    let database = Firestore.firestore()
-    let ref = database.collection("Activities")
-      
-    self.activities = []
+  func publishUuid(email: String, uuid: String) {
+    // get the location of the uuidStorage
+    let db = Firestore.firestore()
+    let uuidStorageLocationReference = db.collection("UserUuids").document(email)
     
-    ref.getDocuments { snapshot, error in
-      guard error == nil else {
-        print(error!.localizedDescription)
-        return
-      }
+    // push new data to that storage
+    uuidStorageLocationReference.setData(["uuid": uuid])
+  }
+  
+  // MARK: Bulk Data Fetches
+  
+  func getActivities() -> [Activity] {
+        
+    var returnedActivities: [Activity] = []
+    
+    let db = Firestore.firestore()
+    let activitiesReference = db.collection("Activities").limit(to: 5)
       
-      if let snapshot = snapshot {
-        //var count = 0
-        for document in snapshot.documents {
-          let data = document.data()
-          
-          //let iterator = count
-          let id = data["id"] as? String ?? ""
-          //let date = data["date"] as? Date ?? Date()
-          let author = data["author"] as? String ?? ""
-          let milage = data["milage"] as? Double ?? 0
-          let pain = data["pain"] as? Double ?? 0
-          let postComment = data["postComment"] as? String ?? ""
-          let feelingComment = data["feelingComment"] as? String ?? ""
-          let publiclyVisible = data["publiclyVisible"] as? Bool ?? false
-          
-          self.activities!.append(Activity(author: author, id: id, run: Run(miles: milage, pain: pain), comment: postComment, privateComment: feelingComment, visible: publiclyVisible))
-          
-          //count += 1
-        }
-      }
+    let documents = getDocumentsFromCollectionRef(ref: activitiesReference)
+        
+    for document in documents {
+      let data = document.data()
+      
+      // TODO: unwrap data in better way
+      let id = data["id"] as? String ?? ""
+      //let date = data["date"] as? Date ?? Date()
+      let author = data["author"] as? String ?? ""
+      let milage = data["milage"] as? Double ?? 0
+      let pain = data["pain"] as? Double ?? 0
+      let postComment = data["postComment"] as? String ?? ""
+      let feelingComment = data["feelingComment"] as? String ?? ""
+      let publiclyVisible = data["publiclyVisible"] as? Bool ?? false
+      
+      returnedActivities.append(Activity(author: author, id: id, run: Run(miles: milage, pain: pain), comment: postComment, privateComment: feelingComment, visible: publiclyVisible))
     }
+    
+    return returnedActivities
   }
   
   //ref = Database.database().reference()
@@ -211,4 +298,48 @@ class DataManager: ObservableObject {
     fetchActivity()
   }
   */
+  
+  // Update one field, creating the document if it does not exist.
+  //db.collection("cities").document("BJ").setData([ "capital": true ], merge: true)
+  
+  //washingtonRef.updateData([
+  //"population": FieldValue.increment(Int64(50))])
+  
+  func getDataFromDocumentRef(ref: DocumentReference) -> Dictionary<String, Any> {
+    var retData: Dictionary<String, Any> = [:]
+    
+    ref.getDocument { snapshot, error in
+      guard error == nil else {
+        print(error!.localizedDescription)
+        return
+      }
+      
+      // lots of data unwrapping beacuse we live in a fairy tale
+      if let document = snapshot {
+        if let data = document.data() {
+          retData = data
+        }
+      }
+    }
+    
+    return retData
+  }
+  
+  func getDocumentsFromCollectionRef(ref: Query) -> [QueryDocumentSnapshot] {
+    var retDocuments: [QueryDocumentSnapshot] = []
+    
+    ref.getDocuments { snapshot, error in
+      guard error == nil else {
+        print(error!.localizedDescription)
+        return
+      }
+      
+      if let snap = snapshot {
+        retDocuments = snap.documents
+      }
+    }
+    
+    return retDocuments
+  }
+  
 }

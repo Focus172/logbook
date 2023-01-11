@@ -68,7 +68,7 @@ struct LoggingView: View {
                 .padding()
                 
                 Button {
-                    dataManager.publishActivity(date: dateOfRun, author: settings.userName, milage: Double(distanceRan), pain: Double(painLevel), postComment: postComment, feelingComment: feelingComment, publiclyVisible: publicalyVisible)
+                  dataManager.publishActivity(title: "Line 71 LoggingView", date: dateOfRun, uuid: settings.uuid, milage: Double(distanceRan), pain: Double(painLevel), postComment: postComment, feelingComment: feelingComment, publiclyVisible: publicalyVisible)
                     callerReference.closePopUp()
                 } label: {
                     Text("Do the thing")
