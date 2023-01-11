@@ -64,13 +64,27 @@ import FirebaseFirestore
 // ALL POSTS SHOULD HAVE UNIX TIME STAMPED AS THEIR ID SO THE LIMIT-TO CAN GRAB THE MOST RECENT
 
 enum DataFetchErorr: Error {
-    case documentNotFoundError
-    case dataNotFoundError
-    case unexpectedError
+  case documentNotFoundError
+  case dataNotFoundError
+  case unexpectedError
 }
 
 
 class DataManager: ObservableObject {
+  
+  // Coach snapshot listener
+  /*
+  db.collection("cities").whereField("state", isEqualTo: "CA")
+      .addSnapshotListener { querySnapshot, error in
+          guard let documents = querySnapshot?.documents else {
+              print("Error fetching documents: \(error!)")
+              return
+          }
+          let cities = documents.map { $0["name"]! }
+          print("Current cities in CA: \(cities)")
+      }
+   */
+  
   
   // MARK: Data Fetching
   
@@ -88,7 +102,7 @@ class DataManager: ObservableObject {
     // TODO: handle this data better
     let username = data["username"] as? String ?? ""
     let teamName = data["teamName"] as? String ?? ""
-    let email = data["email"] as? String ?? ""
+    //let email = data["email"] as? String ?? ""
     let isCoach = data["isCoach"] as? Bool ?? false
     
     return User(userName: username, teamName: teamName, daysOfInfo: [], isCoach: isCoach)
@@ -187,7 +201,13 @@ class DataManager: ObservableObject {
 
     // the way the run will be referenced
     let curTimeStamp = UInt(Date().timeIntervalSince1970).description
+    
+    //let isoformatter = ISO8601DateFormatter.init()
+    //let timeStr = isoformatter.string(from: date)
+    //let _ = isoformatter.date(from: timeStr).prefix(10).description // gets the date as YYYY-MM-DD
+    
     let dayTimeStamp = UInt(date.timeIntervalSince1970).description
+    
     
     // adding the run
     let userRun = db.document("UserRuns/\(uuid)Runs/Runs/\(curTimeStamp)")
@@ -284,20 +304,11 @@ class DataManager: ObservableObject {
   
   //let messageRef = db.collection("rooms").document("roomA").collection("messages").document("message1")
   
-  //Notice the alternating pattern of collections and documents. Your collections and documents must always follow this pattern. You cannot reference a collection in a collection or a document in a document.
-  
   //When you delete a document that has subcollections, those subcollections are not deleted. For example, there may be a document located at coll/doc/subcoll/subdoc even though the document coll/doc no longer exists.
   
   
   
   //citiesRef.whereField("population", isGreaterThan: 100000).order(by: "population").limit(to: 2)
-  
-  
-  /*
-  init() {
-    fetchActivity()
-  }
-  */
   
   // Update one field, creating the document if it does not exist.
   //db.collection("cities").document("BJ").setData([ "capital": true ], merge: true)
