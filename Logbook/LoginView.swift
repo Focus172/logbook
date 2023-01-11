@@ -4,10 +4,11 @@ import FirebaseAuth
 class LoginInfo: ObservableObject {
   @Published var onLogin: Bool = true
   @Published var userName: String = ""
-  @Published var emailAddress: String = ""
+  @Published var email: String = ""
   @Published var password: String = ""
   @Published var isCoach: Bool = false
   @Published var teamName: String = ""
+  //@Published var uuid: String?
 }
 
 struct UserView: View {
@@ -63,12 +64,12 @@ struct UserView: View {
           }
         }
             
-        textField(name: "Email", content: $logInfo.emailAddress, textType: .emailAddress, isSecure: false)
+        textField(name: "Email", content: $logInfo.email, textType: .emailAddress, isSecure: false)
         
         textField(name: "Password", content: $logInfo.password, textType: .password, isSecure: true)
         
         Button {
-          login()
+          let _ = login()
         } label: {
           Text("Log In")
             .padding()
@@ -179,7 +180,7 @@ struct UserView: View {
         
         textField(name: "Name", content: $logInfo.userName, textType: .name, isSecure: false)
         
-        textField(name: "Email", content: $logInfo.emailAddress, textType: .emailAddress, isSecure: false)
+        textField(name: "Email", content: $logInfo.email, textType: .emailAddress, isSecure: false)
         
         textField(name: "Password", content: $logInfo.password, textType: .password, isSecure: true)
         
@@ -249,65 +250,78 @@ struct UserView: View {
   }
       
   
-  func login() {
-    Auth.auth().signIn(withEmail: logInfo.emailAddress, password: logInfo.password) { result, error in
-      
+  func login() -> Bool {
+    
+    // value to report for if display should update error
+    var loginSucsess = false
+    
+    // sign them in the make sure they are who they say
+    Auth.auth().signIn(withEmail: logInfo.email, password: logInfo.password) { result, error in
       guard error == nil else {
         print(error!.localizedDescription)
+        // TODO: something should be done here to let the user know how they messed up
         return
       }
       
-      dataManager.getUser(email: logInfo.emailAddress)
-      let user: User = dataManager.user ?? User(userName: "", daysOfInfo: [], isCoach: false)
-      if user.userName == "" { return } // TODO: tell the user what they did wrong (the user doesn't exist)
-      
-      createUserDefaults(name: user.userName, isCoach: user.isCoach, team: "hw") // pull a real team name
-      
-      setInstanceSettings(user: user.userName, team: "hw", isCoach: user.isCoach)
-      
-      UserHelper().logIn(settings: settings)
+      // grab their uuid from their email
+      if let uuid = dataManager.getUuid(email: logInfo.email) {
+        
+        // grab their user profile from their uuid
+        let user = dataManager.getUser(uuid: uuid)
+
+        // do all happy path actions
+        updateInstance(uuid: uuid, userName: user.userName, teamName: user.teamName, isCoach: user.isCoach)
+        UserHelper().logIn(settings: settings)
+        loginSucsess = true
+        
+      }
     }
+    
+    return loginSucsess
   }
       
   func register() {
     
-    //do some basic gaurds against dumb shit
-    //if logInfo.emailAddress == ""
-    
-    
-    Auth.auth().createUser(withEmail: logInfo.emailAddress, password: logInfo.password) { result, error in
-      
+    Auth.auth().createUser(withEmail: logInfo.email, password: logInfo.password) { result, error in
       guard error == nil else {
         print(error!.localizedDescription)
         return
       }
       
-      dataManager.publishUser(email: logInfo.emailAddress, userName: logInfo.userName, isCoach: logInfo.isCoach)
+      // generate a semi-random uuid
+      let uuid = Date().description.sha256().prefix(10).description
       
-      createUserDefaults(name: logInfo.userName, isCoach: logInfo.isCoach, team: logInfo.teamName)
-      
-      setInstanceSettings(user: logInfo.userName, team: logInfo.teamName, isCoach: logInfo.isCoach)
-      
+      // publish to server and push user through
+      dataManager.publishUser(uuid: uuid, email: logInfo.email, userName: logInfo.userName, isCoach: logInfo.isCoach, teamName: logInfo.teamName)
+      updateInstance(uuid: uuid, userName: logInfo.userName, teamName: logInfo.teamName, isCoach: logInfo.isCoach)
       UserHelper().logIn(settings: settings)
     }
   }
   
-  func setInstanceSettings(user: String, team: String, isCoach: Bool) {
-    settings.userName = user
-    settings.team = team
-    settings.isCoach = isCoach
-  }
     
-  func createUserDefaults(name: String, isCoach: Bool, team: String) {
+  func updateInstance(uuid: String, userName: String, teamName: String, isCoach: Bool) {
+    // reference to the user defaults
     let ref = UserDefaults.standard
     
-    ref.set(name, forKey: Strings.USER_NAME_KEY)
-    ref.set(isCoach, forKey: "isCoach")
-    ref.set(team, forKey: "team")
+    // set uuid
+    ref.set(uuid, forKey: Strings.UUID_KEY)
+    settings.uuid = uuid
+    
+    // set userName
+    ref.set(userName, forKey: Strings.USER_NAME_KEY)
+    settings.userName = userName
+    
+    // set teamName
+    ref.set(teamName, forKey: Strings.TEAM_KEY)
+    settings.teamName = teamName
+    
+    // set isCoach
+    ref.set(isCoach, forKey: Strings.IS_COACH_KEY)
+    settings.isCoach = isCoach
+    
   }
   
 }
-
 
 #if DEBUG
 struct LoginView_Previews: PreviewProvider {

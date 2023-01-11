@@ -19,6 +19,7 @@ struct Team {
 // a users profile
 struct User {
   var userName: String
+  var teamName: String
   var daysOfInfo: [DayInfo]
   var isCoach: Bool
 }

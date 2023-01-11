@@ -10,8 +10,9 @@ class Strings {
   
   static let LOGGED_IN_KEY = "loggedIn"
   static let IS_COACH_KEY = "isCoach"
-  static let TEAM_KEY = "team"
+  static let TEAM_KEY = "teamName"
   static let USER_NAME_KEY = "userName"
+  static let UUID_KEY = "uuid"
   
   
 }
