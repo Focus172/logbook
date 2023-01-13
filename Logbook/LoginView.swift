@@ -126,12 +126,14 @@ struct UserView: View {
         .offset(y: 200)
       
       VStack { //(alignment: .center)
+      
         HStack {
           Image("profile-glyph-icon")
             .resizable()
             .frame(width: 20, height: 20)
           Text("Logbook")
             .font(.system(size: 12))
+          
         }
         .padding(.top)
         
@@ -195,8 +197,19 @@ struct UserView: View {
          */
         
         HStack {
+          Button {
+            logInfo.onLogin = true
+          } label: {
+            Text("Go Back")
+              .padding()
+              .foregroundColor(Color.blue)
+              .background(Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
+              .cornerRadius(20)
+          }
+          .padding()
+          
           Spacer()
-            .frame(width: standardWidth/2)
+            .frame(width: standardWidth/5)
           
           Button {
             register()
@@ -207,8 +220,9 @@ struct UserView: View {
               .background(Color.blue)
               .cornerRadius(20)
           }
+          .padding()
         }
-        .padding()
+        
         
         Spacer()
         
@@ -226,27 +240,21 @@ struct UserView: View {
           .accentColor(.red)
           .disableAutocorrection(true) // may not be nessisary
           .autocapitalization(.none) // may not be nessisary
-          //.autocorrectionDisabled(true)
       } else {
         TextField(name, text: content)
           .frame(width: standardWidth)
           .textContentType(textType)
           .accentColor(.red)
           .disableAutocorrection(true)
-          //.autocorrectionDisabled(true)
           .autocapitalization(.none)
       }
     
-      textLine
+      Rectangle().frame(width: standardWidth, height: 2)
     }
     .padding()
     
       //.padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
       //.background(Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
-  }
-  
-  var textLine: some View {
-    Rectangle().frame(width: standardWidth, height: 2)
   }
       
   
@@ -265,7 +273,6 @@ struct UserView: View {
       
       // grab their uuid from their email
       if let uuid = dataManager.getUuid(email: logInfo.email) {
-        
         // grab their user profile from their uuid
         let user = dataManager.getUser(uuid: uuid)
 
@@ -273,8 +280,8 @@ struct UserView: View {
         updateInstance(uuid: uuid, userName: user.userName, teamName: user.teamName, isCoach: user.isCoach)
         UserHelper().logIn(settings: settings)
         loginSucsess = true
-        
       }
+    
     }
     
     return loginSucsess

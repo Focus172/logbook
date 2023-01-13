@@ -72,6 +72,8 @@ enum DataFetchErorr: Error {
 
 class DataManager: ObservableObject {
   
+  let db = Firestore.firestore()
+  
   // Coach snapshot listener
   /*
   db.collection("cities").whereField("state", isEqualTo: "CA")
@@ -177,51 +179,65 @@ class DataManager: ObservableObject {
   }
 
 
-  func publishSummary() {
-    ()
+  func publishSummary(uuid: String, timeStamp: String, runReference: DocumentReference) -> DocumentReference {
+    let userSummary = db.document("UserSummaries/\(uuid)Summaries/Summaries/\(timeStamp)")
+    
+    userSummary.setData(["run\(timeStamp)": runReference], merge: true) { error in
+      // do something
+    }
+    return userSummary
   }
 
-  func publishActivity(title: String, date: Date, uuid: String, milage: Double, pain: Double, postComment: String, feelingComment: String, publiclyVisible: Bool) {
+  
+  
+  
+  func publishActivity(title: String, date: Date, uuid: String, milage: Double, pain: Double, postComment: String, feelingComment: String, publiclyVisible: Bool) -> DocumentReference {
     
-    // when a user pushes submit this is the process
-    // create a run object and send it to userRuns, id is unix time of when it is
-    // append it to their summary object creating it if needed
-    // create an activity with the run and add it to UserActivities
-    // > add a refence in the recentActivities, very important to stamp this
+    // boil that plate
+    let isoformatter = ISO8601DateFormatter.init()
+    let timeStr = isoformatter.string(from: date)
 
-    // > add reference to TeamSummary of the summary
-    // > add the activity to the UserDayInfo
-    // > > add the dayInfo to the TeamDay
-    // > > > add the day to the team
-    // > > add the dayInfo to the UserDay
-    
-    
 
-    let db = Firestore.firestore()
-
-    // the way the run will be referenced
+    // the way it will be referenced within a day
     let curTimeStamp = UInt(Date().timeIntervalSince1970).description
-    
-    //let isoformatter = ISO8601DateFormatter.init()
-    //let timeStr = isoformatter.string(from: date)
-    //let _ = isoformatter.date(from: timeStr).prefix(10).description // gets the date as YYYY-MM-DD
-    
-    let dayTimeStamp = UInt(date.timeIntervalSince1970).description
+    // the way it will be reference in a larger scope
+    let dayTimeStamp = isoformatter.date(from: timeStr)!.description.prefix(10).description.replacingOccurrences(of: "-", with: "") // gets the date as YYYY-MM-DD, try not to force unwrap
     
     
-    // adding the run
-    let userRun = db.document("UserRuns/\(uuid)Runs/Runs/\(curTimeStamp)")
-    userRun.setData(["distance": milage, "pain": pain]) {error in
-      // do something
-    }
+    // creating the run in userRuns
+    let userRunReference = publishRun(uuid: uuid, timeStamp: curTimeStamp, milage: milage, pain: pain)
     
-    let userSummary = db.document("UserSummaries/\(uuid)Summaries/Summaries/\(dayTimeStamp)")
+    // creating the summary in userSummaries
+    let userSummaryReference = publishSummary(uuid: uuid, timeStamp: dayTimeStamp, runReference: userRunReference)
     
-    userSummary.setData(["run\(curTimeStamp)": userRun], merge: true) { error in
-      // do something
-    }
+    // adding the summaryReference to teamSummaries
     
-    // create an activity with the run and add it to UserActivities
+    
+    // adding the teamSummariesReference to teamDays
+    
+    
+    // creating the acticity in userActivities
+    // use the run ref
+    
+    
+    // adding the activityReference to recentActivities
+    // use the cur timestamp
+    
+    // creating the userDay in userDayInfo
+    // using activityreference (appending)
+    
+    
+    // adding the userDayReference to teamDay
+    
+    
+    // adding the teamDayReference to the team
+    
+    
+    // add the dayInfoReference to
+    
+    
+    
+    
     
     /*
     
@@ -230,16 +246,24 @@ class DataManager: ObservableObject {
     
     let ref = db.collection("asdfghj").document()
     ref.setData(["id": id, "date": date, "author" : author, "milage" : milage, "pain" : pain, "postComment" : postComment, "feelingComment": feelingComment, "publiclyVisible": publiclyVisible]) { error in
-      
+      ]
       if let error = error {
         print(error.localizedDescription) //do Better
       }
     }
      */
+    
+    return userSummaryReference
   }
   
-  func publishRun() {
+  func publishRun(uuid: String, timeStamp: String, milage: Double, pain: Double) -> DocumentReference {
     
+    let userRun = db.document("UserRuns/\(uuid)Runs/Runs/\(timeStamp)")
+    userRun.setData(["distance": milage, "pain": pain]) {error in
+      // do something
+    }
+    
+    return userRun
   }
   
   func publishUuid(email: String, uuid: String) {

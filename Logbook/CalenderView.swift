@@ -3,6 +3,7 @@ import Combine
 
 struct CalendarView: View {
   @EnvironmentObject var settings: UserSettings
+  @EnvironmentObject var dataManager: DataManager
   @State var curDate: Date = Date()
   @State var showPopup: Bool = false
   @State var selectedDate = -1
@@ -15,7 +16,7 @@ struct CalendarView: View {
           CalendarIcons
         }
       } else {
-        AnyView(getSummaryView())
+        getSummaryView()
       }
     }
     .navigationBarTitle("Calendar")
@@ -89,7 +90,7 @@ struct CalendarView: View {
                 .font(.system(size: 18, weight: .bold, design: Font.Design.default))
             }
             .frame(width: width, height: height)
-            .background(Color.red)
+            .background(.red)
             .clipShape(Circle())
             //.padding(5)
           }
@@ -98,8 +99,10 @@ struct CalendarView: View {
     }
   }
   
-  func getSummaryView() -> any View {
+  func getSummaryView() -> some View {
     let curInfo : DayInfo = DayInfo(date: Date(), runs: [Activity(author: "author1", id: "sdfghj", run: Run(miles: 10.3, pain: 2.1), comment: "test comment", privateComment: "i really hurt", visible: true), Activity(author: "author 1", id: "kjhgfd", run: Run(miles: 26.2, pain: 10.12), comment: "marathon", privateComment: "no pain", visible: true)], sleep: -1)
+    
+    //let curInfo = dataManager.getDayInfo()
     
     return ZStack {
       
@@ -197,10 +200,10 @@ struct CalendarView: View {
 #if DEBUG
 struct CalenderView_Previews: PreviewProvider {
   static var previews: some View {
-    let settings = UserSettings()
     NavigationView {
       CalendarView()
-        .environmentObject(settings)
+        .environmentObject(UserSettings())
+        .environmentObject(DataManager())
     }
   }
 }

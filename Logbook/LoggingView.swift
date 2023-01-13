@@ -1,5 +1,10 @@
 import SwiftUI
 
+// cross training
+
+
+
+
 struct LoggingView: View {
   //could be useful for default choices
   @EnvironmentObject var settings: UserSettings
