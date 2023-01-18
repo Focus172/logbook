@@ -1,7 +1,5 @@
 import SwiftUI
 
-// cross training
-
 
 
 
@@ -14,7 +12,7 @@ struct LoggingView: View {
   
   @State var dateOfRun: Date = Date() // Could use a date component specifying that hour and minute and second are 0
   @State var author: String = ""
-  @State var distanceRan: String = "0.0"
+  @State var distanceRan: String = ""
   @State var painLevel: Int = 0
   @State var postComment: String = ""
   @State var feelingComment: String = ""
@@ -131,8 +129,8 @@ struct LoggingView: View {
         .padding()
         
         Button {
-          //dataManager.publishActivity(title: "Line 71 LoggingView", date: dateOfRun, uuid: settings.uuid, milage: Double(distanceRan), pain: Double(painLevel), postComment: postComment, feelingComment: feelingComment, publiclyVisible: publicalyVisible)
-          
+          UserHelper().publishAndUpdateActivity(authorUuid: settings.uuid, title: "LINE 132 LOGGING VIEW", milage: Double(distanceRan) ?? 0.0, pain: Double(painLevel), postComment: postComment, painComment: feelingComment, date: dateOfRun, team: settings.teamName, publiclyVisible: publicalyVisible)
+
           callerReference.closePopUp()
         } label: {
           Text("Do the thing")

@@ -59,7 +59,7 @@ struct FeedContentView: View {
                         //}
                     
                     Button {
-                      currentActivities = dataManager.getActivities()
+                      currentActivities = dataManager.getActivities(limitTo: 5)
                     } label: {
                       Image(systemName: "trash")
                     }

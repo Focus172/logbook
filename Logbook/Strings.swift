@@ -14,5 +14,4 @@ class Strings {
   static let USER_NAME_KEY = "userName"
   static let UUID_KEY = "uuid"
   
-  
 }
