@@ -12,6 +12,9 @@
 		DC1BA75B294B33C500C2DD4F /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1BA75A294B33C500C2DD4F /* CalenderView.swift */; };
 		DC1BA75D294B952400C2DD4F /* CalenderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1BA75C294B952400C2DD4F /* CalenderHelper.swift */; };
 		DC1BA75F294BAD0B00C2DD4F /* CoachMessengerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1BA75E294BAD0B00C2DD4F /* CoachMessengerView.swift */; };
+		DC29814F297F350400144037 /* DataFetching.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC29814E297F350400144037 /* DataFetching.swift */; };
+		DC298151297F351600144037 /* DataPublishing.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC298150297F351600144037 /* DataPublishing.swift */; };
+		DC298153297F352B00144037 /* DataBulk.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC298152297F352B00144037 /* DataBulk.swift */; };
 		DC391EFF2964D2F200479A46 /* UserHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC391EFE2964D2F200479A46 /* UserHelper.swift */; };
 		DC5B52632956DE8400F2C817 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC5B52622956DE8400F2C817 /* GoogleService-Info.plist */; };
 		DC7AB1EE295980BC00CD9BA5 /* CoachView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7AB1ED295980BC00CD9BA5 /* CoachView.swift */; };
@@ -20,7 +23,7 @@
 		DCD44DF7296DAE2D006EDD4D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD44DF6296DAE2D006EDD4D /* Extensions.swift */; };
 		DCD737AB296C92D70041578F /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD737AA296C92D70041578F /* Strings.swift */; };
 		DCE0AEFC295B0FD70058B0EE /* DataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE0AEFB295B0FD70058B0EE /* DataTypes.swift */; };
-		DCE0AEFE295B129A0058B0EE /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE0AEFD295B129A0058B0EE /* DataManager.swift */; };
+		DCE0AEFE295B129A0058B0EE /* DataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCE0AEFD295B129A0058B0EE /* DataHelper.swift */; };
 		DCEB012A296F7A4F001CFF91 /* LoadingVeiw.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCEB0129296F7A4F001CFF91 /* LoadingVeiw.swift */; };
 		F52AA7A722F4883A0051F943 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52AA7A622F4883A0051F943 /* TabBarView.swift */; };
 		F542B64922F2DBF200E490A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F542B64822F2DBF200E490A1 /* AppDelegate.swift */; };
@@ -46,6 +49,9 @@
 		DC1BA75A294B33C500C2DD4F /* CalenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderView.swift; sourceTree = "<group>"; };
 		DC1BA75C294B952400C2DD4F /* CalenderHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderHelper.swift; sourceTree = "<group>"; };
 		DC1BA75E294BAD0B00C2DD4F /* CoachMessengerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMessengerView.swift; sourceTree = "<group>"; };
+		DC29814E297F350400144037 /* DataFetching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetching.swift; sourceTree = "<group>"; };
+		DC298150297F351600144037 /* DataPublishing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPublishing.swift; sourceTree = "<group>"; };
+		DC298152297F352B00144037 /* DataBulk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBulk.swift; sourceTree = "<group>"; };
 		DC391EFE2964D2F200479A46 /* UserHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHelper.swift; sourceTree = "<group>"; };
 		DC5B52622956DE8400F2C817 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DC7AB1ED295980BC00CD9BA5 /* CoachView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachView.swift; sourceTree = "<group>"; };
@@ -54,7 +60,7 @@
 		DCD44DF6296DAE2D006EDD4D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DCD737AA296C92D70041578F /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		DCE0AEFB295B0FD70058B0EE /* DataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypes.swift; sourceTree = "<group>"; };
-		DCE0AEFD295B129A0058B0EE /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		DCE0AEFD295B129A0058B0EE /* DataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHelper.swift; sourceTree = "<group>"; };
 		DCEB0129296F7A4F001CFF91 /* LoadingVeiw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingVeiw.swift; sourceTree = "<group>"; };
 		F52AA7A622F4883A0051F943 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		F542B64522F2DBF200E490A1 /* Logbook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Logbook.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,7 +144,10 @@
 				F553B7E722FCA19400314585 /* AccountView.swift */,
 				DCE0AEFB295B0FD70058B0EE /* DataTypes.swift */,
 				DCD44DF6296DAE2D006EDD4D /* Extensions.swift */,
-				DCE0AEFD295B129A0058B0EE /* DataManager.swift */,
+				DCE0AEFD295B129A0058B0EE /* DataHelper.swift */,
+				DC298152297F352B00144037 /* DataBulk.swift */,
+				DC298150297F351600144037 /* DataPublishing.swift */,
+				DC29814E297F350400144037 /* DataFetching.swift */,
 				DC1BA75C294B952400C2DD4F /* CalenderHelper.swift */,
 				DC391EFE2964D2F200479A46 /* UserHelper.swift */,
 				DC1BA75E294BAD0B00C2DD4F /* CoachMessengerView.swift */,
@@ -282,6 +291,7 @@
 			files = (
 				DC1BA75B294B33C500C2DD4F /* CalenderView.swift in Sources */,
 				F542B64922F2DBF200E490A1 /* AppDelegate.swift in Sources */,
+				DC298151297F351600144037 /* DataPublishing.swift in Sources */,
 				DCD737AB296C92D70041578F /* Strings.swift in Sources */,
 				DCBEFFEF29581B9A00BFB288 /* LoginView.swift in Sources */,
 				DC391EFF2964D2F200479A46 /* UserHelper.swift in Sources */,
@@ -292,11 +302,13 @@
 				DC1BA753294B1C0300C2DD4F /* FeedContentView.swift in Sources */,
 				DC1BA75D294B952400C2DD4F /* CalenderHelper.swift in Sources */,
 				DCEB012A296F7A4F001CFF91 /* LoadingVeiw.swift in Sources */,
-				DCE0AEFE295B129A0058B0EE /* DataManager.swift in Sources */,
+				DCE0AEFE295B129A0058B0EE /* DataHelper.swift in Sources */,
 				DCBEFFED2958166900BFB288 /* LoggingView.swift in Sources */,
 				F553B7E822FCA19400314585 /* AccountView.swift in Sources */,
 				DCD44DF7296DAE2D006EDD4D /* Extensions.swift in Sources */,
 				DC7AB1EE295980BC00CD9BA5 /* CoachView.swift in Sources */,
+				DC298153297F352B00144037 /* DataBulk.swift in Sources */,
+				DC29814F297F350400144037 /* DataFetching.swift in Sources */,
 				F542B64D22F2DBF200E490A1 /* StartView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
