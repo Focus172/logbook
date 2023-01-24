@@ -2,21 +2,19 @@ import SwiftUI
 
 struct TabbarView: View {
   @EnvironmentObject var settings: UserSettings
-  @EnvironmentObject var dataManager: DataManager
   
   var body: some View {
     TabView {
       NavigationView {
         FeedContentView()
       }
-        //.navigationBarHidden(true)
-        .environmentObject(self.dataManager)
-        .tag(0)
-        .tabItem {
-          Image("activity-1")
-            .resizable()
-          Text("Feed")
-        }
+      //.navigationBarHidden(true)
+      .tag(0)
+      .tabItem {
+        Image("activity-1")
+          .resizable()
+        Text("Feed")
+      }
        
       
       NavigationView {

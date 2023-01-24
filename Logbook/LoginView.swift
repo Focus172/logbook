@@ -14,7 +14,7 @@ class LoginInfo: ObservableObject {
 struct UserView: View {
   @EnvironmentObject var logInfo: LoginInfo
   @EnvironmentObject var settings: UserSettings
-  @EnvironmentObject var dataManager: DataManager
+
   
   let screenSize = UIScreen.main.bounds
   let screenWidth: CGFloat = UIScreen.main.bounds.width
@@ -126,12 +126,14 @@ struct UserView: View {
         .offset(y: 200)
       
       VStack { //(alignment: .center)
+      
         HStack {
           Image("profile-glyph-icon")
             .resizable()
             .frame(width: 20, height: 20)
           Text("Logbook")
             .font(.system(size: 12))
+          
         }
         .padding(.top)
         
@@ -195,8 +197,19 @@ struct UserView: View {
          */
         
         HStack {
+          Button {
+            logInfo.onLogin = true
+          } label: {
+            Text("Go Back")
+              .padding()
+              .foregroundColor(Color.blue)
+              .background(Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
+              .cornerRadius(20)
+          }
+          .padding()
+          
           Spacer()
-            .frame(width: standardWidth/2)
+            .frame(width: standardWidth/5)
           
           Button {
             register()
@@ -207,8 +220,9 @@ struct UserView: View {
               .background(Color.blue)
               .cornerRadius(20)
           }
+          .padding()
         }
-        .padding()
+        
         
         Spacer()
         
@@ -226,27 +240,21 @@ struct UserView: View {
           .accentColor(.red)
           .disableAutocorrection(true) // may not be nessisary
           .autocapitalization(.none) // may not be nessisary
-          //.autocorrectionDisabled(true)
       } else {
         TextField(name, text: content)
           .frame(width: standardWidth)
           .textContentType(textType)
           .accentColor(.red)
           .disableAutocorrection(true)
-          //.autocorrectionDisabled(true)
           .autocapitalization(.none)
       }
     
-      textLine
+      Rectangle().frame(width: standardWidth, height: 2)
     }
     .padding()
     
       //.padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
       //.background(Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
-  }
-  
-  var textLine: some View {
-    Rectangle().frame(width: standardWidth, height: 2)
   }
       
   
@@ -264,16 +272,16 @@ struct UserView: View {
       }
       
       // grab their uuid from their email
-      if let uuid = dataManager.getUuid(email: logInfo.email) {
+      do {
+        let uuid = try DataFetching().getUuid(email: logInfo.email).get()
+        let user = try DataFetching().getUser(uuid: uuid).get()
         
-        // grab their user profile from their uuid
-        let user = dataManager.getUser(uuid: uuid)
-
         // do all happy path actions
-        updateInstance(uuid: uuid, userName: user.userName, teamName: user.teamName, isCoach: user.isCoach)
+        updateInstance(uuid: uuid, userName: user.userName, teamName: user.team, isCoach: user.isCoach)
         UserHelper().logIn(settings: settings)
         loginSucsess = true
-        
+      } catch {
+        // do somethign
       }
     }
     
@@ -292,8 +300,10 @@ struct UserView: View {
       let uuid = Date().description.sha256().prefix(10).description
       
       // publish to server and push user through
-      dataManager.publishUser(uuid: uuid, email: logInfo.email, userName: logInfo.userName, isCoach: logInfo.isCoach, teamName: logInfo.teamName)
+      DataPublishing().publishUser(uuid: uuid, email: logInfo.email, userName: logInfo.userName, isCoach: logInfo.isCoach, teamName: logInfo.teamName)
+      
       updateInstance(uuid: uuid, userName: logInfo.userName, teamName: logInfo.teamName, isCoach: logInfo.isCoach)
+      
       UserHelper().logIn(settings: settings)
     }
   }

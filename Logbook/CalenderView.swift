@@ -15,14 +15,12 @@ struct CalendarView: View {
           CalendarIcons
         }
       } else {
-        AnyView(getSummaryView())
+        getSummaryView()
       }
     }
     .navigationBarTitle("Calendar")
     .sheet(isPresented: $showPopup) {
-      let dataManager = DataManager()
       LoggingView(callerReference: self)
-        .environmentObject(dataManager)
     }
     .navigationBarItems(trailing: Button(action: {
       self.showPopup = true
@@ -89,7 +87,7 @@ struct CalendarView: View {
                 .font(.system(size: 18, weight: .bold, design: Font.Design.default))
             }
             .frame(width: width, height: height)
-            .background(Color.red)
+            .background(.red)
             .clipShape(Circle())
             //.padding(5)
           }
@@ -98,8 +96,10 @@ struct CalendarView: View {
     }
   }
   
-  func getSummaryView() -> any View {
-    let curInfo : DayInfo = DayInfo(date: Date(), runs: [Activity(author: "author1", id: "sdfghj", run: Run(miles: 10.3, pain: 2.1), comment: "test comment", privateComment: "i really hurt", visible: true), Activity(author: "author 1", id: "kjhgfd", run: Run(miles: 26.2, pain: 10.12), comment: "marathon", privateComment: "no pain", visible: true)], sleep: -1)
+  func getSummaryView() -> some View {
+    //let curInfo : DayInfo = DayInfo(date: UInt(Date().hash), runs: [Activity(author: "author1", id: "sdfghj", run: Run(miles: 10.3, pain: 2.1), comment: "test comment", privateComment: "i really hurt", visible: true), Activity(author: "author 1", id: "kjhgfd", run: Run(miles: 26.2, pain: 10.12), comment: "marathon", privateComment: "no pain", visible: true)], sleep: -1)
+    
+    //let curInfo = dataManager.getDayInfo()
     
     return ZStack {
       
@@ -133,11 +133,13 @@ struct CalendarView: View {
           .padding(5)
         }
         
+        /*
         ForEach(0...5, id: \.self) { i in
           if i < curInfo.runs.count {
             AnyView(summaryEntry(activity: curInfo.runs[i]))
           }
         }
+         */
           
         Button {
           self.selectedDate = -1
@@ -163,8 +165,10 @@ struct CalendarView: View {
         .cornerRadius(10)
       
       VStack {
+        /*
         Text("You ran \(String(format: "%.2f", activity.run.miles)) miles and felt \(String(format: "%.1f", activity.run.pain)) pain")
           .padding()
+         */
       }
     }
   }
@@ -197,10 +201,9 @@ struct CalendarView: View {
 #if DEBUG
 struct CalenderView_Previews: PreviewProvider {
   static var previews: some View {
-    let settings = UserSettings()
     NavigationView {
       CalendarView()
-        .environmentObject(settings)
+        .environmentObject(UserSettings())
     }
   }
 }

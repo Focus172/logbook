@@ -6,41 +6,46 @@
 //  Copyright © 2022 NexThings. All rights reserved.
 //
 
-import SwiftUI
+import FirebaseFirestore
+
+// MARK: Base types
 
 // the entirety of a team
-// teams should have an internal acsess thing to the email look up of the poeple in their team
 struct Team {
   var name: String
-  var days: [Day]
-  var memebers: [User]
+  var days: CollectionReference
+  var memebers: CollectionReference
 }
 
 // a users profile
 struct User {
-  var userName: String
-  var teamName: String
-  var daysOfInfo: [DayInfo]
+  var email: String
   var isCoach: Bool
+  var runs: CollectionReference?
+  var summaries: CollectionReference?
+  var daysOfInfo: CollectionReference?
+  var team: String
+  var userName: String
+  var uuid: String
 }
 
 // repersents the activities of a user for a given day
 struct DayInfo {
-  var date: Date
-  var runs: [Activity]
+  var date: UInt
+  var runs: [DocumentReference]
   var sleep: Double
 }
 
 // repersents the activities of a team for a given day
 struct Day {
-  var date: Date
-  var runs: [Summary]
-  var eachDayInfo: [DayInfo]
+  var date: UInt
+  var runs: [DocumentReference]
+  var eachDayInfo: [DocumentReference]
 }
 
 // a quick summary of a user for a given day
 struct Summary {
-  var runs: [Run]
+  var runs: [DocumentReference]
   var sleep: Double
 }
 
@@ -48,7 +53,7 @@ struct Summary {
 struct Activity {
   var author: String
   var id: String
-  var run: Run
+  var run: DocumentReference?
   var comment: String
   var privateComment: String
   var visible: Bool

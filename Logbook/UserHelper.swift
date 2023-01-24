@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import UIKit
+import FirebaseFirestore
 
 class UserHelper {
   
@@ -21,4 +21,13 @@ class UserHelper {
     settings.loggedIn = false
   }
   
+  func getCurTimeStamp(date: Date) -> String {
+    UInt(date.timeIntervalSince1970).description
+  }
+  
+  func getDayTimeStamp(date: Date) -> String {
+    let isoformatter = ISO8601DateFormatter.init()
+    let timeStr = isoformatter.string(from: date)
+    return isoformatter.date(from: timeStr)!.description.prefix(10).description.replacingOccurrences(of: "-", with: "")
+  }
 }

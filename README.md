@@ -15,17 +15,19 @@ If you are getting something that says that something with google in the name do
 
 ## Project Structure
 
-Until there is a stable build, just state what you are doing in a pull request and I will merge it. If you want to be added to the Firebase console to see data structure then email me and I will do it.
+At this point there is 2_000+ lines of code with 70_000+ characters. There is no way I can keep a complete structure of the project so I will do my best to focus on sections at a time. This means that patches to very niche problems might come slowly but I will do my best. 
 
-## TODO
+If you would like to contribute you can do anything on the todo list (which will get much more specific once their is a stable build). Create a PR and I will merge it.
 
+### TODO
+
+- Data Query Efficency
 - UI improvments
-- CoachView
-- Database Management
 - Login Failure Feedback
-- Working on small screens
 
-## Sample Accounts
+### Sample Accounts
+
+If you would like to test the code (or the app) feel free to use on of these testing accoutns
 
 - U: test1@mail.com P: password
 - U: a@a.com P: aaaaaa
