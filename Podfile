@@ -9,13 +9,4 @@ target 'Logbook' do
   pod 'FirebaseAuth'
   pod 'FirebaseFirestore'
 
-  target 'LogbookTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'LogbookUITests' do
-    # Pods for testing
-  end
-
 end

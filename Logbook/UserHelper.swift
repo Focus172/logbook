@@ -22,7 +22,7 @@ class UserHelper {
   }
   
   func getCurTimeStamp(date: Date) -> String {
-    UInt(date.timeIntervalSince1970).description
+    date.timeIntervalSince1970.description
   }
   
   func getDayTimeStamp(date: Date) -> String {

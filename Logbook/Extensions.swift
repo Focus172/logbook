@@ -8,6 +8,7 @@
 
 import Foundation
 import CommonCrypto
+import FirebaseFirestore
 
 extension String {
 
@@ -57,4 +58,8 @@ extension Data {
     
     return hexString
   }
+}
+
+extension DocumentReference : Identifiable {
+  
 }

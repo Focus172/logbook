@@ -99,7 +99,16 @@ struct CalendarView: View {
   func getSummaryView() -> some View {
     //let curInfo : DayInfo = DayInfo(date: UInt(Date().hash), runs: [Activity(author: "author1", id: "sdfghj", run: Run(miles: 10.3, pain: 2.1), comment: "test comment", privateComment: "i really hurt", visible: true), Activity(author: "author 1", id: "kjhgfd", run: Run(miles: 26.2, pain: 10.12), comment: "marathon", privateComment: "no pain", visible: true)], sleep: -1)
     
-    //let curInfo = dataManager.getDayInfo()
+    let curTimeStamp = UserHelper().getCurTimeStamp(date: curDate)
+    let wrappedDayInfo = DataFetching().getDayInfo(uuid: settings.uuid, date: curTimeStamp, dayInfoRef: nil)
+    
+    let curDayInfo: DayInfo? = {
+      do {
+        return try wrappedDayInfo.get()
+      } catch {
+        return nil
+      }
+    }();
     
     return ZStack {
       
@@ -133,13 +142,23 @@ struct CalendarView: View {
           .padding(5)
         }
         
-        /*
-        ForEach(0...5, id: \.self) { i in
-          if i < curInfo.runs.count {
-            AnyView(summaryEntry(activity: curInfo.runs[i]))
+        if let curInfo = curDayInfo {
+          ForEach(curInfo.runs) { runRef in
+            let wrappedRun = DataFetching().getRun(uuid: "", date: 0, runRef: runRef)
+            let run: Run? = {
+              do {
+                return try wrappedRun.get()
+              } catch {
+                return nil
+              }
+            }();
+            
+            if let realRun = run {
+              AnyView(summaryEntry(run: realRun))
+            }
+          
           }
         }
-         */
           
         Button {
           self.selectedDate = -1
@@ -158,17 +177,15 @@ struct CalendarView: View {
     }
   }
   
-  func summaryEntry(activity: Activity) -> some View {
+  func summaryEntry(run: Run) -> some View {
     ZStack {
       Rectangle()
         .foregroundStyle(.gray)
         .cornerRadius(10)
       
       VStack {
-        /*
-        Text("You ran \(String(format: "%.2f", activity.run.miles)) miles and felt \(String(format: "%.1f", activity.run.pain)) pain")
+        Text("You ran \(String(format: "%.2f", run.miles)) miles and felt \(String(format: "%.1f", run.pain)) pain")
           .padding()
-         */
       }
     }
   }

@@ -7,102 +7,85 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
+// this constructs a way to pull and veiw days for a given team
 struct CoachView: View {
   @EnvironmentObject var settings: UserSettings
-  //@State var notificationToggle: Bool = false
-  @State var genericBool: Bool = false
-  //@State var locationUsage: Bool = false
-  //@State var username: String = "James"
-  @State var selectedCurrency: Int = 0
-  @State var currencyArray: [String] = ["$ US Dollar", "£ GBP", "€ Euro"]
-  
-  //@State var selectedPaymentMethod: Int = 1
-  //@State var paymentMethodArray: [String] = ["Paypal", "Credit/Debit Card", "Bitcoin"]
-  
-  var body: some View {
-      Form {
-        /*
-          Picker(selection: self.$selectedCurrency, label: Text("Currency")) {
-            ForEach(0 ..< self.currencyArray.count) {
-              Text(self.currencyArray[$0]).tag($0)
-            }
-          }
-         */
+  @State var selectedDate: Date = Date()
 
-        
-        Text("Nothing to see right now!")
-          
-        Text("\(settings.userName)")
-          
-          Toggle("Text", isOn: $genericBool)
-              .onChange(of: genericBool) { value in
-                  if value {
-                    //UserDefaults.standard.set(, forKey: )
-                  } else {
-                    //UserDefaults.standard.set(, forKey: )
+  @State var genericBool: Bool = false
+  @State var currentDay: Day?
+
+
+  var body: some View {
+    VStack {
+      Text("Select a Date")
+
+      // this is where the calendar will go
+
+      DatePicker(selection: self.$selectedDate, displayedComponents: [.date]) {
+
+      }
+
+      // a button to pull the runs for the selected date
+      Button(action: {
+        do {
+          currentDay = try DataFetching().getDay(team: settings.teamName, date: selectedDate).get()
+        } catch {
+          // do something to handle error
+        }
+      }) {
+        Text("Pull Runs")
+          .padding()
+          .background(Color.blue)
+          .foregroundColor(.white)
+          .cornerRadius(10)
+      }
+
+      // this is where the list of runs will go
+      if let day = currentDay {
+        List {
+          // still need to figure out how to get the author
+          ForEach(day.eachDayInfo) { dayInfoRef in
+            let wrappedRealDayInfo = DataFetching().getDayInfo(uuid: "", date: "", dayInfoRef: dayInfoRef)
+            
+            let realDayInfo: DayInfo? = {
+              do {
+                return try wrappedRealDayInfo.get()
+              } catch {
+                return nil // then show error
+              }
+            }();
+            
+            if let dayInfo = realDayInfo {
+              Text(" -- \(dayInfo.author)) -- ")
+              Text("\(dayInfo.sleep) hours of sleep")
+              ForEach(dayInfo.runs) { iterRun in
+                let wrappedRun = DataFetching().getRun(uuid: "", date: 0, runRef: iterRun)
+                let realRun: Run? = {
+                  do {
+                    return try wrappedRun.get()
+                  } catch {
+                    return nil // then show error
                   }
+                }();
+                
+                if let run = realRun {
+                  Text("> \(run.miles) miles (\(run.pain)/10 pain)")
+                }
               }
-          
-          /*
-          Section(header: Text("Payment Settings")) {
+            }
+            
+            
               
-              
-              Picker(selection: self.$selectedPaymentMethod, label: Text("Payment Method")) {
-                  ForEach(0 ..< self.paymentMethodArray.count) {
-                      Text(self.paymentMethodArray[$0]).tag($0)
-                  }
-              }
-              
-              Button(action: {
-                  print("Button tapped")
-              }) {
-                  if (self.paymentMethodArray[self.selectedPaymentMethod]) == "Credit/Debit Card" {
-                      Text("Add a Credit/Debit Card to your account")
-                  } else {
-                      Text("Connect \(self.paymentMethodArray[self.selectedPaymentMethod]) to your account")
-                  }
-              }
           }
+        }
+        .padding()
+      }
           
-          Section(header: Text("Personal Information")) {
-              NavigationLink(destination: Text("Profile Info")) {
-                  Text("Profile Information")
-              }
-              
-              NavigationLink(destination: Text("Billing Info")) {
-                  Text("Billing Information")
-              }
-          }
-          
-          Section(footer: Text("Allow push notifications to get latest travel and equipment deals")) {
-              Toggle(isOn: self.$locationUsage) {
-                  Text("Location Usage")
-              }
-              Toggle(isOn: self.$notificationToggle) {
-                  Text("Notifications")
-              }
-          }
-           */
-          
-      }.background(Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
-          .navigationBarTitle("Settings")
-          //.navigationBarItems(trailing: Button(action: {
-            //UserHelper().logOut(settings: settings)
-            // UserHelper().logOut(currentDelegate: self.view.window.windowScene.delegate)
-            //self.settings.loggedIn = false
-          //}, label: {
-            //Text("Log Out")
-          //}))
-      
-              /*
-               Image("italy")
-               .resizable()
-               .frame(width: 100, height: 100)
-               .background(Color.yellow)
-               .clipShape(Circle())
-               .padding(.bottom, 10)
-               */
+    }.background(Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
+      .navigationBarTitle("Coach View")
   }
 }
 
