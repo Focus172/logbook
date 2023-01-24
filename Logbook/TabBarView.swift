@@ -2,7 +2,6 @@ import SwiftUI
 
 struct TabbarView: View {
   @EnvironmentObject var settings: UserSettings
-  @EnvironmentObject var dataManager: DataManager
   
   var body: some View {
     TabView {

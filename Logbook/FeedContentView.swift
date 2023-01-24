@@ -25,7 +25,6 @@ class FeedPost: ObservableObject {
 
 struct FeedContentView: View {
   @EnvironmentObject var settings: UserSettings
-  @EnvironmentObject var dataManager: DataManager
   @State var currentActivities: [Activity]?
   //@ObservedObject var postData : FeedPost
   //@State var isShowing: Bool = false
@@ -59,7 +58,7 @@ struct FeedContentView: View {
                         //}
                     
                     Button {
-                      currentActivities = dataManager.getActivities(limitTo: 5)
+                      currentActivities = DataBulk().getActivities(limitTo: 5)
                     } label: {
                       Image(systemName: "trash")
                     }
@@ -126,11 +125,9 @@ struct RunningActivityView: View {
 struct FeedContentView_Previews: PreviewProvider {
     static var previews: some View {
         let settings = UserSettings()
-        let dataManager = DataManager()
         NavigationView {
             FeedContentView()
                 .environmentObject(settings)
-                .environmentObject(dataManager)
         }
     }
 }

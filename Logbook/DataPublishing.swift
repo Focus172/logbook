@@ -9,14 +9,36 @@
 import Foundation
 import FirebaseFirestore
 
+/*
+* This class is responsible for publishing data to the firestore database
+* It is not responsible for any data validation or formating
+* It uses the DataHelper class for basic tasks to imporve readability
+*/
+
 class DataPublishing {
   
   let db = Firestore.firestore()
   
   // MARK: Data Publishing
   
-  func publishTeam() {
-    ()
+  // @Param the data for make a new team
+  // @Dev pushes data to the database
+  func publishTeam(team: String, coach: String, members: CollectionReference) {
+
+    // get location for where team will be placed
+    let teamToAdd: DocumentReference = db.collection("Teams").document(team)
+    
+    // get reference to their runs (stored elsewhere in the database)
+    let teamRuns = db.document("TeamsRuns/\(team)Runs")
+      
+    // get reference to their days (stored elsewhere in the database)
+    let teamDays = db.document("TeamsDays/\(team)Days")
+      
+    teamToAdd.setData(["teamName": team, "coach": coach, "members": members, "runs": teamRuns, "days": teamDays]) { error in
+      if let error = error {
+        print(error.localizedDescription)
+      }
+    }
   }
   
   func publishUser(uuid: String, email: String, userName: String, isCoach: Bool, teamName: String) {
@@ -25,7 +47,7 @@ class DataPublishing {
     let _ = publishUuid(email: email, uuid: uuid)
     
     // get location for where user will be placed
-    let userToAdd: DocumentReference = db.collection("Users").document(uuid)
+    let userToAdd: DocumentReference = db.document("Users/\(uuid)")
     
     // get reference to their runs (stored elsewhere in the database)
     let userRuns = db.document("UsersRuns/\(uuid)Runs")

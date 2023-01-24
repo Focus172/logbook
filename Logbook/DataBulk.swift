@@ -22,7 +22,7 @@ class DataBulk {
     let db = Firestore.firestore()
     let activitiesReference = db.collection("Activities").limit(to: limitTo)
       
-    let documents = getDocumentsFromCollectionRef(ref: activitiesReference)
+    let documents = DataHelper().getDocumentsFromCollectionRef(ref: activitiesReference)
         
     for document in documents {
       let data = document.data()

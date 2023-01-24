@@ -6,7 +6,6 @@ import SwiftUI
 struct LoggingView: View {
   //could be useful for default choices
   @EnvironmentObject var settings: UserSettings
-  @EnvironmentObject var dataManager: DataManager
   
   @State var callerReference: CalendarView
   

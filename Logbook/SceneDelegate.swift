@@ -2,7 +2,6 @@ import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   var window: UIWindow?
-  var settings: UserSettings?
 
   func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -12,9 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // Use a UIHostingController as window root view controller
     if let windowScene = scene as? UIWindowScene {
       let window = UIWindow(windowScene: windowScene)
-      settings = UserSettings()
-      //force unwrap should always be ok
-      window.rootViewController = UIHostingController(rootView: StartView().environmentObject(settings!))
+      window.rootViewController = UIHostingController(rootView: StartView().environmentObject(UserSettings()))
       self.window = window
       window.makeKeyAndVisible()
     }

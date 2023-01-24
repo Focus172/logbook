@@ -6,17 +6,9 @@ enum DataFetchErorr: Error {
   case unexpectedError
 }
 
-// Fetching data
-// 1) Get reference
-// 2) Get Data
-// 3) Cast Data
-// 4) Return
-
-
 class DataHelper {
   
   let db = Firestore.firestore()
-  
   
   // MARK: Helpers 
   
@@ -59,10 +51,6 @@ class DataHelper {
     
     return retDocuments
   }
-
-  
-  
-  // MARK: Adding references
   
   func addSummaryToTeamSummary(uuid: String, onDay: String, team: String, summaryReference: DocumentReference) -> DocumentReference {
     
@@ -79,7 +67,7 @@ class DataHelper {
     return db.document("")
   }
   
-  func addToRecentActivities(activity: DocumentReference, timeStamp: String) -> DocumentReference {
+  func addToRecentActivities(activity: DocumentReference, timeStamp: String) {
     let recentActivitiesReference = db.document("RecentActivities/\(timeStamp)")
     
     // this currently allows two activities posted at the same time to share a spot
@@ -87,7 +75,6 @@ class DataHelper {
       // do something
     }
     
-    return recentActivitiesReference
   }
   
   

@@ -3,7 +3,6 @@ import Combine
 
 struct CalendarView: View {
   @EnvironmentObject var settings: UserSettings
-  @EnvironmentObject var dataManager: DataManager
   @State var curDate: Date = Date()
   @State var showPopup: Bool = false
   @State var selectedDate = -1
@@ -21,9 +20,7 @@ struct CalendarView: View {
     }
     .navigationBarTitle("Calendar")
     .sheet(isPresented: $showPopup) {
-      let dataManager = DataManager()
       LoggingView(callerReference: self)
-        .environmentObject(dataManager)
     }
     .navigationBarItems(trailing: Button(action: {
       self.showPopup = true

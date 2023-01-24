@@ -14,7 +14,7 @@ class LoginInfo: ObservableObject {
 struct UserView: View {
   @EnvironmentObject var logInfo: LoginInfo
   @EnvironmentObject var settings: UserSettings
-  @EnvironmentObject var dataManager: DataManager
+
   
   let screenSize = UIScreen.main.bounds
   let screenWidth: CGFloat = UIScreen.main.bounds.width
@@ -272,9 +272,9 @@ struct UserView: View {
       }
       
       // grab their uuid from their email
-      if let uuid = dataManager.getUuid(email: logInfo.email) {
+      if let uuid = DataFetching().getUuid(email: logInfo.email).get() {
         // grab their user profile from their uuid
-        let user = dataManager.getUser(uuid: uuid)
+        let user = DataFetching().getUser(uuid: uuid).get()
 
         // do all happy path actions
         updateInstance(uuid: uuid, userName: user.userName, teamName: user.teamName, isCoach: user.isCoach)
@@ -299,8 +299,10 @@ struct UserView: View {
       let uuid = Date().description.sha256().prefix(10).description
       
       // publish to server and push user through
-      dataManager.publishUser(uuid: uuid, email: logInfo.email, userName: logInfo.userName, isCoach: logInfo.isCoach, teamName: logInfo.teamName)
+      DataPublishing().publishUser(uuid: uuid, email: logInfo.email, userName: logInfo.userName, isCoach: logInfo.isCoach, teamName: logInfo.teamName)
+      
       updateInstance(uuid: uuid, userName: logInfo.userName, teamName: logInfo.teamName, isCoach: logInfo.isCoach)
+      
       UserHelper().logIn(settings: settings)
     }
   }
