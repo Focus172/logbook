@@ -272,16 +272,17 @@ struct UserView: View {
       }
       
       // grab their uuid from their email
-      if let uuid = DataFetching().getUuid(email: logInfo.email).get() {
-        // grab their user profile from their uuid
-        let user = DataFetching().getUser(uuid: uuid).get()
-
+      do {
+        let uuid = try DataFetching().getUuid(email: logInfo.email).get()
+        let user = try DataFetching().getUser(uuid: uuid).get()
+        
         // do all happy path actions
-        updateInstance(uuid: uuid, userName: user.userName, teamName: user.teamName, isCoach: user.isCoach)
+        updateInstance(uuid: uuid, userName: user.userName, teamName: user.team, isCoach: user.isCoach)
         UserHelper().logIn(settings: settings)
         loginSucsess = true
+      } catch {
+        // do somethign
       }
-    
     }
     
     return loginSucsess

@@ -15,6 +15,7 @@
 		DC29814F297F350400144037 /* DataFetching.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC29814E297F350400144037 /* DataFetching.swift */; };
 		DC298151297F351600144037 /* DataPublishing.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC298150297F351600144037 /* DataPublishing.swift */; };
 		DC298153297F352B00144037 /* DataBulk.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC298152297F352B00144037 /* DataBulk.swift */; };
+		DC38CA97297FADCE0059D42B /* DataThroughPut.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC38CA96297FADCE0059D42B /* DataThroughPut.swift */; };
 		DC391EFF2964D2F200479A46 /* UserHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC391EFE2964D2F200479A46 /* UserHelper.swift */; };
 		DC5B52632956DE8400F2C817 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC5B52622956DE8400F2C817 /* GoogleService-Info.plist */; };
 		DC7AB1EE295980BC00CD9BA5 /* CoachView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7AB1ED295980BC00CD9BA5 /* CoachView.swift */; };
@@ -52,6 +53,7 @@
 		DC29814E297F350400144037 /* DataFetching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetching.swift; sourceTree = "<group>"; };
 		DC298150297F351600144037 /* DataPublishing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPublishing.swift; sourceTree = "<group>"; };
 		DC298152297F352B00144037 /* DataBulk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBulk.swift; sourceTree = "<group>"; };
+		DC38CA96297FADCE0059D42B /* DataThroughPut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataThroughPut.swift; sourceTree = "<group>"; };
 		DC391EFE2964D2F200479A46 /* UserHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHelper.swift; sourceTree = "<group>"; };
 		DC5B52622956DE8400F2C817 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DC7AB1ED295980BC00CD9BA5 /* CoachView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachView.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				DC1BA75C294B952400C2DD4F /* CalenderHelper.swift */,
 				DC391EFE2964D2F200479A46 /* UserHelper.swift */,
 				DC1BA75E294BAD0B00C2DD4F /* CoachMessengerView.swift */,
+				DC38CA96297FADCE0059D42B /* DataThroughPut.swift */,
 				F542B64E22F2DBF300E490A1 /* Assets.xcassets */,
 				F542B65322F2DBF300E490A1 /* LaunchScreen.storyboard */,
 				DC5B52622956DE8400F2C817 /* GoogleService-Info.plist */,
@@ -306,6 +309,7 @@
 				DCBEFFED2958166900BFB288 /* LoggingView.swift in Sources */,
 				F553B7E822FCA19400314585 /* AccountView.swift in Sources */,
 				DCD44DF7296DAE2D006EDD4D /* Extensions.swift in Sources */,
+				DC38CA97297FADCE0059D42B /* DataThroughPut.swift in Sources */,
 				DC7AB1EE295980BC00CD9BA5 /* CoachView.swift in Sources */,
 				DC298153297F352B00144037 /* DataBulk.swift in Sources */,
 				DC29814F297F350400144037 /* DataFetching.swift in Sources */,

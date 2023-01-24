@@ -108,7 +108,7 @@ struct RunningActivityView: View {
                 VStack (alignment: .leading) {
                   Text("private comment: \(activity.privateComment)")
                         //.padding(.bottom, 5)
-                  Text("\(activity.run.miles) mi")
+                  //Text("\(activity.run.miles) mi")
                 }
                 .padding()
             }

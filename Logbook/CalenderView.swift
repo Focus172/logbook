@@ -97,7 +97,7 @@ struct CalendarView: View {
   }
   
   func getSummaryView() -> some View {
-    let curInfo : DayInfo = DayInfo(date: Date(), runs: [Activity(author: "author1", id: "sdfghj", run: Run(miles: 10.3, pain: 2.1), comment: "test comment", privateComment: "i really hurt", visible: true), Activity(author: "author 1", id: "kjhgfd", run: Run(miles: 26.2, pain: 10.12), comment: "marathon", privateComment: "no pain", visible: true)], sleep: -1)
+    //let curInfo : DayInfo = DayInfo(date: UInt(Date().hash), runs: [Activity(author: "author1", id: "sdfghj", run: Run(miles: 10.3, pain: 2.1), comment: "test comment", privateComment: "i really hurt", visible: true), Activity(author: "author 1", id: "kjhgfd", run: Run(miles: 26.2, pain: 10.12), comment: "marathon", privateComment: "no pain", visible: true)], sleep: -1)
     
     //let curInfo = dataManager.getDayInfo()
     
@@ -133,11 +133,13 @@ struct CalendarView: View {
           .padding(5)
         }
         
+        /*
         ForEach(0...5, id: \.self) { i in
           if i < curInfo.runs.count {
             AnyView(summaryEntry(activity: curInfo.runs[i]))
           }
         }
+         */
           
         Button {
           self.selectedDate = -1
@@ -163,8 +165,10 @@ struct CalendarView: View {
         .cornerRadius(10)
       
       VStack {
+        /*
         Text("You ran \(String(format: "%.2f", activity.run.miles)) miles and felt \(String(format: "%.1f", activity.run.pain)) pain")
           .padding()
+         */
       }
     }
   }
@@ -200,7 +204,6 @@ struct CalenderView_Previews: PreviewProvider {
     NavigationView {
       CalendarView()
         .environmentObject(UserSettings())
-        .environmentObject(DataManager())
     }
   }
 }

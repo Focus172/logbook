@@ -128,7 +128,7 @@ struct LoggingView: View {
         .padding()
         
         Button {
-          UserHelper().publishAndUpdateActivity(authorUuid: settings.uuid, title: "LINE 132 LOGGING VIEW", milage: Double(distanceRan) ?? 0.0, pain: Double(painLevel), postComment: postComment, painComment: feelingComment, date: dateOfRun, team: settings.teamName, publiclyVisible: publicalyVisible)
+          DataThroughPut().publishAndUpdateActivity(authorUuid: settings.uuid, title: "LINE 132 LOGGING VIEW", milage: Double(distanceRan) ?? 0.0, pain: Double(painLevel), postComment: postComment, painComment: feelingComment, date: dateOfRun, team: settings.teamName, publiclyVisible: publicalyVisible, curTimeStamp: UserHelper().getCurTimeStamp(date: Date()), dayTimeStamp: UserHelper().getDayTimeStamp(date: Date()))
 
           callerReference.closePopUp()
         } label: {

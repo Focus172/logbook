@@ -64,7 +64,7 @@ class DataHelper {
   }
   
   func addTeamSummaryToDay() -> DocumentReference {
-    return db.document("")
+    return db.document("TeamDays/thisDay")
   }
   
   func addToRecentActivities(activity: DocumentReference, timeStamp: String) {

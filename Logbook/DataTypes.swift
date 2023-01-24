@@ -38,7 +38,7 @@ struct DayInfo {
 
 // repersents the activities of a team for a given day
 struct Day {
-  var date: Date
+  var date: UInt
   var runs: [DocumentReference]
   var eachDayInfo: [DocumentReference]
 }

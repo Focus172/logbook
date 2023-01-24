@@ -61,11 +61,9 @@ class DataFetching {
     return .failure(DataFetchErorr.dataNotFoundError)
   }
   
-  func getDayInfo(authorUuid: String, date: Date) -> Result<DayInfo, DataFetchErorr> {
+  func getDayInfo(authorUuid: String, date: UInt) -> Result<DayInfo, DataFetchErorr> {
     // 1) getting user reference
-    let dayTimeStamp = UserHelper().getDayTimeStamp(date: date)
-    
-    let userDayInfoReference = db.document("UserDayInfos/\(authorUuid)/DayInfo/\(dayTimeStamp)")
+    let userDayInfoReference = db.document("UserDayInfos/\(authorUuid)/DayInfo/\(date)")
     
     // 2) Get Data
     
@@ -78,26 +76,20 @@ class DataFetching {
     }
 
     // 3) Cast Data
-    /*
-    var retDate: UInt?
     var retRuns: [DocumentReference] = []
     var retSleep: Double?
     
     for item: Any in data! {
-      if let date = item as? UInt {
-        retDate = date
-      }
-      else if let run = item as? DocumentReference {
+      if let run = item as? DocumentReference {
         retRuns.append(run)
       }
       else if let sleep = item as? Double {
         retSleep = sleep
       }
     }
-    */
     
     // 4) Return
-    return .success(DayInfo(date: date runs: retRuns, sleep: retSleep ?? 0.0))
+    return .success(DayInfo(date: date, runs: retRuns, sleep: retSleep ?? 0.0))
   }
   
   // takes a time that is 12pm on the day of the run and fetches the day for a given team
@@ -118,7 +110,7 @@ class DataFetching {
     // 3) Cast Data
     var retDate: UInt?
     var retRuns: [DocumentReference] = []
-    var retSleep: Double?
+    var retDayInfo: [DocumentReference] = []
     
     for item: Any in data! {
       if let date = item as? UInt {
@@ -127,18 +119,17 @@ class DataFetching {
       else if let run = item as? DocumentReference {
         retRuns.append(run)
       }
-      else if let sleep = item as? Double {
-        retSleep = sleep
-      }
+      //else if let
+      // ret day info = something
     }
     
     // 4) Return
-    return .success(Day(date: retDate ?? 0, runs: retRuns, sleep: retSleep ?? 0.0))
+    return .success(Day(date: retDate ?? 0, runs: retRuns, eachDayInfo: retDayInfo))
   }
   
   func getSummary(uuid: String, date: String) -> Result<Summary, DataFetchErorr> {
     // 1) getting summary reference
-    let summaryRef = db.documentt("UserSummaries/\(uuid)/Summaries/\(date)")
+    let summaryRef = db.document("UserSummaries/\(uuid)/Summaries/\(date)")
 
     // 2) Get Data
     let res = DataHelper().getDataFromDocumentRef(ref: summaryRef)
@@ -151,16 +142,16 @@ class DataFetching {
 
     // 3) Cast Data
     let retSleep: Double = data!["sleep"] as? Double ?? 0.0
-    let runs: [DocumentReference]?
+    var runs: [DocumentReference] = []
 
     for item: Any in data! {
-      if let run = item as? [DocumentReference] {
+      if let run = item as? DocumentReference {
         runs.append(run)
       }
     }
 
     // 4) Return
-    return .success(Summary(sleep: retSleep, runs: runs))
+    return .success(Summary(runs: runs, sleep: retSleep))
   }
   
 
@@ -207,7 +198,7 @@ class DataFetching {
 
     // 3) Cast Data
     let miles = data!["miles"] as? Double ?? 0.0
-    let pain = data!["pain"] as? Int ?? 0
+    let pain = data!["pain"] as? Double ?? 0.0
 
     // 4) Return
     return .success(Run(miles: miles, pain: pain))

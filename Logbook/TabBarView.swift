@@ -8,14 +8,13 @@ struct TabbarView: View {
       NavigationView {
         FeedContentView()
       }
-        //.navigationBarHidden(true)
-        .environmentObject(self.dataManager)
-        .tag(0)
-        .tabItem {
-          Image("activity-1")
-            .resizable()
-          Text("Feed")
-        }
+      //.navigationBarHidden(true)
+      .tag(0)
+      .tabItem {
+        Image("activity-1")
+          .resizable()
+        Text("Feed")
+      }
        
       
       NavigationView {
