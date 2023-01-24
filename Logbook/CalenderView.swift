@@ -97,9 +97,10 @@ struct CalendarView: View {
   }
   
   func getSummaryView() -> some View {
-    //let curInfo : DayInfo = DayInfo(date: UInt(Date().hash), runs: [Activity(author: "author1", id: "sdfghj", run: Run(miles: 10.3, pain: 2.1), comment: "test comment", privateComment: "i really hurt", visible: true), Activity(author: "author 1", id: "kjhgfd", run: Run(miles: 26.2, pain: 10.12), comment: "marathon", privateComment: "no pain", visible: true)], sleep: -1)
     
-    let curTimeStamp = UserHelper().getCurTimeStamp(date: curDate)
+    let usedDate = Calendar.current.date(bySetting: .day, value: selectedDate, of: curDate)
+    
+    let curTimeStamp = UserHelper().getCurTimeStamp(date: usedDate!)
     let wrappedDayInfo = DataFetching().getDayInfo(uuid: settings.uuid, date: curTimeStamp, dayInfoRef: nil)
     
     let curDayInfo: DayInfo? = {
