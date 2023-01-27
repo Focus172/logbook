@@ -25,10 +25,8 @@ class FeedPost: ObservableObject {
 
 struct FeedContentView: View {
   @EnvironmentObject var settings: UserSettings
-  @State var currentActivities: [Activity]?
-  //@ObservedObject var postData : FeedPost
-  //@State var isShowing: Bool = false
-  //@State var postHighlighted: FeedPlaces? = nil
+  @State var currentActivities: [Result<Activity, DataFetchErorr>]?
+  //@State var postHighlighted: Activitiy? = nil
   
   /*
    HStack (spacing: 40) {
@@ -58,7 +56,9 @@ struct FeedContentView: View {
                         //}
                     
                     Button {
+                      print("clicked")
                       currentActivities = DataBulk().getActivities(limitTo: 5)
+                      print("over")
                     } label: {
                       Image(systemName: "trash")
                     }
@@ -66,18 +66,28 @@ struct FeedContentView: View {
                     
                 }
               
-              // funny quirk here, when two items have the same id
-              // one will show twice and the other zero times
-                ForEach(currentActivities ?? [], id: \.id) { activity in
-                    
-                    RunningActivityView(activity: activity)
-                    
+              ForEach(0 ..< (currentActivities ?? []).count) { (index) in
+                let wrappedActivity = currentActivities?[index]
+                switch wrappedActivity {
+                case .success(let activity):
+                  AnyView(RunningActivityView(activity: activity))
+                case .failure(let error):
+                  AnyView(ErrorView(error: error))
+                case .none:
+                  AnyView(ErrorView(error: nil))
                 }
+              }
             }
             //.navigationBarTitle("Feed")
         }
     }
+  
+  func ErrorView(error: Error?) -> any View {
+    return Text("error")
+  }
 }
+
+
 
 struct RunningActivityView: View {
     

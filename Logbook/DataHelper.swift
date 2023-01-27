@@ -35,21 +35,30 @@ class DataHelper {
     return .success(retData)
   }
   
-  func getDocumentsFromCollectionRef(ref: Query) -> [QueryDocumentSnapshot] {
+  func getDocumentsFromCollectionRef(ref: Query) -> Result<[QueryDocumentSnapshot], Error> {
     var retDocuments: [QueryDocumentSnapshot] = []
+    var retError: Error?
     
     ref.getDocuments { snapshot, error in
       guard error == nil else {
-        print(error!.localizedDescription)
+        
+        retError = error
         return
       }
       
       if let snap = snapshot {
         retDocuments = snap.documents
+        print("docs: \(retDocuments[0].reference.description)")
+      } else {
+        print("no conditions me")
       }
     }
     
-    return retDocuments
+    if let retError = retError {
+      return .failure(retError)
+    }
+    
+    return .success(retDocuments)
   }
   
   func addSummaryToTeamSummary(uuid: String, onDay: String, team: String, summaryReference: DocumentReference) -> DocumentReference {
@@ -76,9 +85,6 @@ class DataHelper {
     }
     
   }
-  
-  
-  
   
   
   //ref = Database.database().reference()
@@ -113,8 +119,7 @@ class DataHelper {
   // Update one field, creating the document if it does not exist.
   //db.collection("cities").document("BJ").setData([ "capital": true ], merge: true)
   
-  //washingtonRef.updateData([
-  //"population": FieldValue.increment(Int64(50))])
+  //washingtonRef.updateData(["population": FieldValue.increment(Int64(50))])
   
   // Coach snapshot listener
   /*

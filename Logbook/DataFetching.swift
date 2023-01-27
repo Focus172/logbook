@@ -164,29 +164,40 @@ class DataFetching {
   }
   
 
-  func getActivity(uuid: String, date: String) -> Result<Activity, DataFetchErorr> {
+  func getActivity(uuid: String, date: String, ref: DocumentReference?) -> Result<Activity, DataFetchErorr> {
     // 1) getting activity reference
-    let activityRef = db.document("UserActivities/\(uuid)/Activities/\(date)")
+    let usedActivity: DocumentReference = {
+      if let retActivity = ref {
+        return retActivity
+      } else {
+        return db.document("UserActivities/\(uuid)/Activities/\(date)")
+      }
+    }();
 
     // 2) Get Data
-    let res = DataHelper().getDataFromDocumentRef(ref: activityRef)
-    let data : Dictionary<String, Any>?
-    do {
-      data = try res.get()
-    } catch {
-      return .failure(DataFetchErorr.dataNotFoundError)
-    }
-
+    let res = DataHelper().getDataFromDocumentRef(ref: usedActivity)
+    let data: Dictionary<String, Any>? = {
+      do {
+        return try res.get()
+      } catch {
+        return nil
+      }
+    }();
+    
     // 3) Cast Data
-    let author = data!["author"] as? String ?? "no author"
-    let id = data!["id"] as? String ?? "no id"
-    let run = data!["run"] as? DocumentReference
-    let comment = data!["comment"] as? String ?? "no comment"
-    let privateComment = data!["privateComment"] as? String ?? "no private comment"
-    let visible = data!["visible"] as? Bool ?? false
+    if let data = data {
+      let author = data["author"] as? String ?? "no author"
+      let id = data["id"] as? String ?? "no id"
+      let run = data["run"] as? DocumentReference
+      let comment = data["comment"] as? String ?? "no comment"
+      let privateComment = data["privateComment"] as? String ?? "no private comment"
+      let visible = data["visible"] as? Bool ?? false
 
-    // 4) Return
-    return .success(Activity(author: author, id: id, run: run, comment: comment, privateComment: privateComment, visible: visible))
+      // 4) Return
+      return .success(Activity(author: author, id: id, run: run, comment: comment, privateComment: privateComment, visible: visible))
+    } else {
+      return .failure(DataFetchErorr.dataNotFoundError)
+    }    
   }
   
   /*
