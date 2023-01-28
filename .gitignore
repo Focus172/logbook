@@ -95,3 +95,14 @@ iOSInjectionProject/
 # Google API key
 Logbook/GoogleService-Info.plist
 Pods/
+
+.metadata
+ios/
+lib/
+macos/
+web/
+windows/
+linux/
+.idea/
+.dart_tool/
+android/
