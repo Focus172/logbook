@@ -274,7 +274,7 @@ struct UserView: View {
       // grab their uuid from their email
       do {
         let uuid = try DataFetching().getUuid(email: logInfo.email).get()
-        let user = try DataFetching().getUser(uuid: uuid).get()
+        let user = try DataFetching().getUser(uuid: uuid, selectedUser: nil).get()
         
         // do all happy path actions
         updateInstance(uuid: uuid, userName: user.userName, teamName: user.team, isCoach: user.isCoach)

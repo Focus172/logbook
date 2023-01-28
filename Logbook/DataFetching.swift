@@ -27,12 +27,18 @@ class DataFetching {
   }
   
   // this should really throw as this type of data should not be filled in randomly
-  func getUser(uuid: String) -> Result<User, Error> {
-    // 1) getting user reference
-    let selectedUser = db.collection("Users").document(uuid)
-    
+  func getUser(uuid: String, selectedUser: DocumentReference?) -> Result<User, Error> {
+    // 1) getting user reference if it is not passed
+    let usedUser: DocumentReference = {
+      if let retUser = selectedUser {
+        return retUser
+      } else {
+        return db.document("Users/\(uuid)")
+      }
+    }();
+
     // 2) Get Data
-    let res = DataHelper().getDataFromDocumentRef(ref: selectedUser)
+    let res = DataHelper().getDataFromDocumentRef(ref: usedUser)
     
     let data : Dictionary<String, Any>?
     do {
@@ -59,15 +65,21 @@ class DataFetching {
     }
     
     return .failure(DataFetchErorr.dataNotFoundError)
-  }
+    }
   
-  func getDayInfo(authorUuid: String, date: UInt) -> Result<DayInfo, DataFetchErorr> {
-    // 1) getting user reference
-    let userDayInfoReference = db.document("UserDayInfos/\(authorUuid)/DayInfo/\(date)")
+  func getDayInfo(uuid: String, date: String, dayInfoRef: DocumentReference?) -> Result<DayInfo, DataFetchErorr> {
+    // 1) getting user reference if it doesn't exist
+    let usedDayInfo: DocumentReference = {
+      if let retDayInfo = dayInfoRef {
+        return retDayInfo
+      } else {
+        return db.document("UserDayInfos/\(uuid)/DayInfo/\(date)")
+      }
+    }();
     
     // 2) Get Data
     
-    let res = DataHelper().getDataFromDocumentRef(ref: userDayInfoReference)
+    let res = DataHelper().getDataFromDocumentRef(ref: usedDayInfo)
     let data : Dictionary<String, Any>?
     do {
       data = try res.get()
@@ -77,19 +89,17 @@ class DataFetching {
 
     // 3) Cast Data
     var retRuns: [DocumentReference] = []
-    var retSleep: Double?
+    let retSleep: Double? = data!["sleep"] as? Double
+    let retAuthor: String? = data!["author"] as? String
     
     for item: Any in data! {
       if let run = item as? DocumentReference {
         retRuns.append(run)
       }
-      else if let sleep = item as? Double {
-        retSleep = sleep
-      }
     }
     
     // 4) Return
-    return .success(DayInfo(date: date, runs: retRuns, sleep: retSleep ?? 0.0))
+    return .success(DayInfo(date: date, runs: retRuns, sleep: retSleep ?? 0.0, author: retAuthor ?? "no author"))
   }
   
   // takes a time that is 12pm on the day of the run and fetches the day for a given team
@@ -98,7 +108,6 @@ class DataFetching {
     let teamDayReference = db.document("TeamDays/\(team)/Days/\(date)")
     
     // 2) Get Data
-    
     let res = DataHelper().getDataFromDocumentRef(ref: teamDayReference)
     let data : Dictionary<String, Any>?
     do {
@@ -155,40 +164,57 @@ class DataFetching {
   }
   
 
-  func getActivity(uuid: String, date: String) -> Result<Activity, DataFetchErorr> {
+  func getActivity(uuid: String, date: String, ref: DocumentReference?) -> Result<Activity, DataFetchErorr> {
     // 1) getting activity reference
-    let activityRef = db.document("UserActivities/\(uuid)/Activities/\(date)")
+    let usedActivity: DocumentReference = {
+      if let retActivity = ref {
+        return retActivity
+      } else {
+        return db.document("UserActivities/\(uuid)/Activities/\(date)")
+      }
+    }();
 
     // 2) Get Data
-    let res = DataHelper().getDataFromDocumentRef(ref: activityRef)
-    let data : Dictionary<String, Any>?
-    do {
-      data = try res.get()
-    } catch {
-      return .failure(DataFetchErorr.dataNotFoundError)
-    }
-
+    let res = DataHelper().getDataFromDocumentRef(ref: usedActivity)
+    let data: Dictionary<String, Any>? = {
+      do {
+        return try res.get()
+      } catch {
+        return nil
+      }
+    }();
+    
     // 3) Cast Data
-    let author = data!["author"] as? String ?? "no author"
-    let id = data!["id"] as? String ?? "no id"
-    let run = data!["run"] as? DocumentReference
-    let comment = data!["comment"] as? String ?? "no comment"
-    let privateComment = data!["privateComment"] as? String ?? "no private comment"
-    let visible = data!["visible"] as? Bool ?? false
+    if let data = data {
+      let author = data["author"] as? String ?? "no author"
+      let id = data["id"] as? String ?? "no id"
+      let run = data["run"] as? DocumentReference
+      let comment = data["comment"] as? String ?? "no comment"
+      let privateComment = data["privateComment"] as? String ?? "no private comment"
+      let visible = data["visible"] as? Bool ?? false
 
-    // 4) Return
-    return .success(Activity(author: author, id: id, run: run, comment: comment, privateComment: privateComment, visible: visible))
+      // 4) Return
+      return .success(Activity(author: author, id: id, run: run, comment: comment, privateComment: privateComment, visible: visible))
+    } else {
+      return .failure(DataFetchErorr.dataNotFoundError)
+    }    
   }
   
   /*
   * Fetches a run for a given user at specified time
   */
-  func getRun(uuid: String, date: String) -> Result<Run, DataFetchErorr> {
-    // 1) getting run reference
-    let runRef = db.document("UserRuns/\(uuid)/Runs/\(date)")
+  func getRun(uuid: String, date: UInt, runRef: DocumentReference?) -> Result<Run, DataFetchErorr> {
+    // 1) getting run reference if it is not passed in
+    let usedRun: DocumentReference = {
+      if let retRun = runRef {
+        return retRun
+      } else {
+        return db.document("UserRuns/\(uuid)/Runs/\(date)")
+      }
+    }();
 
     // 2) Get Data
-    let res = DataHelper().getDataFromDocumentRef(ref: runRef)
+    let res = DataHelper().getDataFromDocumentRef(ref: usedRun)
     let data : Dictionary<String, Any>?
     do {
       data = try res.get()

@@ -22,12 +22,15 @@ class UserHelper {
   }
   
   func getCurTimeStamp(date: Date) -> String {
-    UInt(date.timeIntervalSince1970).description
+    date.timeIntervalSince1970.description
   }
   
   func getDayTimeStamp(date: Date) -> String {
-    let isoformatter = ISO8601DateFormatter.init()
-    let timeStr = isoformatter.string(from: date)
-    return isoformatter.date(from: timeStr)!.description.prefix(10).description.replacingOccurrences(of: "-", with: "")
+    
+    Calendar.current.startOfDay(for: date).description
+    
+    //let isoformatter = ISO8601DateFormatter.init()
+    //let timeStr = isoformatter.string(from: date)
+    //return isoformatter.date(from: timeStr)!.description.prefix(10).description.replacingOccurrences(of: "-", with: "")
   }
 }

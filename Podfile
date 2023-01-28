@@ -1,4 +1,4 @@
-# Uncomment the next line to define a global platform for your project
+# uncommenet to define a global platform for your project
 platform :ios, '15.0'
 
 target 'Logbook' do
@@ -9,13 +9,5 @@ target 'Logbook' do
   pod 'FirebaseAuth'
   pod 'FirebaseFirestore'
 
-  target 'LogbookTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'LogbookUITests' do
-    # Pods for testing
-  end
-
 end
+

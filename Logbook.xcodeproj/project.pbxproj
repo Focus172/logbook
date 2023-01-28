@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		55CEF1FBC5F5A1FB3891BCF9 /* Pods_Logbook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15E1A5143C165F68C00810D9 /* Pods_Logbook.framework */; };
+		84FA8F5A59D27917820E008C /* Pods_Logbook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44B4D41D285E27B2AB55CF3A /* Pods_Logbook.framework */; };
 		DC1BA753294B1C0300C2DD4F /* FeedContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1BA752294B1C0300C2DD4F /* FeedContentView.swift */; };
 		DC1BA75B294B33C500C2DD4F /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1BA75A294B33C500C2DD4F /* CalenderView.swift */; };
 		DC1BA75D294B952400C2DD4F /* CalenderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1BA75C294B952400C2DD4F /* CalenderHelper.swift */; };
@@ -36,16 +36,22 @@
 		F553B7E822FCA19400314585 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F553B7E722FCA19400314585 /* AccountView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		DC4244CC2983188D00B769BA /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		02DBAAA8B842498E95C9C22B /* Pods-LogbookTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LogbookTests.release.xcconfig"; path = "Target Support Files/Pods-LogbookTests/Pods-LogbookTests.release.xcconfig"; sourceTree = "<group>"; };
-		04F34C8DFE173364907D7278 /* Pods-Logbook-LogbookUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Logbook-LogbookUITests.release.xcconfig"; path = "Target Support Files/Pods-Logbook-LogbookUITests/Pods-Logbook-LogbookUITests.release.xcconfig"; sourceTree = "<group>"; };
-		0571ABB60E46FC8A43B3A7F5 /* Pods_Logbook_LogbookUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Logbook_LogbookUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		15E1A5143C165F68C00810D9 /* Pods_Logbook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Logbook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		538890E7B1CF100BCD4CBB31 /* Pods_LogbookTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LogbookTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		583D12C0DFC123EEAC7BA7D5 /* Pods-Logbook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Logbook.debug.xcconfig"; path = "Target Support Files/Pods-Logbook/Pods-Logbook.debug.xcconfig"; sourceTree = "<group>"; };
-		8735DECE7129D9D8EB5E98FA /* Pods-LogbookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LogbookTests.debug.xcconfig"; path = "Target Support Files/Pods-LogbookTests/Pods-LogbookTests.debug.xcconfig"; sourceTree = "<group>"; };
-		989D690F0DA5F6B695B7F209 /* Pods-Logbook-LogbookUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Logbook-LogbookUITests.debug.xcconfig"; path = "Target Support Files/Pods-Logbook-LogbookUITests/Pods-Logbook-LogbookUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		B0900618B38034C623CABFFA /* Pods-Logbook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Logbook.release.xcconfig"; path = "Target Support Files/Pods-Logbook/Pods-Logbook.release.xcconfig"; sourceTree = "<group>"; };
+		304D7465B409C4FD3FF53F6F /* Pods-Logbook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Logbook.release.xcconfig"; path = "Target Support Files/Pods-Logbook/Pods-Logbook.release.xcconfig"; sourceTree = "<group>"; };
+		44B4D41D285E27B2AB55CF3A /* Pods_Logbook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Logbook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC1BA752294B1C0300C2DD4F /* FeedContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedContentView.swift; sourceTree = "<group>"; };
 		DC1BA75A294B33C500C2DD4F /* CalenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderView.swift; sourceTree = "<group>"; };
 		DC1BA75C294B952400C2DD4F /* CalenderHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderHelper.swift; sourceTree = "<group>"; };
@@ -64,6 +70,7 @@
 		DCE0AEFB295B0FD70058B0EE /* DataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTypes.swift; sourceTree = "<group>"; };
 		DCE0AEFD295B129A0058B0EE /* DataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHelper.swift; sourceTree = "<group>"; };
 		DCEB0129296F7A4F001CFF91 /* LoadingVeiw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingVeiw.swift; sourceTree = "<group>"; };
+		F497BE8EA7098328748BB7A6 /* Pods-Logbook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Logbook.debug.xcconfig"; path = "Target Support Files/Pods-Logbook/Pods-Logbook.debug.xcconfig"; sourceTree = "<group>"; };
 		F52AA7A622F4883A0051F943 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		F542B64522F2DBF200E490A1 /* Logbook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Logbook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F542B64822F2DBF200E490A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,34 +88,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55CEF1FBC5F5A1FB3891BCF9 /* Pods_Logbook.framework in Frameworks */,
+				84FA8F5A59D27917820E008C /* Pods_Logbook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		24EA58554D2FB4825DAF18D7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				44B4D41D285E27B2AB55CF3A /* Pods_Logbook.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		56E7B2E7979C927EE3E5318F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				583D12C0DFC123EEAC7BA7D5 /* Pods-Logbook.debug.xcconfig */,
-				B0900618B38034C623CABFFA /* Pods-Logbook.release.xcconfig */,
-				989D690F0DA5F6B695B7F209 /* Pods-Logbook-LogbookUITests.debug.xcconfig */,
-				04F34C8DFE173364907D7278 /* Pods-Logbook-LogbookUITests.release.xcconfig */,
-				8735DECE7129D9D8EB5E98FA /* Pods-LogbookTests.debug.xcconfig */,
-				02DBAAA8B842498E95C9C22B /* Pods-LogbookTests.release.xcconfig */,
+				F497BE8EA7098328748BB7A6 /* Pods-Logbook.debug.xcconfig */,
+				304D7465B409C4FD3FF53F6F /* Pods-Logbook.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		B1833D0B5BC567CBD517D139 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				15E1A5143C165F68C00810D9 /* Pods_Logbook.framework */,
-				0571ABB60E46FC8A43B3A7F5 /* Pods_Logbook_LogbookUITests.framework */,
-				538890E7B1CF100BCD4CBB31 /* Pods_LogbookTests.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		F542B63C22F2DBF200E490A1 = {
@@ -117,7 +118,7 @@
 				F542B64722F2DBF200E490A1 /* Logbook */,
 				F542B64622F2DBF200E490A1 /* Products */,
 				56E7B2E7979C927EE3E5318F /* Pods */,
-				B1833D0B5BC567CBD517D139 /* Frameworks */,
+				24EA58554D2FB4825DAF18D7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -178,19 +179,18 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F542B66F22F2DBF300E490A1 /* Build configuration list for PBXNativeTarget "Logbook" */;
 			buildPhases = (
-				C55ED4B18F7E149249F668EF /* [CP] Check Pods Manifest.lock */,
+				0697B420721464FAAB6EF527 /* [CP] Check Pods Manifest.lock */,
 				F542B64122F2DBF200E490A1 /* Sources */,
 				F542B64222F2DBF200E490A1 /* Frameworks */,
 				F542B64322F2DBF200E490A1 /* Resources */,
-				285219F6E99295E8A1E8EEFB /* [CP] Embed Pods Frameworks */,
+				DC4244CC2983188D00B769BA /* Embed Frameworks */,
+				55FF80622E664258C5EBE216 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Logbook;
-			packageProductDependencies = (
-			);
 			productName = SwiftUIStarterKitApp;
 			productReference = F542B64522F2DBF200E490A1 /* Logbook.app */;
 			productType = "com.apple.product-type.application";
@@ -220,7 +220,7 @@
 			);
 			mainGroup = F542B63C22F2DBF200E490A1;
 			packageReferences = (
-				DC5B524D2956DDB500F2C817 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				DC5B524D2956DDB500F2C817 /* XCRemoteSwiftPackageReference "firebase-ios-sdk.git" */,
 			);
 			productRefGroup = F542B64622F2DBF200E490A1 /* Products */;
 			projectDirPath = "";
@@ -246,24 +246,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		285219F6E99295E8A1E8EEFB /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Logbook/Pods-Logbook-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Logbook/Pods-Logbook-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Logbook/Pods-Logbook-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C55ED4B18F7E149249F668EF /* [CP] Check Pods Manifest.lock */ = {
+		0697B420721464FAAB6EF527 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -283,6 +266,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		55FF80622E664258C5EBE216 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Logbook/Pods-Logbook-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Logbook/Pods-Logbook-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Logbook/Pods-Logbook-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -449,7 +449,7 @@
 		};
 		F542B67022F2DBF300E490A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 583D12C0DFC123EEAC7BA7D5 /* Pods-Logbook.debug.xcconfig */;
+			baseConfigurationReference = F497BE8EA7098328748BB7A6 /* Pods-Logbook.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -474,7 +474,7 @@
 		};
 		F542B67122F2DBF300E490A1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B0900618B38034C623CABFFA /* Pods-Logbook.release.xcconfig */;
+			baseConfigurationReference = 304D7465B409C4FD3FF53F6F /* Pods-Logbook.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -521,7 +521,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		DC5B524D2956DDB500F2C817 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		DC5B524D2956DDB500F2C817 /* XCRemoteSwiftPackageReference "firebase-ios-sdk.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {

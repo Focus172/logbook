@@ -31,9 +31,10 @@ struct User {
 
 // repersents the activities of a user for a given day
 struct DayInfo {
-  var date: UInt
+  var date: String
   var runs: [DocumentReference]
   var sleep: Double
+  var author: String
 }
 
 // repersents the activities of a team for a given day

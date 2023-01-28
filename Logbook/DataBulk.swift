@@ -15,31 +15,48 @@ class DataBulk {
   
   // MARK: Bulk Data Fetches
   
-  func getActivities(limitTo: Int) -> [Activity] {
-        
-    var returnedActivities: [Activity] = []
+  func getActivities(limitTo: Int) -> [Result<Activity, DataFetchErorr>] {
+    
+    var returnedActivities: [Result<Activity, DataFetchErorr>] = []
     
     let db = Firestore.firestore()
-    let activitiesReference = db.collection("Activities").limit(to: limitTo)
+    let activitiesReference = db.collection("RecentActivities").limit(to: limitTo)
+    
+    
+    let res = DataHelper().getDocumentsFromCollectionRef(ref: activitiesReference)
+    
+    let documents: [QueryDocumentSnapshot]? = {
+      do {
+        return try res.get()
+      } catch {
+        return nil
+      }
+    }();
+    
+    print("\(documents?.description ?? "none")")
+    
+    if let documents = documents {
       
-    let documents = DataHelper().getDocumentsFromCollectionRef(ref: activitiesReference)
+      for document in documents {
+        print("loop start")
         
-    for document in documents {
-      let data = document.data()
-      
-      // TODO: unwrap data in better way
-      let id = data["id"] as? String ?? ""
-      //let date = data["date"] as? Date ?? Date()
-      let author = data["author"] as? String ?? ""
-      let run = data["run"] as? DocumentReference
-      let postComment = data["postComment"] as? String ?? ""
-      let feelingComment = data["feelingComment"] as? String ?? ""
-      let publiclyVisible = data["publiclyVisible"] as? Bool ?? false
-      
-      returnedActivities.append(Activity(author: author, id: id, run: run, comment: postComment, privateComment: feelingComment, visible: publiclyVisible))
+        let data = document.data()
+        
+        print("data: \(data.description)")
+        if let reference = data["ActivityReference"] as? DocumentReference {
+          print("ref: \(reference.description)")
+          returnedActivities.append(DataFetching().getActivity(uuid: "", date: "", ref: reference))
+        }
+      }
+    } else {
+      //return .failure(DataFetchErorr.documentNotFoundError)
     }
     
+    
+    
+    
     return returnedActivities
+    
   }
   
 }
