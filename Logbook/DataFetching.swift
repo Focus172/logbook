@@ -26,8 +26,11 @@ class DataFetching {
     return Team(name: teamName, days: days, memebers: users)
   }
   
+  /*
   // this should really throw as this type of data should not be filled in randomly
   func getUser(uuid: String, selectedUser: DocumentReference?) -> Result<User, Error> {
+    
+    /*
     // 1) getting user reference if it is not passed
     let usedUser: DocumentReference = {
       if let retUser = selectedUser {
@@ -65,9 +68,12 @@ class DataFetching {
     }
     
     return .failure(DataFetchErorr.dataNotFoundError)
-    }
+     */
+  }
   
   func getDayInfo(uuid: String, date: String, dayInfoRef: DocumentReference?) -> Result<DayInfo, DataFetchErorr> {
+    /*
+     
     // 1) getting user reference if it doesn't exist
     let usedDayInfo: DocumentReference = {
       if let retDayInfo = dayInfoRef {
@@ -100,11 +106,15 @@ class DataFetching {
     
     // 4) Return
     return .success(DayInfo(date: date, runs: retRuns, sleep: retSleep ?? 0.0, author: retAuthor ?? "no author"))
+     
+     */
   }
   
   // takes a time that is 12pm on the day of the run and fetches the day for a given team
   func getDay(team: String, date: Date) -> Result<Day, DataFetchErorr> {
-    // 1) getting user reference    
+    /*
+    
+    // 1) getting user reference
     let teamDayReference = db.document("TeamDays/\(team)/Days/\(date)")
     
     // 2) Get Data
@@ -134,9 +144,13 @@ class DataFetching {
     
     // 4) Return
     return .success(Day(date: retDate ?? 0, runs: retRuns, eachDayInfo: retDayInfo))
+     
+     */
   }
   
   func getSummary(uuid: String, date: String) -> Result<Summary, DataFetchErorr> {
+    /*
+    
     // 1) getting summary reference
     let summaryRef = db.document("UserSummaries/\(uuid)/Summaries/\(date)")
 
@@ -161,10 +175,15 @@ class DataFetching {
 
     // 4) Return
     return .success(Summary(runs: runs, sleep: retSleep))
+     
+     */
   }
-  
+  */
 
-  func getActivity(uuid: String, date: String, ref: DocumentReference?) -> Result<Activity, DataFetchErorr> {
+  func getActivity(uuid: String, date: String, ref: DocumentReference?, callback: @escaping (Activity?, DataFetchErorr?) -> ()) {
+    
+    // MARK: use a call back
+    
     // 1) getting activity reference
     let usedActivity: DocumentReference = {
       if let retActivity = ref {
@@ -175,35 +194,36 @@ class DataFetching {
     }();
 
     // 2) Get Data
-    let res = DataHelper().getDataFromDocumentRef(ref: usedActivity)
-    let data: Dictionary<String, Any>? = {
-      do {
-        return try res.get()
-      } catch {
-        return nil
-      }
-    }();
-    
-    // 3) Cast Data
-    if let data = data {
-      let author = data["author"] as? String ?? "no author"
-      let id = data["id"] as? String ?? "no id"
-      let run = data["run"] as? DocumentReference
-      let comment = data["comment"] as? String ?? "no comment"
-      let privateComment = data["privateComment"] as? String ?? "no private comment"
-      let visible = data["visible"] as? Bool ?? false
+    DataHelper().getDataFromDocumentRef(ref: usedActivity) { data, error in
+      
+      // 3) Cast Data
+      if let data = data {
+        let author = data["author"] as? String ?? "no author"
+        let id = data["id"] as? String ?? "no id"
+        let run = data["run"] as? DocumentReference
+        let comment = data["comment"] as? String ?? "no comment"
+        let privateComment = data["privateComment"] as? String ?? "no private comment"
+        let visible = data["visible"] as? Bool ?? false
 
-      // 4) Return
-      return .success(Activity(author: author, run: run, comment: comment, privateComment: privateComment, visible: visible))
-    } else {
-      return .failure(DataFetchErorr.dataNotFoundError)
-    }    
+        // 4) Return
+        let act = Activity(author: author, run: run, comment: comment, privateComment: privateComment, visible: visible)
+        callback(act, nil)
+      } else {
+        
+        callback(nil, error)
+      }
+      
+    }
+       
   }
   
+  /*
   /*
   * Fetches a run for a given user at specified time
   */
   func getRun(uuid: String, date: UInt, runRef: DocumentReference?) -> Result<Run, DataFetchErorr> {
+    /*
+    
     // 1) getting run reference if it is not passed in
     let usedRun: DocumentReference = {
       if let retRun = runRef {
@@ -228,9 +248,13 @@ class DataFetching {
 
     // 4) Return
     return .success(Run(miles: miles, pain: pain))
+     
+     */
   }
   
   func getUuid(email: String) -> Result<String, DataFetchErorr> {
+    /*
+    
     let db = Firestore.firestore()
     let userUuidRef = db.collection("UserUuids").document(email)
     
@@ -247,5 +271,8 @@ class DataFetching {
     }
     
     return .failure(DataFetchErorr.dataNotFoundError)
+     
+     */
   }
+     */
 }

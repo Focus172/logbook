@@ -15,53 +15,49 @@ class DataBulk {
   
   // MARK: Bulk Data Fetches
   
-  func getActivities(limitTo: Int, completion: ([Activity], [any Error]) -> ()) -> () {
+  func getActivities(limitTo: Int, completion: @escaping ([Activity], [any Error]) -> ()) {
     
-    print("1")
+    
     
     var returnedActivities: [Activity] = []
-    var returnedErrors: [any Error] = []
+    var returnedErrors: [DataFetchErorr] = []
     
     let db = Firestore.firestore()
     let activitiesReference = db.collection("RecentActivities").limit(to: limitTo)
     
-    print("2")
     
-    var snap: [QueryDocumentSnapshot]?
-    DataHelper().getDocumentsFromCollectionRef(ref: activitiesReference, completion: { snapshot, error in
+    DataHelper().getDocumentsFromCollectionRef(ref: activitiesReference) { snapshot, error in
       guard error == nil else {
         print("exit")
         return
       }
       
-      print("3")
+     
       
-      snap = snapshot
-    })
-    
-    print("4")
-    
-    if let documents = snap {
-      print("\(documents)")
-      for document in documents {
+      if let documents = snapshot {
+        print("\(documents)")
         
-        let data = document.data()
-        
-        if let activityReference = data["ActivityReference"] as? DocumentReference {
-          print("unwrapped")
-          let wrappedActivity = DataFetching().getActivity(uuid: "", date: "", ref: activityReference)
-          do {
-            let act = try wrappedActivity.get()
-            returnedActivities.append(act)
-          } catch {
-            returnedErrors.append(error)
-          }
+        for document in documents {
           
+          let data = document.data()
+          
+          if let activityReference = data["ActivityReference"] as? DocumentReference {
+            print("unwrapped")
+            DataFetching().getActivity(uuid: "", date: "", ref: activityReference) { activity, error in
+              if let act = activity {
+                returnedActivities.append(act)
+              } else if let e = error {
+                returnedErrors.append(e)
+              }
+            }
+          }
         }
       }
+      
+      completion(returnedActivities, returnedErrors)
     }
     
-    completion(returnedActivities, returnedErrors)
+    
     
   }
 }

@@ -12,67 +12,39 @@ class DataHelper {
   
   // MARK: Helpers 
   
-  func getDataFromDocumentRef(ref: DocumentReference) -> Result<Dictionary<String, Any>, DataFetchErorr> {
-    var retData: Dictionary<String, Any> = [:]
-    var retError: DataFetchErorr?
-
+  func getDataFromDocumentRef(ref: DocumentReference, callback: @escaping (Dictionary<String, Any>?, DataFetchErorr?) -> ()) {
     
     ref.getDocument { snapshot, error in
       
-      if error != nil  { retError = DataFetchErorr.documentNotFoundError; return; }
-      
-      if let document = snapshot {
-        if let data = document.data() {
-          retData = data
-        }
+      if let snap = snapshot {
+        callback(snap.data(), nil)
+      } else {
+        callback(nil, DataFetchErorr.documentNotFoundError)
       }
+      return
+      
     }
-    
-    if let isError = retError {
-      return .failure(isError)
-    }
-    
-    return .success(retData)
   }
   
-  func getDocumentsFromCollectionRef(ref: Query, completion: ([QueryDocumentSnapshot]?, Error?) -> () ) {
-    print("in - 1")
+  func getDocumentsFromCollectionRef(ref: Query, completion: @escaping ([QueryDocumentSnapshot]?, Error?) -> () ) {
     
-    var ret: [QueryDocumentSnapshot]?
+    
     
     ref.getDocuments { snapshot, error in
-      print("in - 2")
-      
+      /*
       guard error == nil else {
         //error.doSomething()
         return
       }
-      print("in - 4")
+       */
+      print("2")
       
       if let snap = snapshot {
-        print("in - 5")
-        ret = snap.documents
-        print("\(Thread.current)")
-        //print("\(snap.documents.description)")
-        //print("docs: \(retDocuments.description)")
+        completion(snap.documents, nil)
+      } else {
+        completion(nil, DataFetchErorr.documentNotFoundError)
       }
     }
-     
-    print("in - 6")
-    
-    //print("\(Thread.current)")
-    
-    if let documents = ret {
-      print("in - 7")
-      completion(documents, nil)
-      //print("\(docduments)")
-      //return .success(documents)
-    } else {
-      //completion(nil, DataFetchErorr.documentNotFoundError)
-      //return .failure(DataFetchErorr.documentNotFoundError)
-    }
-    
-    
   }
   
   func addSummaryToTeamSummary(uuid: String, onDay: String, team: String, summaryReference: DocumentReference) -> DocumentReference {

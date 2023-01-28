@@ -31,7 +31,7 @@ struct CoachView: View {
       // a button to pull the runs for the selected date
       Button(action: {
         do {
-          currentDay = try DataFetching().getDay(team: settings.teamName, date: selectedDate).get()
+          //currentDay = try DataFetching().getDay(team: settings.teamName, date: selectedDate).get()
         } catch {
           // do something to handle error
         }
@@ -48,11 +48,12 @@ struct CoachView: View {
         List {
           // still need to figure out how to get the author
           ForEach(day.eachDayInfo) { dayInfoRef in
-            let wrappedRealDayInfo = DataFetching().getDayInfo(uuid: "", date: "", dayInfoRef: dayInfoRef)
+            //let wrappedRealDayInfo = DataFetching().getDayInfo(uuid: "", date: "", dayInfoRef: dayInfoRef)
             
             let realDayInfo: DayInfo? = {
               do {
-                return try wrappedRealDayInfo.get()
+                return nil
+                //return try wrappedRealDayInfo.get()
               } catch {
                 return nil // then show error
               }
@@ -62,10 +63,11 @@ struct CoachView: View {
               Text(" -- \(dayInfo.author)) -- ")
               Text("\(dayInfo.sleep) hours of sleep")
               ForEach(dayInfo.runs) { iterRun in
-                let wrappedRun = DataFetching().getRun(uuid: "", date: 0, runRef: iterRun)
+                //let wrappedRun = DataFetching().getRun(uuid: "", date: 0, runRef: iterRun)
                 let realRun: Run? = {
                   do {
-                    return try wrappedRun.get()
+                    return nil
+                    //return try wrappedRun.get()
                   } catch {
                     return nil // then show error
                   }

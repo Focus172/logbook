@@ -73,7 +73,10 @@ struct FeedContentView: View {
                         }
                          */
                         
+                        print("3")
+                        
                         currentActivities = activities
+                        print("\(activities.description)")
                       }
                     } label: {
                       Image(systemName: "trash")
@@ -83,6 +86,7 @@ struct FeedContentView: View {
                 }
               if let acts = currentActivities {
                 ForEach(acts) { act in
+                  //print("\(act.description)")
                   AnyView(RunningActivityView(activity: act))
                 }
               }
