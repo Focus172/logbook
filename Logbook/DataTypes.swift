@@ -53,7 +53,6 @@ struct Summary {
 // a detailed info of a run used in posts
 struct Activity {
   var author: String
-  var id: String
   var run: DocumentReference?
   var comment: String
   var privateComment: String

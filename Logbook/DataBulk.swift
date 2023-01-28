@@ -15,48 +15,53 @@ class DataBulk {
   
   // MARK: Bulk Data Fetches
   
-  func getActivities(limitTo: Int) -> [Result<Activity, DataFetchErorr>] {
+  func getActivities(limitTo: Int, completion: ([Activity], [any Error]) -> ()) -> () {
     
-    var returnedActivities: [Result<Activity, DataFetchErorr>] = []
+    print("1")
+    
+    var returnedActivities: [Activity] = []
+    var returnedErrors: [any Error] = []
     
     let db = Firestore.firestore()
     let activitiesReference = db.collection("RecentActivities").limit(to: limitTo)
     
+    print("2")
     
-    let res = DataHelper().getDocumentsFromCollectionRef(ref: activitiesReference)
-    
-    let documents: [QueryDocumentSnapshot]? = {
-      do {
-        return try res.get()
-      } catch {
-        return nil
+    var snap: [QueryDocumentSnapshot]?
+    DataHelper().getDocumentsFromCollectionRef(ref: activitiesReference, completion: { snapshot, error in
+      guard error == nil else {
+        print("exit")
+        return
       }
-    }();
-    
-    print("\(documents?.description ?? "none")")
-    
-    if let documents = documents {
       
+      print("3")
+      
+      snap = snapshot
+    })
+    
+    print("4")
+    
+    if let documents = snap {
+      print("\(documents)")
       for document in documents {
-        print("loop start")
         
         let data = document.data()
         
-        print("data: \(data.description)")
-        if let reference = data["ActivityReference"] as? DocumentReference {
-          print("ref: \(reference.description)")
-          returnedActivities.append(DataFetching().getActivity(uuid: "", date: "", ref: reference))
+        if let activityReference = data["ActivityReference"] as? DocumentReference {
+          print("unwrapped")
+          let wrappedActivity = DataFetching().getActivity(uuid: "", date: "", ref: activityReference)
+          do {
+            let act = try wrappedActivity.get()
+            returnedActivities.append(act)
+          } catch {
+            returnedErrors.append(error)
+          }
+          
         }
       }
-    } else {
-      //return .failure(DataFetchErorr.documentNotFoundError)
     }
     
-    
-    
-    
-    return returnedActivities
+    completion(returnedActivities, returnedErrors)
     
   }
-  
 }

@@ -220,7 +220,7 @@
 			);
 			mainGroup = F542B63C22F2DBF200E490A1;
 			packageReferences = (
-				DC5B524D2956DDB500F2C817 /* XCRemoteSwiftPackageReference "firebase-ios-sdk.git" */,
+				DC5B524D2956DDB500F2C817 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = F542B64622F2DBF200E490A1 /* Products */;
 			projectDirPath = "";
@@ -521,7 +521,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		DC5B524D2956DDB500F2C817 /* XCRemoteSwiftPackageReference "firebase-ios-sdk.git" */ = {
+		DC5B524D2956DDB500F2C817 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {

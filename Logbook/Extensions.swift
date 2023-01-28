@@ -69,3 +69,9 @@ extension Result : Identifiable {
     ObjectIdentifier(Result.self)
   }
 }
+
+extension Activity : Identifiable {
+  public var id: ObjectIdentifier {
+    ObjectIdentifier(Activity.self)
+  }
+}

@@ -35,30 +35,44 @@ class DataHelper {
     return .success(retData)
   }
   
-  func getDocumentsFromCollectionRef(ref: Query) -> Result<[QueryDocumentSnapshot], Error> {
-    var retDocuments: [QueryDocumentSnapshot] = []
-    var retError: Error?
+  func getDocumentsFromCollectionRef(ref: Query, completion: ([QueryDocumentSnapshot]?, Error?) -> () ) {
+    print("in - 1")
+    
+    var ret: [QueryDocumentSnapshot]?
     
     ref.getDocuments { snapshot, error in
+      print("in - 2")
+      
       guard error == nil else {
-        
-        retError = error
+        //error.doSomething()
         return
       }
+      print("in - 4")
       
       if let snap = snapshot {
-        retDocuments = snap.documents
-        print("docs: \(retDocuments[0].reference.description)")
-      } else {
-        print("no conditions me")
+        print("in - 5")
+        ret = snap.documents
+        print("\(Thread.current)")
+        //print("\(snap.documents.description)")
+        //print("docs: \(retDocuments.description)")
       }
     }
+     
+    print("in - 6")
     
-    if let retError = retError {
-      return .failure(retError)
+    //print("\(Thread.current)")
+    
+    if let documents = ret {
+      print("in - 7")
+      completion(documents, nil)
+      //print("\(docduments)")
+      //return .success(documents)
+    } else {
+      //completion(nil, DataFetchErorr.documentNotFoundError)
+      //return .failure(DataFetchErorr.documentNotFoundError)
     }
     
-    return .success(retDocuments)
+    
   }
   
   func addSummaryToTeamSummary(uuid: String, onDay: String, team: String, summaryReference: DocumentReference) -> DocumentReference {

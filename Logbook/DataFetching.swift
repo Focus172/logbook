@@ -194,7 +194,7 @@ class DataFetching {
       let visible = data["visible"] as? Bool ?? false
 
       // 4) Return
-      return .success(Activity(author: author, id: id, run: run, comment: comment, privateComment: privateComment, visible: visible))
+      return .success(Activity(author: author, run: run, comment: comment, privateComment: privateComment, visible: visible))
     } else {
       return .failure(DataFetchErorr.dataNotFoundError)
     }    
