@@ -69,3 +69,10 @@ extension Result : Identifiable {
     ObjectIdentifier(Result.self)
   }
 }
+
+extension UserPreview: Identifiable {
+  public var id: ObjectIdentifier {
+    ObjectIdentifier(UserPreview.self)
+  }
+}
+
