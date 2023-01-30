@@ -300,7 +300,7 @@ struct UserView: View {
       let uuid = Date().description.sha256().prefix(10).description
       
       // publish to server and push user through
-      DataPublishing().publishUser(uuid: uuid, email: logInfo.email, userName: logInfo.userName, isCoach: logInfo.isCoach, teamName: logInfo.teamName)
+      let _ = DataPublishing().publishUser(uuid: uuid, email: logInfo.email, userName: logInfo.userName, isCoach: logInfo.isCoach, team: logInfo.teamName)
       
       updateInstance(uuid: uuid, userName: logInfo.userName, teamName: logInfo.teamName, isCoach: logInfo.isCoach)
       

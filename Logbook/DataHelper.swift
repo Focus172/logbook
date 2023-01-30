@@ -3,6 +3,7 @@ import FirebaseFirestore
 enum DataFetchErorr: Error {
   case documentNotFoundError
   case dataNotFoundError
+  case missingCriticalDataError
   case unexpectedError
 }
 
@@ -28,16 +29,11 @@ class DataHelper {
   
   func getDocumentsFromCollectionRef(ref: Query, completion: @escaping ([QueryDocumentSnapshot]?, Error?) -> () ) {
     
-    
-    
     ref.getDocuments { snapshot, error in
-      /*
       guard error == nil else {
-        //error.doSomething()
+        print("error on helper-36")
         return
       }
-       */
-      print("2")
       
       if let snap = snapshot {
         completion(snap.documents, nil)

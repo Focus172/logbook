@@ -66,17 +66,12 @@ struct FeedContentView: View {
                       
                       print("clicked")
                       DataBulk().getActivities(limitTo: 5) { activities, errors in
-                        /*
                         guard errors.isEmpty else {
                           return
                           // do something
                         }
-                         */
-                        
-                        print("3")
                         
                         currentActivities = activities
-                        print("\(activities.description)")
                       }
                     } label: {
                       Image(systemName: "trash")
@@ -101,8 +96,6 @@ struct FeedContentView: View {
     return Text("error")
   }
 }
-
-
 
 struct RunningActivityView: View {
     

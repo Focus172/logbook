@@ -9,34 +9,40 @@
 import SwiftUI
 import FirebaseFirestore
 
-// this constructs a way to pull and veiw days for a given team
+// this constructs a way to pull and view days for a given team
 struct CoachView: View {
   @EnvironmentObject var settings: UserSettings
   @State var selectedDate: Date = Date()
 
   @State var genericBool: Bool = false
-  @State var currentDay: Day?
+  
+  
+  @State var currentUsers: [UserPreview]?
+  @State var currentError: Error?
 
 
   var body: some View {
     VStack {
-      Text("Select a Date")
-
+      //Text("Select a Date")
+      
       // this is where the calendar will go
-
-      DatePicker(selection: self.$selectedDate, displayedComponents: [.date]) {
-
-      }
+      //picker("thing", selection: self.$selectedDate, displayedComponents: [.date])
 
       // a button to pull the runs for the selected date
       Button(action: {
-        do {
-          //currentDay = try DataFetching().getDay(team: settings.teamName, date: selectedDate).get()
-        } catch {
-          // do something to handle error
+        DataBulk().getTeamUsers(team: "hw") { users, error in
+          guard error == nil else {
+            // do something
+            print("error oh no!")
+            return
+          }
+          
+          print("users: \(users?.description)")
+          currentUsers = users
         }
+        
       }) {
-        Text("Pull Runs")
+        Text("Get Users")
           .padding()
           .background(Color.blue)
           .foregroundColor(.white)
@@ -44,43 +50,32 @@ struct CoachView: View {
       }
 
       // this is where the list of runs will go
-      if let day = currentDay {
+      if let users = currentUsers {
         List {
-          // still need to figure out how to get the author
-          ForEach(day.eachDayInfo) { dayInfoRef in
-            //let wrappedRealDayInfo = DataFetching().getDayInfo(uuid: "", date: "", dayInfoRef: dayInfoRef)
+          
+          ForEach(users) { user in
             
-            let realDayInfo: DayInfo? = {
-              do {
-                return nil
-                //return try wrappedRealDayInfo.get()
-              } catch {
-                return nil // then show error
-              }
-            }();
+            Text(" -- \(user.name) -- ")
             
-            if let dayInfo = realDayInfo {
-              Text(" -- \(dayInfo.author)) -- ")
-              Text("\(dayInfo.sleep) hours of sleep")
-              ForEach(dayInfo.runs) { iterRun in
-                //let wrappedRun = DataFetching().getRun(uuid: "", date: 0, runRef: iterRun)
-                let realRun: Run? = {
-                  do {
-                    return nil
-                    //return try wrappedRun.get()
-                  } catch {
-                    return nil // then show error
-                  }
-                }();
-                
-                if let run = realRun {
-                  Text("> \(run.miles) miles (\(run.pain)/10 pain)")
+            //Text("\(us.sleep) hours of sleep")
+            /*
+            ForEach(dayInfo.runs) { iterRun in
+              //let wrappedRun = DataFetching().getRun(uuid: "", date: 0, runRef: iterRun)
+              let realRun: Run? = {
+                do {
+                  return nil
+                  //return try wrappedRun.get()
+                } catch {
+                  return nil // then show error
                 }
+              }();
+              
+              if let run = realRun {
+                Text("> \(run.miles) miles (\(run.pain)/10 pain)")
               }
             }
+             */
             
-            
-              
           }
         }
         .padding()

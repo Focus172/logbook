@@ -70,8 +70,9 @@ extension Result : Identifiable {
   }
 }
 
-extension Activity : Identifiable {
+extension UserPreview: Identifiable {
   public var id: ObjectIdentifier {
-    ObjectIdentifier(Activity.self)
+    ObjectIdentifier(UserPreview.self)
   }
 }
+

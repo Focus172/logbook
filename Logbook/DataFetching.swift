@@ -18,19 +18,21 @@ class DataFetching {
    does not require that the passed team is valid in any way
    @Param teamName the team name
    */
-  func getTeam(teamName: String) -> Team {
+  func getTeam(name: String) -> Team {
     // could check that passed team exists
-    let days = db.collection("TeamDays/\(teamName)/Days")
-    let users = db.collection("TeamUsers/\(teamName)/Users")
     
-    return Team(name: teamName, days: days, memebers: users)
+    
+    let days = db.collection("TeamDays/\(name)/Days")
+    let users = db.collection("TeamUsers/\(name)/Users")
+    
+    return Team(name: name, days: days, memebers: users)
   }
   
-  /*
+  
   // this should really throw as this type of data should not be filled in randomly
-  func getUser(uuid: String, selectedUser: DocumentReference?) -> Result<User, Error> {
+  func getUser(uuid: String, selectedUser: DocumentReference?, callback: @escaping (User?, DataFetchErorr?)->()) {
     
-    /*
+  
     // 1) getting user reference if it is not passed
     let usedUser: DocumentReference = {
       if let retUser = selectedUser {
@@ -41,36 +43,25 @@ class DataFetching {
     }();
 
     // 2) Get Data
-    let res = DataHelper().getDataFromDocumentRef(ref: usedUser)
-    
-    let data : Dictionary<String, Any>?
-    do {
-      data = try res.get()
-    } catch {
-      return .failure(DataFetchErorr.dataNotFoundError)
-    }
-    
-    // 3) Cast Data
-    if let email: String = data!["email"] as? String {
-      if let isCoach = data!["isCoach"] as? Bool {
-        if let name = data!["username"] as? String {
-          if let uuid = data!["uuid"] as? String {
-            let team: String = data!["teamName"] as? String ?? "no team"
-            let runs: CollectionReference? = data!["runs"] as? CollectionReference
-            let summaries: CollectionReference? = data!["summaries"] as? CollectionReference
-            let daysOfInfo: CollectionReference? = data!["dayInfo"] as? CollectionReference
-            
-            // 4) Return
-            return .success(User(email: email, isCoach: isCoach, runs: runs, summaries: summaries, daysOfInfo: daysOfInfo, team: team, userName: name, uuid: uuid))
-          }
-        }
+    DataHelper().getDataFromDocumentRef(ref: usedUser) { data, error in
+      
+      guard error == nil else {
+        // do something
+        callback(nil, error)
+        return
       }
+      
+      if let data = data {
+        let user = DataTypeFromData().parseUserFromData(data: data)
+        callback(user, nil)
+      }
+      
+      callback(nil, DataFetchErorr.missingCriticalDataError)
+      
     }
-    
-    return .failure(DataFetchErorr.dataNotFoundError)
-     */
   }
   
+  /*
   func getDayInfo(uuid: String, date: String, dayInfoRef: DocumentReference?) -> Result<DayInfo, DataFetchErorr> {
     /*
      
@@ -107,46 +98,54 @@ class DataFetching {
     // 4) Return
     return .success(DayInfo(date: date, runs: retRuns, sleep: retSleep ?? 0.0, author: retAuthor ?? "no author"))
      
-     */
+     
   }
+     */
+   */
   
   // takes a time that is 12pm on the day of the run and fetches the day for a given team
-  func getDay(team: String, date: Date) -> Result<Day, DataFetchErorr> {
-    /*
+  func getDay(team: String, dateObj: Date, callback: @escaping (Day?, DataFetchErorr?)->() ) {
     
     // 1) getting user reference
+    let date = UserHelper().getDayTimeStamp(date: dateObj)
     let teamDayReference = db.document("TeamDays/\(team)/Days/\(date)")
     
     // 2) Get Data
-    let res = DataHelper().getDataFromDocumentRef(ref: teamDayReference)
-    let data : Dictionary<String, Any>?
-    do {
-      data = try res.get()
-    } catch {
-      return .failure(DataFetchErorr.dataNotFoundError)
-    }
-    
-    // 3) Cast Data
-    var retDate: UInt?
-    var retRuns: [DocumentReference] = []
-    var retDayInfo: [DocumentReference] = []
-    
-    for item: Any in data! {
-      if let date = item as? UInt {
-        retDate = date
+    DataHelper().getDataFromDocumentRef(ref: teamDayReference) { dict, error in
+      guard error == nil else {
+        // do soemthing
+        return
       }
-      else if let run = item as? DocumentReference {
-        retRuns.append(run)
+      
+      if let data = dict {
+        // 3) Cast Data
+        
+        var retRuns: [DocumentReference] = []
+        var retDayInfo: [DocumentReference] = []
+        
+        //teamToAdd.setData(["teamName": team, "coach": coach, "members": members, "runs": teamRuns, "days": teamDays]) { error in
+        
+        for entry in data {
+          if let run = entry.value as? DocumentReference {
+            retRuns.append(run)
+          }
+           //else if let
+           // ret day info = something
+        }
+        
+        // 4) Return
+        let day = Day(date: date, runs: retRuns, eachDayInfo: retDayInfo)
+        callback(day, nil)
+        
       }
-      //else if let
-      // ret day info = something
+      
+      
+      
+      
     }
-    
-    // 4) Return
-    return .success(Day(date: retDate ?? 0, runs: retRuns, eachDayInfo: retDayInfo))
-     
-     */
   }
+  
+  /*
   
   func getSummary(uuid: String, date: String) -> Result<Summary, DataFetchErorr> {
     /*
@@ -181,8 +180,7 @@ class DataFetching {
   */
 
   func getActivity(uuid: String, date: String, ref: DocumentReference?, callback: @escaping (Activity?, DataFetchErorr?) -> ()) {
-    
-    // MARK: use a call back
+
     
     // 1) getting activity reference
     let usedActivity: DocumentReference = {
@@ -194,23 +192,26 @@ class DataFetching {
     }();
 
     // 2) Get Data
-    DataHelper().getDataFromDocumentRef(ref: usedActivity) { data, error in
+    DataHelper().getDataFromDocumentRef(ref: usedActivity) { data, callerror in
       
       // 3) Cast Data
       if let data = data {
         let author = data["author"] as? String ?? "no author"
-        let id = data["id"] as? String ?? "no id"
-        let run = data["run"] as? DocumentReference
-        let comment = data["comment"] as? String ?? "no comment"
-        let privateComment = data["privateComment"] as? String ?? "no private comment"
-        let visible = data["visible"] as? Bool ?? false
-
-        // 4) Return
-        let act = Activity(author: author, run: run, comment: comment, privateComment: privateComment, visible: visible)
-        callback(act, nil)
-      } else {
+        let title = data["title"] as? String ?? "no title"
+        let run = data["runReference"] as? DocumentReference
+        let comment = data["postComment"] as? String ?? "no comment"
+        let privateComment = data["painComment"] as? String ?? "no private comment"
+        let visible = data["visable"] as? Bool ?? false
         
-        callback(nil, error)
+        // 4) Return
+        if let run = run {
+          let act = Activity(id: run.description.hashValue, author: author, run: run, comment: comment, privateComment: privateComment, visible: visible)
+          callback(act, nil)
+        } else {
+          callback(nil, DataFetchErorr.missingCriticalDataError)
+        }
+      } else {
+        callback(nil, callerror)
       }
       
     }
