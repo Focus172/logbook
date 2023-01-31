@@ -78,19 +78,17 @@ class DataBulk {
       if let snap = snapshot {
         print("snapshot exists")
         for document in snap {
-          print("in loop")
           
           let data = document.data()
           
           let name = data["name"] as? String ?? "no name"
+          let uuid = data["uuid"] as? String ?? "no uuid"
           let ref = data["ref"] as? DocumentReference
           
-          retUsers.append(UserPreview(name: name, refToFull: ref))
+          retUsers.append(UserPreview(name: name, uuid: uuid, refToFull: ref))
           
         }
       }
-      
-      print("exit")
       
       callback(retUsers, nil)
       

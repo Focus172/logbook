@@ -9,6 +9,8 @@ class DataThroughPut {
     
     let user = dp.publishUser(uuid: uuid, email: email, userName: name, isCoach: isCoach, team: team)
     
+    let _ = dp.publishUserPreview(team: team, uuid: uuid, name: name, refToUser: user)
+    
     if isCoach {
       dp.publishTeam(team: "team", coach: uuid)
     } else {
