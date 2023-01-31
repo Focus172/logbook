@@ -15,9 +15,9 @@ class DataTypeFromData {
     // 3) Cast Data
     if let email: String = data["email"] as? String {
       if let isCoach = data["isCoach"] as? Bool {
-        if let name = data["username"] as? String {
+        if let name = data["userName"] as? String { // supposed to be userName
           if let uuid = data["uuid"] as? String {
-            let team: String = data["teamName"] as? String ?? "no team"
+            let team: String = data["team"] as? String ?? "no team"
             let runs: CollectionReference? = data["runs"] as? CollectionReference
             let summaries: CollectionReference? = data["summaries"] as? CollectionReference
             let daysOfInfo: CollectionReference? = data["dayInfo"] as? CollectionReference

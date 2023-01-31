@@ -21,7 +21,6 @@ class DataFetching {
   func getTeam(name: String) -> Team {
     // could check that passed team exists
     
-    
     let days = db.collection("TeamDays/\(name)/Days")
     let users = db.collection("TeamUsers/\(name)/Users")
     
@@ -52,11 +51,13 @@ class DataFetching {
       }
       
       if let data = data {
+        
         let user = DataTypeFromData().parseUserFromData(data: data)
         callback(user, nil)
+        return
       }
       
-      callback(nil, DataFetchErorr.missingCriticalDataError)
+      //callback(nil, DataFetchErorr.missingCriticalDataError)
       
     }
   }
@@ -102,48 +103,6 @@ class DataFetching {
   }
      */
    */
-  
-  // takes a time that is 12pm on the day of the run and fetches the day for a given team
-  func getDay(team: String, dateObj: Date, callback: @escaping (Day?, DataFetchErorr?)->() ) {
-    
-    // 1) getting user reference
-    let date = UserHelper().getDayTimeStamp(date: dateObj)
-    let teamDayReference = db.document("TeamDays/\(team)/Days/\(date)")
-    
-    // 2) Get Data
-    DataHelper().getDataFromDocumentRef(ref: teamDayReference) { dict, error in
-      guard error == nil else {
-        // do soemthing
-        return
-      }
-      
-      if let data = dict {
-        // 3) Cast Data
-        
-        var retRuns: [DocumentReference] = []
-        var retDayInfo: [DocumentReference] = []
-        
-        //teamToAdd.setData(["teamName": team, "coach": coach, "members": members, "runs": teamRuns, "days": teamDays]) { error in
-        
-        for entry in data {
-          if let run = entry.value as? DocumentReference {
-            retRuns.append(run)
-          }
-           //else if let
-           // ret day info = something
-        }
-        
-        // 4) Return
-        let day = Day(date: date, runs: retRuns, eachDayInfo: retDayInfo)
-        callback(day, nil)
-        
-      }
-      
-      
-      
-      
-    }
-  }
   
   /*
   

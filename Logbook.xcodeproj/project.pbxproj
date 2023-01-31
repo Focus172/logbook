@@ -20,6 +20,7 @@
 		DC391EFF2964D2F200479A46 /* UserHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC391EFE2964D2F200479A46 /* UserHelper.swift */; };
 		DC5B52632956DE8400F2C817 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC5B52622956DE8400F2C817 /* GoogleService-Info.plist */; };
 		DC7AB1EE295980BC00CD9BA5 /* CoachView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7AB1ED295980BC00CD9BA5 /* CoachView.swift */; };
+		DCAC960B2989BAC9006F6E30 /* CoachUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAC960A2989BAC9006F6E30 /* CoachUserView.swift */; };
 		DCBEFFED2958166900BFB288 /* LoggingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCBEFFEC2958166900BFB288 /* LoggingView.swift */; };
 		DCBEFFEF29581B9A00BFB288 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCBEFFEE29581B9A00BFB288 /* LoginView.swift */; };
 		DCD44DF7296DAE2D006EDD4D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD44DF6296DAE2D006EDD4D /* Extensions.swift */; };
@@ -65,6 +66,7 @@
 		DC391EFE2964D2F200479A46 /* UserHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHelper.swift; sourceTree = "<group>"; };
 		DC5B52622956DE8400F2C817 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DC7AB1ED295980BC00CD9BA5 /* CoachView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachView.swift; sourceTree = "<group>"; };
+		DCAC960A2989BAC9006F6E30 /* CoachUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachUserView.swift; sourceTree = "<group>"; };
 		DCBEFFEC2958166900BFB288 /* LoggingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingView.swift; sourceTree = "<group>"; };
 		DCBEFFEE29581B9A00BFB288 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		DCD44DF6296DAE2D006EDD4D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				DC1BA752294B1C0300C2DD4F /* FeedContentView.swift */,
 				DC1BA75A294B33C500C2DD4F /* CalenderView.swift */,
 				DC7AB1ED295980BC00CD9BA5 /* CoachView.swift */,
+				DCAC960A2989BAC9006F6E30 /* CoachUserView.swift */,
 				DCBEFFEC2958166900BFB288 /* LoggingView.swift */,
 				F553B7E722FCA19400314585 /* AccountView.swift */,
 				DCE0AEFB295B0FD70058B0EE /* DataTypes.swift */,
@@ -301,6 +304,7 @@
 				DCD737AB296C92D70041578F /* Strings.swift in Sources */,
 				DCBEFFEF29581B9A00BFB288 /* LoginView.swift in Sources */,
 				DC391EFF2964D2F200479A46 /* UserHelper.swift in Sources */,
+				DCAC960B2989BAC9006F6E30 /* CoachUserView.swift in Sources */,
 				F542B64B22F2DBF200E490A1 /* SceneDelegate.swift in Sources */,
 				DC1BA75F294BAD0B00C2DD4F /* CoachMessengerView.swift in Sources */,
 				DCE0AEFC295B0FD70058B0EE /* DataTypes.swift in Sources */,

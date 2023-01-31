@@ -80,6 +80,13 @@ class DataPublishing {
     return userSummary
   }
   
+  func publishUserPreview(team: String, uuid: String, name: String, refToUser: DocumentReference) -> DocumentReference {
+    let ref = db.document("TeamUsers/\(team)/Users/\(uuid)")
+    
+    ref.setData(["name" : name, "uuid": uuid, "ref" : refToUser])
+    
+    return ref
+  }
   
   func publishActivity(title: String, authorUuid: String, userRunReference: DocumentReference, postComment: String, painComment: String, publiclyVisible: Bool, curTimeStamp: String) -> DocumentReference {
     

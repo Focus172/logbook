@@ -18,8 +18,10 @@ class DataHelper {
     ref.getDocument { snapshot, error in
       
       if let snap = snapshot {
+        print("returing data")
         callback(snap.data(), nil)
       } else {
+        print("hit erorr for database: \(error?.localizedDescription)")
         callback(nil, DataFetchErorr.documentNotFoundError)
       }
       return

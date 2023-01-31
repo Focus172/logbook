@@ -16,11 +16,11 @@ struct CoachView: View {
 
   @State var genericBool: Bool = false
   
-  
   @State var currentUsers: [UserPreview]?
   @State var currentError: Error?
-
-
+  
+  @State var selectedUser: User?
+  
   var body: some View {
     VStack {
       //Text("Select a Date")
@@ -37,7 +37,7 @@ struct CoachView: View {
             return
           }
           
-          print("users: \(users?.description)")
+          //print("users: \(users?.description)")
           currentUsers = users
         }
         
@@ -51,30 +51,16 @@ struct CoachView: View {
 
       // this is where the list of runs will go
       if let users = currentUsers {
-        List {
+        Form {
           
-          ForEach(users) { user in
-            
-            Text(" -- \(user.name) -- ")
-            
-            //Text("\(us.sleep) hours of sleep")
-            /*
-            ForEach(dayInfo.runs) { iterRun in
-              //let wrappedRun = DataFetching().getRun(uuid: "", date: 0, runRef: iterRun)
-              let realRun: Run? = {
-                do {
-                  return nil
-                  //return try wrappedRun.get()
-                } catch {
-                  return nil // then show error
-                }
-              }();
+          ForEach(users, id: \.uuid) { user in
+            NavigationLink {
               
-              if let run = realRun {
-                Text("> \(run.miles) miles (\(run.pain)/10 pain)")
-              }
+              CoachUserView(userRef: user.refToFull)
+              
+            } label: {
+              Text(" -- \(user.name) -- ")
             }
-             */
             
           }
         }
@@ -84,6 +70,8 @@ struct CoachView: View {
     }.background(Color(red: 242 / 255, green: 242 / 255, blue: 242 / 255))
       .navigationBarTitle("Coach View")
   }
+  
+
 }
 
 #if DEBUG

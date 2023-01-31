@@ -39,6 +39,7 @@ struct DayInfo {
 
 struct UserPreview {
   var name: String
+  var uuid: String
   var refToFull: DocumentReference?
 }
 
