@@ -99,3 +99,13 @@ Pods/
 android/
 ios/
 macos/
+
+linux/
+
+web/
+
+.dart_tool/
+
+windows/
+
+.idea/
