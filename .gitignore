@@ -98,7 +98,6 @@ Pods/
 
 .metadata
 ios/
-lib/
 macos/
 web/
 windows/
