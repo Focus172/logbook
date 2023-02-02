@@ -2,6 +2,24 @@ import FirebaseFirestore
 
 class DataThroughPut {
 
+  func publishUserWithTeamControl(uuid: String, email: String, name: String, isCoach: Bool, team: String) {
+    let dp = DataPublishing()
+    
+    let _ = dp.publishUuid(email: email, uuid: uuid)
+    
+    let user = dp.publishUser(uuid: uuid, email: email, userName: name, isCoach: isCoach, team: team)
+    
+    let _ = dp.publishUserPreview(team: team, uuid: uuid, name: name, refToUser: user)
+    
+    if isCoach {
+      dp.publishTeam(team: "team", coach: uuid)
+    } else {
+      Firestore.firestore().collection("TeamUsers/\(team)/Users")
+        .addDocument(data: ["user": user])
+    }
+  }
+  
+  
     func publishAndUpdateActivity(authorUuid: String, title: String, milage: Double, pain: Double, postComment: String, painComment: String, date: Date, team: String, publiclyVisible: Bool, curTimeStamp: String, dayTimeStamp: String) {
     
         let dp = DataPublishing()

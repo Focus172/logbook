@@ -37,11 +37,10 @@ struct DayInfo {
   var author: String
 }
 
-// repersents the activities of a team for a given day
-struct Day {
-  var date: UInt
-  var runs: [DocumentReference]
-  var eachDayInfo: [DocumentReference]
+struct UserPreview {
+  var name: String
+  var uuid: String
+  var refToFull: DocumentReference?
 }
 
 // a quick summary of a user for a given day
@@ -51,10 +50,10 @@ struct Summary {
 }
 
 // a detailed info of a run used in posts
-struct Activity {
+struct Activity: Identifiable {
+  var id: Int
   var author: String
-  var id: String
-  var run: DocumentReference?
+  var run: DocumentReference
   var comment: String
   var privateComment: String
   var visible: Bool

@@ -69,3 +69,4 @@ extension Result : Identifiable {
     ObjectIdentifier(Result.self)
   }
 }
+

@@ -273,11 +273,11 @@ struct UserView: View {
       
       // grab their uuid from their email
       do {
-        let uuid = try DataFetching().getUuid(email: logInfo.email).get()
-        let user = try DataFetching().getUser(uuid: uuid, selectedUser: nil).get()
+        //let uuid = try DataFetching().getUuid(email: logInfo.email).get()
+        //let user = try DataFetching().getUser(uuid: uuid, selectedUser: nil).get()
         
         // do all happy path actions
-        updateInstance(uuid: uuid, userName: user.userName, teamName: user.team, isCoach: user.isCoach)
+        //updateInstance(uuid: uuid, userName: user.userName, teamName: user.team, isCoach: user.isCoach)
         UserHelper().logIn(settings: settings)
         loginSucsess = true
       } catch {
@@ -300,7 +300,7 @@ struct UserView: View {
       let uuid = Date().description.sha256().prefix(10).description
       
       // publish to server and push user through
-      DataPublishing().publishUser(uuid: uuid, email: logInfo.email, userName: logInfo.userName, isCoach: logInfo.isCoach, teamName: logInfo.teamName)
+      let _ = DataPublishing().publishUser(uuid: uuid, email: logInfo.email, userName: logInfo.userName, isCoach: logInfo.isCoach, team: logInfo.teamName)
       
       updateInstance(uuid: uuid, userName: logInfo.userName, teamName: logInfo.teamName, isCoach: logInfo.isCoach)
       

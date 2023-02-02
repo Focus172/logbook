@@ -13,14 +13,9 @@ struct StartView: View {
   
   var body: some View {
     if settings.loggedIn {
-      AnyView(
-        TabbarView()
-      )
+      AnyView(TabbarView());
     } else {
-      AnyView(
-        UserView()
-          .environmentObject(LoginInfo())
-      )
+      AnyView(UserView().environmentObject(LoginInfo()))
     }
   }
 }

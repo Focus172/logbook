@@ -3,6 +3,7 @@ import FirebaseFirestore
 enum DataFetchErorr: Error {
   case documentNotFoundError
   case dataNotFoundError
+  case missingCriticalDataError
   case unexpectedError
 }
 
@@ -12,53 +13,36 @@ class DataHelper {
   
   // MARK: Helpers 
   
-  func getDataFromDocumentRef(ref: DocumentReference) -> Result<Dictionary<String, Any>, DataFetchErorr> {
-    var retData: Dictionary<String, Any> = [:]
-    var retError: DataFetchErorr?
-
+  func getDataFromDocumentRef(ref: DocumentReference, callback: @escaping (Dictionary<String, Any>?, DataFetchErorr?) -> ()) {
     
     ref.getDocument { snapshot, error in
       
-      if error != nil  { retError = DataFetchErorr.documentNotFoundError; return; }
-      
-      if let document = snapshot {
-        if let data = document.data() {
-          retData = data
-        }
+      if let snap = snapshot {
+        print("returing data")
+        callback(snap.data(), nil)
+      } else {
+        print("hit erorr for database: \(error?.localizedDescription)")
+        callback(nil, DataFetchErorr.documentNotFoundError)
       }
+      return
+      
     }
-    
-    if let isError = retError {
-      return .failure(isError)
-    }
-    
-    return .success(retData)
   }
   
-  func getDocumentsFromCollectionRef(ref: Query) -> Result<[QueryDocumentSnapshot], Error> {
-    var retDocuments: [QueryDocumentSnapshot] = []
-    var retError: Error?
+  func getDocumentsFromCollectionRef(ref: Query, completion: @escaping ([QueryDocumentSnapshot]?, Error?) -> () ) {
     
     ref.getDocuments { snapshot, error in
       guard error == nil else {
-        
-        retError = error
+        print("error on helper-36")
         return
       }
       
       if let snap = snapshot {
-        retDocuments = snap.documents
-        print("docs: \(retDocuments[0].reference.description)")
+        completion(snap.documents, nil)
       } else {
-        print("no conditions me")
+        completion(nil, DataFetchErorr.documentNotFoundError)
       }
     }
-    
-    if let retError = retError {
-      return .failure(retError)
-    }
-    
-    return .success(retDocuments)
   }
   
   func addSummaryToTeamSummary(uuid: String, onDay: String, team: String, summaryReference: DocumentReference) -> DocumentReference {

@@ -21,30 +21,29 @@ class DataPublishing {
   
   // MARK: Data Publishing
   
-  // @Param the data for make a new team
+  // @Param team the name of the new team to be created
+  // @Param coach the uuid that owns this team
   // @Dev pushes data to the database
-  func publishTeam(team: String, coach: String, members: CollectionReference) {
+  func publishTeam(team: String, coach: String) {
 
     // get location for where team will be placed
-    let teamToAdd: DocumentReference = db.collection("Teams").document(team)
+    let teamToAdd = db.document("Teams/\(team)")
+    
+    // get reference to their memebers (stored elsewhere in the database)
+    let members = db.document("TeamUsers/\(team)")
     
     // get reference to their runs (stored elsewhere in the database)
-    let teamRuns = db.document("TeamsRuns/\(team)Runs")
+    let runs = db.document("TeamRuns/\(team)")
       
     // get reference to their days (stored elsewhere in the database)
-    let teamDays = db.document("TeamsDays/\(team)Days")
+    let days = db.document("TeamDays/\(team)")
       
-    teamToAdd.setData(["teamName": team, "coach": coach, "members": members, "runs": teamRuns, "days": teamDays]) { error in
-      if let error = error {
-        print(error.localizedDescription)
-      }
+    teamToAdd.setData(["name": team, "coach": coach, "members": members, "runs": runs, "days": days]) { error in
+      // do something
     }
   }
   
-  func publishUser(uuid: String, email: String, userName: String, isCoach: Bool, teamName: String) {
-    
-    // make sure there is a way to always find user quickly
-    let _ = publishUuid(email: email, uuid: uuid)
+  func publishUser(uuid: String, email: String, userName: String, isCoach: Bool, team: String) -> DocumentReference {
     
     // get location for where user will be placed
     let userToAdd: DocumentReference = db.document("Users/\(uuid)")
@@ -52,13 +51,11 @@ class DataPublishing {
     // get reference to their runs (stored elsewhere in the database)
     let userRuns = db.document("UsersRuns/\(uuid)Runs")
   
-    userToAdd.setData(["userName": userName, "email": email, "uuid": uuid, "isCoach": isCoach, "runs": userRuns, "team": teamName]) { error in
-      if let error = error {
-        print(error.localizedDescription)
-      }
+    userToAdd.setData(["userName": userName, "email": email, "uuid": uuid, "isCoach": isCoach, "runs": userRuns, "team": team]) { error in
+      // do something
     }
     
-    // TODO: add them to the team they specified
+    return userToAdd
   }
   
   func publishDayInfo(authorUuid: String, dayTimeStamp: String, sleep: Double, activityReference: DocumentReference, activityTimeStamp: String) -> DocumentReference {
@@ -83,12 +80,19 @@ class DataPublishing {
     return userSummary
   }
   
+  func publishUserPreview(team: String, uuid: String, name: String, refToUser: DocumentReference) -> DocumentReference {
+    let ref = db.document("TeamUsers/\(team)/Users/\(uuid)")
+    
+    ref.setData(["name" : name, "uuid": uuid, "ref" : refToUser])
+    
+    return ref
+  }
   
   func publishActivity(title: String, authorUuid: String, userRunReference: DocumentReference, postComment: String, painComment: String, publiclyVisible: Bool, curTimeStamp: String) -> DocumentReference {
     
     // TODO: add cross training, add altitude, add mental feeling
     
-    let userActivityReference = db.document("userActivities/\(authorUuid)/Activities/\(curTimeStamp)")
+    let userActivityReference = db.document("UserActivities/\(authorUuid)/Activities/\(curTimeStamp)")
     
     userActivityReference.setData(["title": title, "author": authorUuid, "runReference": userRunReference, "postComment": postComment,"painComment": painComment , "visable": publiclyVisible]) { error in
       // do something

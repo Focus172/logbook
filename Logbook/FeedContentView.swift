@@ -25,7 +25,7 @@ class FeedPost: ObservableObject {
 
 struct FeedContentView: View {
   @EnvironmentObject var settings: UserSettings
-  @State var currentActivities: [Result<Activity, DataFetchErorr>]?
+  @State var currentActivities: [Activity]?
   //@State var postHighlighted: Activitiy? = nil
   
   /*
@@ -39,8 +39,6 @@ struct FeedContentView: View {
       .fontWeight(.semibold)
    }
    */
-  
-  
     
     var body: some View {
         ScrollView{
@@ -51,32 +49,44 @@ struct FeedContentView: View {
                     Text("Recent posts by teammates")
                         .padding()
                         .font(.system(size: 20))
-                        //.onAppear{
-                        //    currentActivities = dataManager.getActivity()
-                        //}
+                        .onAppear {
+                          /*
+                          DataBulk().getActivities(limitTo: 5) { activities, errors in
+                            guard errors.isEmpty else {
+                              return
+                              // do something
+                            }
+                            
+                            currentActivities = activities
+                          }
+                           */
+                        }
                     
                     Button {
+                      
                       print("clicked")
-                      currentActivities = DataBulk().getActivities(limitTo: 5)
-                      print("over")
+                      DataBulk().getActivities(limitTo: 5) { activities, errors in
+                        guard errors.isEmpty else {
+                          return
+                          // do something
+                        }
+                        
+                        currentActivities = activities
+                      }
                     } label: {
                       Image(systemName: "trash")
                     }
 
                     
                 }
-              
-              ForEach(0 ..< (currentActivities ?? []).count) { (index) in
-                let wrappedActivity = currentActivities?[index]
-                switch wrappedActivity {
-                case .success(let activity):
-                  AnyView(RunningActivityView(activity: activity))
-                case .failure(let error):
-                  AnyView(ErrorView(error: error))
-                case .none:
-                  AnyView(ErrorView(error: nil))
+              if let acts = currentActivities {
+                ForEach(acts) { act in
+                  //print("\(act.description)")
+                  AnyView(RunningActivityView(activity: act))
                 }
               }
+              
+              
             }
             //.navigationBarTitle("Feed")
         }
@@ -86,8 +96,6 @@ struct FeedContentView: View {
     return Text("error")
   }
 }
-
-
 
 struct RunningActivityView: View {
     

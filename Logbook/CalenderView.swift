@@ -101,11 +101,12 @@ struct CalendarView: View {
     let usedDate = Calendar.current.date(bySetting: .day, value: selectedDate, of: curDate)
     
     let curTimeStamp = UserHelper().getCurTimeStamp(date: usedDate!)
-    let wrappedDayInfo = DataFetching().getDayInfo(uuid: settings.uuid, date: curTimeStamp, dayInfoRef: nil)
+    //let wrappedDayInfo = DataFetching().getDayInfo(uuid: settings.uuid, date: curTimeStamp, dayInfoRef: nil)
     
     let curDayInfo: DayInfo? = {
       do {
-        return try wrappedDayInfo.get()
+        return nil
+        //return try wrappedDayInfo.get()
       } catch {
         return nil
       }
@@ -145,10 +146,11 @@ struct CalendarView: View {
         
         if let curInfo = curDayInfo {
           ForEach(curInfo.runs) { runRef in
-            let wrappedRun = DataFetching().getRun(uuid: "", date: 0, runRef: runRef)
+            //let wrappedRun = DataFetching().getRun(uuid: "", date: 0, runRef: runRef)
             let run: Run? = {
               do {
-                return try wrappedRun.get()
+                return nil
+                //return try wrappedRun.get()
               } catch {
                 return nil
               }
