@@ -7,3 +7,4 @@ windows/
 .dart_tool/
 Logbook/GoogleService-Info.plist
 build
+GoogleService-Info.plist

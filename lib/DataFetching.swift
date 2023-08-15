@@ -62,37 +62,47 @@ class DataFetching {
     }
   }
   
-  func getDayInfo(uuid: String, date: String, callback: @escaping (DayInfo?, DataFetchErorr?)->()) {
-
+  /*
+  func getDayInfo(uuid: String, date: String, dayInfoRef: DocumentReference?) -> Result<DayInfo, DataFetchErorr> {
+    /*
      
     // 1) getting user reference if it doesn't exist
-    let dayInfoRef: DocumentReference = db.document("UserDayInfos/\(uuid)/DayInfo/\(date)")
+    let usedDayInfo: DocumentReference = {
+      if let retDayInfo = dayInfoRef {
+        return retDayInfo
+      } else {
+        return db.document("UserDayInfos/\(uuid)/DayInfo/\(date)")
+      }
+    }();
     
     // 2) Get Data
-    DataHelper().getDataFromDocumentRef(ref: dayInfoRef) { dict, error in
-      guard error == nil else {
-        callback(nil, error)
-        return
-      }
-      
-      if let data = dict {
-        // 3) Cast Data
-        var retRuns: [DocumentReference] = []
-        let retSleep: Double? = data["sleep"] as? Double
-        let retAuthor: String? = data["author"] as? String
-        
-        for item: Any in data {
-          if let run = item as? DocumentReference {
-            retRuns.append(run)
-          }
-        }
-        
-        // 4) Return
-        let di = DayInfo(date: date, runs: retRuns, sleep: retSleep ?? 0.0, author: retAuthor ?? "no author")
-        callback(di, nil)
+    
+    let res = DataHelper().getDataFromDocumentRef(ref: usedDayInfo)
+    let data : Dictionary<String, Any>?
+    do {
+      data = try res.get()
+    } catch {
+      return .failure(DataFetchErorr.dataNotFoundError)
+    }
+
+    // 3) Cast Data
+    var retRuns: [DocumentReference] = []
+    let retSleep: Double? = data!["sleep"] as? Double
+    let retAuthor: String? = data!["author"] as? String
+    
+    for item: Any in data! {
+      if let run = item as? DocumentReference {
+        retRuns.append(run)
       }
     }
+    
+    // 4) Return
+    return .success(DayInfo(date: date, runs: retRuns, sleep: retSleep ?? 0.0, author: retAuthor ?? "no author"))
+     
+     
   }
+     */
+   */
   
   /*
   
